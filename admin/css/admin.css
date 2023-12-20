@@ -1,0 +1,103 @@
+:root {
+  --text-color-bt: #fff;
+  --bt-background:#00D9A5;
+  --text-color-menu:rgba(110, 128, 122, 0.8);
+  --text-color-welcome:#6E807A;
+  --background-welcome:#F7F5FD;
+  --bachground-bt-nossos-dotores:#1D2A4D;
+  --background-nossos-service:#F7F5FD;
+  --h1-about:#13C5DD;
+  --test-footer:#EFF5FF;
+  --background-geral:rgba(255, 255, 255, 0.95);
+  --border-input: #dcdbe4;
+  --box-shadow:box-shadow: 0 0px 2px rgba(0,0,0,.15);
+}
+
+main .card_total_paciente_service_dotor {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 0 8rem;
+  margin-top: 4rem;
+  gap: 1.5rem;
+}
+main .card_total_paciente_service_dotor .paciente, .dotor, .servico {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 16rem;
+  height: 6rem;
+  box-shadow: 0 0px 2px rgba(0,0,0,.15);
+  padding: 0 .5rem;
+  background: #fff;
+  border-radius: 0.25rem;
+}
+main .card_total_paciente_service_dotor  i {
+  font-size: 4rem;
+  color: var(--bachground-bt-nossos-dotores);
+}
+main .card_total_paciente_service_dotor h1 {
+  font-weight: 400;
+}
+main .grafico h1 {
+  font-size: .8rem;
+  margin-top: 4rem;
+  font-weight: 400;
+  text-align: center;
+}
+main .grafico div{
+  width: 55rem;
+  height: 25rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem 0 0 12rem;
+}
+main .melhor_servico_melhor_dotor {
+  margin-top: 4rem;
+  padding: 0 4rem;
+  margin-bottom: 2rem;
+}
+main .melhor_servico_melhor_dotor h1 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-left: 8rem;
+  color: #1D2A4D;
+}
+main .melhor_servico_melhor_dotor .melhor_servico .desc_servico{
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 1rem 0 .5rem 8rem;
+  box-shadow: 0 0px 2px rgba(0,0,0,.15);
+  background: #fff;
+  height: 3rem;
+  width: 55rem;
+}
+main .melhor_servico_melhor_dotor .melhor_servico .desc_servico h3 {
+  font-weight: 500;
+  width: 10rem;
+} 
+main .melhor_servico_melhor_dotor .melhor_servico ul {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  width: 55rem;
+ height: auto;
+  margin-left: 8rem;
+  padding: 1.5rem 0 1.5rem 0;
+}
+main .melhor_servico_melhor_dotor .melhor_servico ul li {
+  display: flex;
+  justify-content: space-evenly;
+  width: 55rem;
+}
+main .melhor_servico_melhor_dotor .melhor_servico ul li h3 {
+  width: 10rem;
+  font-weight: 400;
+  font-size: 1rem;
+}
+
+/* main .card_total_paciente_service_dotor
+main .card_total_paciente_service_dotor
+main .card_total_paciente_service_dotor */

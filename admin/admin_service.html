@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mundo Hospitalar</title>
+  <link rel="stylesheet" href="css/menu.css">
+  <link rel="stylesheet" href="../assets/fonts/css/all.css">
+  <link rel="stylesheet" href="css/admin_service.css">
+  <link rel="stylesheet" href="css/notificacao.css">
+  <link rel="stylesheet" href="../assets/css/cadastrarUser.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="container_notificacao_user_admin">
+        <div class="notificacao">
+          <span id="notificacao_quantidade"></span>
+          <i class="far fa-bell"></i>
+        </div>
+        <div class="user_admin"></div>
+      </div>
+    </header>
+    <main>
+      <div class="pesquisa_bt_adicionar">
+        <sectin class="section_pesquisa">
+          <input type="text" placeholder="procurar serviço pelo nome" id="inputPesquisa">
+          <i class="fas fa-search"></i>
+        </sectin>
+        <button id="bt_moodal_adicionar_servico">Adicionar Serviço</button>
+      </div>
+      <div class="card_service">
+        <ul></ul>
+      </div>
+      <div class="modalAdicionarServico">
+        <div class="card_adicionar">
+          <h1>Adiconar Serviço</h1>
+          <form action="">
+            <label for="inputName">
+              <span>Nome:</span>
+              <input type="text" id="inputName">
+              <p id="texto_validar_nome">Nome inválido</p>
+            </label>
+            <label for="inputPreco">
+              <span>Preço:</span>
+              <input type="number" id="inputPreco">
+              <p id="texto_validar_preco">Preço inválido</p>
+            </label>
+            <label for="inputDias">
+              <span>Dias:</span>
+              <input type="text" id="inputDias">
+              <p id="texto_validar_dia">Dia inválido</p>
+            </label>
+          </form>
+          <div class="bt_cancelar_adicionar">
+            <button id="bt_adicionar">Adicionar</button>
+            <button id="bt_cancelar">Cancelar</button>
+          </div>
+        </div>
+      </div>
+      <div class="modalEditeServico">
+        <div class="card_Edite">
+          <h1>Editar</h1>
+          <form action="">
+            <label for="inputName">
+              <span>Nome:</span>
+              <input type="text" id="inputName">
+              <p id="texto_validar_nome">Nome inválido</p>
+            </label>
+            <label for="inputPreco">
+              <span>Preço:</span>
+              <input type="number" id="inputPreco">
+              <p id="texto_validar_preco">Preço inválido</p>
+            </label>
+            <label for="inputDias">
+              <span>Dias:</span>
+              <input type="text" id="inputDias">
+              <p id="texto_validar_dia">Dia inválido</p>
+            </label>
+          </form>
+          <div class="bt_cancelar_editar">
+            <button id="bt_editar">Editar</button>
+            <button id="bt_cancelar">Cancelar</button>
+          </div>
+        </div>
+      </div>
+      <div class="modal_alerte_elimnacao_service">
+        <div class="card_eliminacao">
+          <h1>Eliminar Serviço</h1>
+          <h2>Desejas que este Serviço seja ELIMINADO</h2>
+          <div class="bt_eliminar_cancelar">
+            <button id="bt_eliminar_service">Eliminar</button>
+            <button id="camcelar_modal_eliminar_paciente">Cancelar</button>
+          </div>
+        </div>
+      </div>
+      <div class="modal_notificacao">
+        <div class="card_notificacao">
+           <section>
+            <h1>Notificação</h1>
+            <h2>Solicitação de Consulta</h2>
+           </section>
+           <div class="card_servico_soltados"></div>
+           <div class="notificacao_antigas">
+            <h1>Antigas</h1>
+            <div></div>
+           </div>
+          <div class="bt_cancelar_modal">
+            <button id="cancelar_modal_eliminar_paciente">Sair</button>
+          </div>
+        </div>
+      </div>
+    </main>
+    <div class="menuLeft">
+      <h1><span>Mundo</span>-Hospitalar</h1>
+      <ul>
+        <li><i class="fas fa-home"></i><a href="admin.html">Home</a></li>
+        <li><i class="fas fa-user"></i><a href="admin_user.html">Pacientes</a></li>
+        <li><i class="fas fa-stethoscope"></i><a href="admin_dotores.html">Medicos</a></li>
+        <li id="pageService"><i class="fas fa-microscope"></i><a href="admin_service.html">Serviços</a></li>
+      </ul>
+    </div>
+  </div>
+  <script src="js/admin.js"></script>
+  <script src="js/admin_service.js"></script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style: none;
+  text-decoration: none;
+  font-family: "Inter";
+}
+:root {
+  --text-color-bt: #fff;
+  --bt-background:#00D9A5;
+  --text-color-menu:rgba(110, 128, 122, 0.8);
+  --text-color-welcome:#6E807A;
+  --background-welcome:#F7F5FD;
+  --bachground-bt-nossos-dotores:#1D2A4D;
+  --background-nossos-service:#F7F5FD;
+  --h1-about:#13C5DD;
+  --test-footer:#EFF5FF;
+  --background-geral:rgba(255, 255, 255, 0.95);
+}
+button{
+  border-radius: 0.25rem;
+  color: var(--text-color-bt);
+  background-color: var(--bt-background);
+  background-color: none;
+  border: none;
+  cursor: pointer;
+}

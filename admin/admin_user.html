@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mundo Hospitalar</title>
+  <link rel="stylesheet" href="css/menu.css">
+  <link rel="stylesheet" href="../assets/fonts/css/all.css">
+  <link rel="stylesheet" href="css/admin_user.css">
+  <link rel="stylesheet" href="css/notificacao.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="container_notificacao_user_admin">
+        <div class="notificacao">
+          <span id="notificacao_quantidade"></span>
+          <i class="far fa-bell"></i>
+        </div>
+        <div class="user_admin"></div>
+      </div>
+    </header>
+    <main>
+      <div class="pesquisa_bt_adicionar">
+        <sectin class="section_pesquisa">
+          <input type="text" placeholder="procurar Paciente Pelo nome" id="inputPesquisa">
+          <i class="fas fa-search"></i>
+        </sectin>
+      </div>
+      <div class="card_user">
+        <ul></ul>
+      </div>
+      <div class="modalPerfil_user">
+        <div class="card_Perfil">
+          <h1>Informações Pessoas</h1>
+            <div class="dados_pessoas">
+              <h2><span>Nome :</span>
+                 <section id="nome_perfil"></section>
+                </h2>
+              <h2>
+                <span>Email :</span>
+                 <section id="email_perfil"></section>
+              </h2>
+              <h2>
+                <span>Idade :</span>
+                <section id="idade_perfil"></section>
+              </h2>
+              <h2>
+                <span>Sexo :</span>
+                <section id="sexo_perfil"></section>
+              </h2>
+              <h2>
+                <span>BI :</span>
+                <section id="bilhete_perfil"></section>
+              </h2>
+              <h2>
+                <span>Nº de telefone :</span>
+                <section id="telefone_perfil"></section>
+              </h2>
+              <h2>
+                <span>Endereço :</span>
+                <section id="endereco_perfil"></section>
+              </h2>
+              <h2>
+                <span>Pass Word :</span>
+                <section id="pass_perfil"></section>
+              </h2>
+            </div>
+          <div class="bt_cancelar">
+            <button id="bt_cancelar">Cancelar</button>
+          </div>
+        </div>
+      </div>
+      <div class="modal_alerte_elimnacao_user">
+        <div class="card_eliminacao">
+          <h1>Eliminar Paciente</h1>
+          <h2>Desejas que este paciente seja ELIMINADO</h2>
+          <div class="bt_eliminar_cancelar">
+            <button id="bt_eliminar_paciente">Eliminar</button>
+            <button id="camcelar_modal_eliminar_paciente">Cancelar</button>
+          </div>
+        </div>
+      </div>
+      <div class="modal_notificacao">
+        <div class="card_notificacao">
+           <section>
+            <h1>Notificação</h1>
+            <h2>Solicitação de Consulta</h2>
+           </section>
+           <div class="card_servico_soltados"></div>
+           <div class="notificacao_antigas">
+            <h1>Antigas</h1>
+            <div></div>
+           </div>
+          <div class="bt_cancelar_modal">
+            <button id="cancelar_modal_eliminar_paciente">Sair</button>
+          </div>
+        </div>
+      </div>
+    </main>
+    <div class="menuLeft">
+      <h1><span>Mundo</span>-Hospitalar</h1>
+      <ul>
+        <li><i class="fas fa-home"></i><a href="admin.html">Home</a></li>
+        <li id="pagePaciente"><i class="fas fa-user"></i><a href="admin_user.html">Pacientes</a></li>
+        <li><i class="fas fa-stethoscope"></i><a href="admin_dotores.html">Medicos</a></li>
+        <li><i class="fas fa-microscope"></i><a href="admin_service.html">Serviços</a></li>
+      </ul>
+    </div>
+  </div>
+  <script src="js/admin_user.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

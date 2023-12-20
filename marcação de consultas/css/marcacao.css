@@ -1,0 +1,79 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style: none;
+  text-decoration: none;
+  font-family: "Inter";
+}
+:root {
+  --text-color-bt: #fff;
+  --bt-background:#00D9A5;
+  --text-color-menu:rgba(110, 128, 122, 0.8);
+  --text-color-welcome:#6E807A;
+  --background-welcome:#F7F5FD;
+  --bachground-bt-nossos-dotores:#1D2A4D;
+  --background-nossos-service:#F7F5FD;
+  --h1-about:#13C5DD;
+  --test-footer:#EFF5FF;
+  --background-geral:rgba(255, 255, 255, 0.95);
+}
+button{
+  border-radius: 0.25rem;
+  color: var(--text-color-bt);
+  background-color: var(--bt-background);
+  background-color: none;
+  border: none;
+  cursor: pointer;
+}
+body {
+  background-color: var(--background-geral);
+  padding-bottom: 2rem;
+}
+.titulo_pagina_marcacao {
+  margin: 4rem 0 0 4rem;
+}
+ .card-service {
+  padding: 0 4rem;
+  margin: 2.5rem 0;
+  background: var(--background-geral);
+}
+ .card-service ul{
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+ .card-service ul li#lista-desc{
+  display: flex;
+  justify-content: space-around;
+  box-shadow: 0 0px 2px rgba(0,0,0,.15);
+}
+ .card-service ul li {
+  display: flex;
+  justify-content: space-around;
+  height: 3.5rem;
+}
+ .card-service ul li h3,h4{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 16rem;
+}
+ .card-service ul li h4 button{
+ padding: .5rem 1rem;
+}
+.bt_continuar_cancelar {
+  padding: 0 4rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+.bt_continuar_cancelar button {
+  width: 8rem;
+  height: 3rem;
+}
+.bt_continuar_cancelar button+button {
+  color: #000;
+  background: none;
+  border: 1px solid var(--bt-background);
+}

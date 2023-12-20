@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mundo Hospitalar</title>
+  <link rel="stylesheet" href="css/menu.css">
+  <link rel="stylesheet" href="../assets/fonts/css/all.css">
+  <link rel="stylesheet" href="css/admin_dotores.css">
+  <link rel="stylesheet" href="css/notificacao.css">
+  <link rel="stylesheet" href="../assets/css/cadastrarUser.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="container_notificacao_user_admin">
+        <div class="notificacao">
+          <span id="notificacao_quantidade"></span>
+          <i class="far fa-bell"></i>
+        </div>
+        <div class="user_admin"></div>
+      </div>
+    </header> 
+    <main>
+      <div class="pesquisa_bt_adicionar">
+        <sectin class="section_pesquisa">
+          <input type="text" placeholder="procurar Dotor pelo nome" id="inputPesquisa">
+          <i class="fas fa-search"></i>
+        </sectin>
+        <button id="bt_mostrar_modal_adicionar_dotor">Adicionar Dotores</button>
+      </div>
+      <div class="card_dotores">
+        <ul></ul>
+      </div>
+      <div class="modal_adicionar_dotor">
+        <div class="card_adicionar_dotor">
+          <div class="image">
+            <h5>Foto</h5>
+            <img src="" alt="">
+          </div>
+          <div class="dados_dotores">
+            <form action="">
+              <label for="inputNome">
+                <span>Nome: </span>
+                <input type="text" placeholder="Nome" id="inputNome">
+                <p id="texto_validando_nome">Nome inváldo</p>
+              </label>
+              <label for="inputEmail">
+                <span>Email: </span>
+                <input type="email" placeholder="nome@gmail.com" id="inputEmail">
+                <p id="texto_validando_email">email existente</p>
+              </label>
+              <label for="inputEspecialidade">
+                <span>Especialidade: </span>
+                <input type="text" placeholder="Especialidade" id="inputEspecialidade">
+                <p id="texto_validando_especialidade">Nome inváldo</p>
+              </label>
+              <label for="inputBI">
+                <span>BI: </span>
+                <input type="text" placeholder="00000LA000" id="inputBI">
+                <p id="texto_validando_bi">BI válido</p>
+              </label>
+              <label for="inputTelefone">
+                <span>Telefone: </span>
+                <input type="number" placeholder="926 416 139" id="inputTelefone">
+                <p id="texto_validando_telefone">número maximo digitos é 9</p>
+              </label>
+              <label for="inputData">
+                <span>Data de Nascimento: </span>
+                <input type="date" id="inputData">
+                <p id="texto_validando_idade">Idade mínima 23 anos</p>
+              </label>
+              <label for="textDescricao">
+                <span>Descrição: </span>
+                <textarea name="" id="textDescricao" cols="30" rows="10"></textarea>
+              </label>
+              <label for="inputFoto" id="labelImagem">
+                <span>Click aqui para Adicionar imadem:</span>
+                <input type="file" id="inputFoto">
+              </label>
+            </form>
+            <div class="bt_adicionar_cancelar">
+              <button id="bt_adicionaar_dotor">Adicionar</button>
+              <button id="bt_cancelar_adicionar_dotor">Cancelar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal_perfil_dotor">
+        <div class="card_perfil_dotor">
+          <div class="image">
+            <h5>Foto</h5>
+            <img src="" alt="">
+          </div>
+          <div class="dados_dotores">
+            <form action="">
+              <label for="inputNome" id="inputNome">
+                <span>Nome: </span>
+                  <h2>--</h2>
+              </label>
+              <label for="inputEmail" id="inputEmail">
+                <span>Email: </span>
+                <h2>--</h2>
+              </label>
+              <label for="inputEspecialidade" id="inputEspecialidade">
+                <span>Espacialidade: </span>
+                <h2>--</h2>
+              </label>
+              <label for="inputBI" id="inputBI">
+                <span>BI: </span>
+                <h2>--</h2>
+              </label>
+              <label for="inputTelefone" id="inputTelefone">
+                <span>Telefone: </span>
+                <h2>--</h2>
+              </label>
+              <label for="inputData" id="inputData">
+                <span>Idade: </span>
+                <h2>--</h2>
+                </label>
+              </label>
+            </form>
+            <div class="bt_cancelar">
+              <button id="bt_cancelar_modal_perfil_dotor">Cancelar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal_alerte_elimnacao_dotor">
+        <div class="card_eliminacao">
+          <h1>Eliminar Dotor</h1>
+          <h2>Desejas que este Dotor seja ELIMINADO</h2>
+          <div class="bt_eliminar_cancelar">
+            <button id="bt_eliminar_service">Eliminar</button>
+            <button id="camcelar_modal_eliminar_paciente">Cancelar</button>
+          </div>
+        </div>
+      </div>
+      <div class="modal_alerte_preecnche_todos_dados">
+        <div class="card_todos_dados">
+          <h1>Preenche todos os campos para adicionar ou editar dotor</h1>
+          <div class="bt_cancelar">
+            <button id="camcelar_modal_alerte_preecnche_todos_dados">OK</button>
+          </div>
+        </div>
+      </div>
+      <div class="modal_editar_dotor">
+        <div class="card_editar_dotor">
+          <div class="image">
+            <h5>Foto</h5>
+            <img src="" alt="">
+          </div>
+          <div class="dados_dotores">
+            <form action="">
+              <label for="inputNome">
+                <span>Nome: </span>
+                <input type="text" placeholder="Nome" id="inputNome">
+                <p id="texto_validando_nome">Nome inváldo</p>
+              </label>
+              <label for="inputEmail">
+                <span>Email: </span>
+                <input type="email" placeholder="nome@gmail.com" id="inputEmail">
+                <p id="texto_validando_email">email existente</p>
+              </label>
+              <label for="inputEspecialidade">
+                <span>Especialidade: </span>
+                <input type="text" placeholder="Especialidade" id="inputEspecialidade">
+                <p id="texto_validando_especialidade">Nome inváldo</p>
+              </label>
+              <label for="inputBI">
+                <span>BI: </span>
+                <input type="text" placeholder="00000LA000" id="inputBI">
+                <p id="texto_validando_bi">BI válido</p>
+              </label>
+              <label for="inputTelefone">
+                <span>Telefone: </span>
+                <input type="number" placeholder="926 416 139" id="inputTelefone">
+                <p id="texto_validando_telefone">número maximo digitos é 9</p>
+              </label>
+              <label for="inputData">
+                <span>Data de Nascimento: </span>
+                <input type="date" id="inputData">
+                <p id="texto_validando_idade">Idade mínima 23 anos</p>
+              </label>
+              <label for="textDescricao">
+                <span>Descrição: </span>
+                <textarea name="" id="textDescricao" cols="30" rows="10"></textarea>
+              </label>
+              <label for="inputFoto" id="labelImagem">
+                <span>Click aqui para alterar imagem </span>
+                <input type="file" id="inputFoto">
+              </label>
+            </form>
+            <div class="bt_editar_cancelar">
+              <button id="bt_editar_dotor">Editar</button>
+              <button id="bt_cancelar_editar_dotor">Cancelar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal_notificacao">
+        <div class="card_notificacao">
+           <section>
+            <h1>Notificação</h1>
+            <h2>Solicitação de Consulta</h2>
+           </section>
+           <div class="card_servico_soltados"></div>
+           <div class="notificacao_antigas">
+            <h1>Antigas</h1>
+            <div></div>
+           </div>
+          <div class="bt_cancelar_modal">
+            <button id="cancelar_modal_eliminar_paciente">Sair</button>
+          </div>
+        </div>
+      </div>
+    </main>
+    <div class="menuLeft">
+      <h1><span>Mundo</span>-Hospitalar</h1>
+      <ul>
+        <li><i class="fas fa-home"></i><a href="admin.html">Home</a></li>
+        <li><i class="fas fa-user"></i><a href="admin_user.html">Pacientes</a></li>
+        <li id="pageDotores"><i class="fas fa-stethoscope"></i><a href="admin_dotores.html">Medicos</a></li>
+        <li><i class="fas fa-microscope"></i><a href="admin_service.html">Serviços</a></li>
+      </ul>
+    </div>
+  </div>
+  <script src="js/admin.js"></script>
+  <script src="js/admin_dotores.js"></script>
+</body>
+</html>

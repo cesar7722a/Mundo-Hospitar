@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/preRecibo.css">
+  <title>Mundo Hospitalar</title>
+</head>
+<body>
+  <!-- <h1 id="titulo_geral">Verifica os dados e escolha a data,hora e local da realização servico</h1> -->
+  <div class="preRecibo">
+   <div class="dados_servico">
+      <div class="dados_pessoas">
+        <h1>Dados Pessoas</h1>
+        <section class="section_nome"><span>Nome:</span><h2>--</h2></section>
+        <section class="section_bi"><span>BI:</span><h2>--</h2></section>
+        <section class="section_telefone"><span>Telefone:</span><h2>--</h2></section>
+        <section class="section_email"><span>Email:</span><h2>--</h2></section>
+        <section class="section_idade"><span>Idade:</span><h2>--</h2></section>
+      </div>
+      <div class="servicos">
+        <h1>Serviços</h1>
+         <section class="servico_para_consulta"></section>
+      </div>
+    </div>
+    <div class="escolhe_local_service">
+       <div class="local">
+           <h1>Realização do Serviço</h1> 
+           <p>Escolhe o local onde sera realizados os serviços</p> 
+           <h2>Os seviços ao domicilio tem um aumento de Kz 100,000.00</h2>
+           <select name="" id="realiizacao_select">
+              <option value="1">Hospital/Domicilio</option>
+              <option value="2">Hospital</option>
+              <option value="3">Domicilio</option>
+          </select>
+        </div>
+        <div class="data_da_realizacao">
+          <h1>Data e Hora</h1>
+          <p>Escolhe a data/hora</p>
+          <input type="date" id="input_data_hora">
+          <input type="time" id="inputTempo">
+       </div>
+    </div>
+    <div class="preco">
+      <div class="nome_dotor">
+        <h1>Doctor</h1>
+        <h2 id="nomeDotor">Escolha do Hospital</h2>
+      </div>
+      <div class="preco_geral">
+        <h1>Preço</h1>
+        <section class="subPreco"><span>SubTotal:</span><h3>--</h3></section>
+        <section class="precoToatal"><span>Total:</span><h3>--</h3></section>
+      </div>
+    </div>
+  </div>
+  <div class="bt_finalizar_cancelar">
+    <button class="finalizar_marcao">Imprimir</button>
+    <button class="cancelar_marcao">Sair</button>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="js/preRecibo.js" defer></script>
+</body>
+</html>

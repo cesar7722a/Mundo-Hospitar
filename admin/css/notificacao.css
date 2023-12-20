@@ -1,0 +1,119 @@
+:root {
+  --text-color-bt: #fff;
+  --bt-background:#00D9A5;
+  --text-color-menu:rgba(110, 128, 122, 0.8);
+  --text-color-welcome:#6E807A;
+  --background-welcome:#F7F5FD;
+  --bachground-bt-nossos-dotores:#1D2A4D;
+  --background-nossos-service:#F7F5FD;
+  --h1-about:#13C5DD;
+  --test-footer:#EFF5FF;
+  --background-geral:rgba(255, 255, 255, 0.95);
+  --border-input: #dcdbe4;
+}
+
+main .modal_notificacao {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 2;
+  background-color: rgba(255, 255, 255, 0.5);
+  display: none;
+  transition: all ease .5s;
+  justify-content: center;
+  align-items: center;
+}
+main .modal_notificacao .card_notificacao {
+  width: 54rem;
+  height: 30rem;
+  background-color: #FFF;
+  border-radius: 10px;
+  box-shadow: 0px 0px 15px #999;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.5rem 2rem;
+  overflow-y: auto;
+  transition: all ease .5s;
+}
+main .card_servico_soltados {
+  margin-left: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+}
+main .modal_notificacao .card_notificacao h1 {
+  font-weight: 600;
+  font-size: 1.8rem;
+}
+main .modal_notificacao .card_notificacao h2 {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+main .modal_notificacao .card_notificacao h3 {
+  font-size: 1rem;
+  font-weight: 400;
+}
+main .modal_notificacao .card_notificacao .data_dotor{
+  display: flex;
+  gap: 7rem;
+}
+main .modal_notificacao .card_notificacao h3#h3_data_hora , .h3_data_hora {
+margin-left: 2.5rem;
+display: flex;
+gap: 6rem;
+}
+main .modal_notificacao .card_notificacao h3#h3_data_hora span+span , .h3_data_hora span+span{
+  font-weight: 600;
+}
+main .modal_notificacao .card_notificacao h3 span {
+  font-weight: 600;
+}
+main .modal_notificacao .card_notificacao h3 span+span{
+  font-weight: 400;
+}
+main .modal_notificacao .card_notificacao .bt_cancelar_modal  {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: flex-end;
+}
+main .modal_notificacao .card_notificacao .bt_cancelar_modal button {
+  background: var(--bachground-bt-nossos-dotores);
+  width: 6rem;
+  height: 2rem;
+  font-size: 12px;
+  color: var(--text-color-bt);
+}
+main .modal_notificacao .card_notificacao .div_bt_aceitar_regeitar{
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  border-bottom: 2px solid var(--border-input);
+  padding-bottom: .4rem;
+  margin-top: 2rem;
+}
+main .modal_notificacao .card_notificacao .div_bt_aceitar_regeitar button {
+height: 2rem;
+width: 10rem;
+background: var(--bachground-bt-nossos-dotores);
+color: #fff;
+display: none;
+}
+main .modal_notificacao .card_notificacao .div_bt_aceitar_regeitar button+button {
+  border: 1px solid var(--bachground-bt-nossos-dotores);
+  background: none;
+  color: #000;
+  display: none;
+}
+.btn_visitado {
+  opacity: .4;
+}
+.nome_marcador_servico {
+  margin: 1rem 0;
+}
+/* .h3_data_hora {
+  margin-top: .5rem;
+} */

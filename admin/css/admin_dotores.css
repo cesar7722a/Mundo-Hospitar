@@ -1,0 +1,430 @@
+:root {
+  --text-color-bt: #fff;
+  --bt-background:#00D9A5;
+  --text-color-menu:rgba(110, 128, 122, 0.8);
+  --text-color-welcome:#6E807A;
+  --background-welcome:#F7F5FD;
+  --bachground-bt-nossos-dotores:#1D2A4D;
+  --background-nossos-service:#F7F5FD;
+  --h1-about:#13C5DD;
+  --test-footer:#EFF5FF;
+  --background-geral:rgba(255, 255, 255, 0.95);
+  --border-input: #dcdbe4;
+}
+*{
+  box-sizing: border-box;
+}
+li#pageDotores {
+  background-color: var(--background-welcome);
+}
+li#pageDotores i {
+  color: #1D2A4D;
+}
+li#pageDotores a {
+  color: #000;
+}
+button{
+  border-radius: 0.25rem;
+  background-color: none;
+  border: none;
+  cursor: pointer;
+}
+.card_dotores {
+  background: var(--background-welcome);
+}
+.card_dotores ul {
+  padding: 2rem 4rem;
+  margin-top: 2.5rem;
+}
+.card_dotores li {
+   display: flex;
+   justify-content: space-around;
+   align-items: center;
+   height: 4rem;
+   margin-bottom: 1rem;
+   box-shadow: 0 0px 2px rgba(0,0,0,.15);
+   background: #FFF;
+   border-radius: 8px;
+}
+.card_dotores li h4 {
+  font-size: 1.2rem;
+  width: 20rem;
+}
+.section_imagem_nome {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+.section_imagem_nome img {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.25rem;
+}
+main .modal_adicionar_dotor {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 2;
+  background-color: rgba(255, 255, 255, 0.5);
+  display: none;
+  transition: all ease .5s;
+  justify-content: center;
+  align-items: center;
+  
+}
+main .modal_adicionar_dotor .card_adicionar_dotor {
+  width: 44rem;
+  height: 40rem;
+  background-color: #FFF;
+  border-radius: 10px;
+  box-shadow: 0px 0px 15px #999;
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 2rem 1rem;
+  overflow-y: auto;
+}
+main .modal_adicionar_dotor .card_adicionar_dotor .image {
+  width: 15rem;
+  height: 15rem;
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid var(--border-input);
+  border-radius: 0.25rem;
+}
+main .modal_adicionar_dotor .card_adicionar_dotor .image h5 {
+  text-align: center;
+  font-size: 1.2rem;
+}
+main .modal_adicionar_dotor .card_adicionar_dotor .image img {
+  width: 15rem;
+  height: auto;
+  border-radius: 0.25rem;
+}
+main .modal_adicionar_dotor .card_adicionar_dotor .dados_dotores form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 20rem;
+}
+main .modal_adicionar_dotor .card_adicionar_dotor .dados_dotores form label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 12px;
+}
+main .modal_adicionar_dotor .card_adicionar_dotor .dados_dotores form label span{
+  font-weight: 600;
+}
+
+main .modal_adicionar_dotor .card_adicionar_dotor .dados_dotores form label input{
+  outline: none;
+  height: 2.4rem;
+  margin: 0.2rem 0 .5rem 0;
+  padding: 0 8px;
+  border-radius: 0.25rem;
+  border:1px solid var(--border-input)
+}
+main .modal_adicionar_dotor .card_adicionar_dotor .dados_dotores form label p {
+   display: none;
+}
+
+main .modal_adicionar_dotor .card_adicionar_dotor .dados_dotores form label textarea{
+  outline: none;
+  height: 4rem;
+  margin: 0.2rem 0 .5rem 0;
+  padding: 0 8px;
+  border-radius: 0.25rem;
+  border:1px solid var(--border-input)
+}
+main .modal_adicionar_dotor .card_adicionar_dotor .dados_dotores form label input#inputFoto {
+   display: none;
+}
+main .modal_adicionar_dotor .card_adicionar_dotor .dados_dotores form label#labelImagem {
+  cursor: pointer;
+}
+main .modal_adicionar_dotor .card_adicionar_dotor .dados_dotores .bt_adicionar_cancelar{
+  display: flex;
+  gap: 1rem;
+  padding: .5rem 0 2rem 0;
+}
+main .modal_adicionar_dotor .card_adicionar_dotor .dados_dotores .bt_adicionar_cancelar button {
+  width: 6rem;
+  height: 2.5rem;
+  background: var(--bachground-bt-nossos-dotores);
+  color: #fff;
+}
+main .modal_perfil_dotor {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 2;
+  background-color: rgba(255, 255, 255, 0.5);
+  display: none;
+  transition: all ease .5s;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+}
+main .modal_perfil_dotor .card_perfil_dotor {
+  width: 42rem;
+  height: 28rem;
+  background-color: #FFF;
+  border-radius: 10px;
+  box-shadow: 0px 0px 15px #999;
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 4rem 1rem;
+}
+main .modal_perfil_dotor .card_perfil_dotor .image {
+  width: 15rem;
+  height: 15rem;
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid var(--border-input);
+  border-radius: 0.25rem;
+}
+main .modal_perfil_dotor .card_perfil_dotor .image h5 {
+  text-align: center;
+  font-size: 1.2rem;
+}
+main .modal_perfil_dotor .card_perfil_dotor .image img {
+  width: 15rem;
+  height: auto;
+  border-radius: 0.25rem;
+}
+main .modal_perfil_dotor .card_perfil_dotor .dados_dotores {
+  padding-top: .5rem;
+}
+main .modal_perfil_dotor .card_perfil_dotor .dados_dotores form {
+  display: flex;
+  flex-direction: column;
+  width: 20rem;
+}
+main .modal_perfil_dotor .card_perfil_dotor .dados_dotores form label {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  margin-bottom: 12px;
+}
+/* main .modal_perfil_dotor .card_perfil_dotor .dados_dotores form label#inputDec {
+  
+}
+main .modal_perfil_dotor .card_perfil_dotor .dados_dotores form label#inputDec h2 {
+     font-size: 16px;
+     width: 14rem;
+ } */
+main .modal_perfil_dotor .card_perfil_dotor .dados_dotores form label span{
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+main .modal_perfil_dotor .card_perfil_dotor .dados_dotores form label h2{
+  font-weight: 500;
+  font-size: 1rem;
+}
+main .modal_perfil_dotor .card_perfil_dotor .dados_dotores .bt_cancelar button {
+  width: 6rem;
+  height: 2.5rem;
+  background: var(--bachground-bt-nossos-dotores);
+  color: #fff;
+  margin-top: 2rem;
+}
+
+main .modal_alerte_elimnacao_dotor, main .modal_alerte_preecnche_todos_dados {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 2;
+  background-color: rgba(255, 255, 255, 0.5);
+  display: none;
+  transition: all ease .5s;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+}
+
+main .modal_alerte_elimnacao_dotor .card_eliminacao , main .modal_alerte_preecnche_todos_dados .card_todos_dados{
+  width: 31rem;
+  height: 15rem;
+  background-color: #FFF;
+  border-radius: 10px;
+  box-shadow: 0px 0px 15px #999;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem 4rem;
+}
+main .modal_alerte_preecnche_todos_dados .card_todos_dados{
+  width: 31rem;
+  height: 15rem;
+  background-color: #FFF;
+  border-radius: 10px;
+  box-shadow: 0px 0px 15px #999;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem 4rem;
+}
+
+main .modal_alerte_preecnche_todos_dados {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 3;
+  background-color: rgba(255, 255, 255, 0.5);
+  display: none;
+  transition: all ease .5s;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+}
+main .modal_alerte_elimnacao_dotor .card_eliminacao h1 {
+  font-weight: 500;
+  font-size: 1.8rem;
+}
+main .modal_alerte_elimnacao_dotor .card_eliminacao h2 {
+  font-size: 1rem;
+  font-weight: 400;
+}
+main .modal_alerte_elimnacao_dotor .card_eliminacao .bt_eliminar_cancelar {
+    margin-top: 2rem;
+}
+main .modal_alerte_elimnacao_dotor .card_eliminacao .bt_eliminar_cancelar button, main .modal_alerte_preecnche_todos_dados .card_todos_dados button#camcelar_modal_alerte_preecnche_todos_dados {
+  background: var(--bachground-bt-nossos-dotores);
+  width: 6rem;
+  height: 2rem;
+  font-size: 12px;
+  color: var(--text-color-bt);
+}
+
+
+main .modal_editar_dotor {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 2;
+  background-color: rgba(255, 255, 255, 0.5);
+  display: none;
+  transition: all ease .5s;
+  justify-content: center;
+  align-items: center;
+
+}
+main .modal_editar_dotor .card_editar_dotor {
+  width: 44rem;
+  height: 40rem;
+  background-color: #FFF;
+  border-radius: 10px;
+  box-shadow: 0px 0px 15px #999;
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 2rem 1rem;
+  overflow-y: auto;
+}
+main .modal_editar_dotor .card_editar_dotor .image {
+  width: 15rem;
+  height: 15rem;
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid var(--border-input);
+  border-radius: 0.25rem;
+}
+main .modal_editar_dotor .card_editar_dotor .image h5 {
+  text-align: center;
+  font-size: 1.2rem;
+}
+main .modal_editar_dotor .card_editar_dotor .image img {
+  width: 15rem;
+  height: auto;
+  border-radius: 0.25rem;
+}
+main .modal_editar_dotor .card_editar_dotor .dados_dotores form {
+  display: flex;
+  flex-direction: column;
+  width: 20rem;
+  gap: 1rem;
+}
+main .modal_editar_dotor .card_editar_dotor .dados_dotores form label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 12px;
+}
+main .modal_editar_dotor .card_editar_dotor .dados_dotores form label span{
+  font-weight: 600;
+}
+main .modal_editar_dotor .card_editar_dotor .dados_dotores p {
+  display: none;
+}
+
+main .modal_editar_dotor .card_editar_dotor .dados_dotores form label input , textarea{
+  outline: none;
+  height: 2.4rem;
+  margin-top: 0.2rem;
+  padding: 0 8px;
+  border-radius: 0.25rem;
+  border:1px solid var(--border-input)
+}
+main .modal_editar_dotor .card_editar_dotor .dados_dotores form label textarea{
+  outline: none;
+  height: 4rem;
+  margin-top: 0.2rem;
+  padding: 0 8px;
+  border-radius: 0.25rem;
+  border:1px solid var(--border-input)
+}
+main .modal_editar_dotor .card_editar_dotor .dados_dotores form label input#inputFoto {
+   display: none;
+}
+main .modal_editar_dotor .card_editar_dotor .dados_dotores form label#labelImagem {
+  cursor: pointer;
+}
+main .modal_editar_dotor .card_editar_dotor .dados_dotores .bt_editar_cancelar{
+  display: flex;
+  gap: 1rem;
+  padding: .5rem 0 2rem 0;
+}
+
+main .modal_adicionar_dotor .card_adicionar_dotor .dados_dotores .bt_adicionar_cancelar button {
+  width: 6rem;
+  height: 2.5rem;
+  background: var(--bachground-bt-nossos-dotores);
+  color: #fff;
+}
+main .modal_editar_dotor .card_editar_dotor .dados_dotores .bt_editar_cancelar button{
+ width: 6rem;
+  height: 2.5rem;
+  background: var(--bachground-bt-nossos-dotores);
+  color: #fff;
+}
+main .modal_alerte_preecnche_todos_dados .card_todos_dados h1 {
+   font-size: 1.2rem;
+   font-weight: 400;
+   margin-bottom: 2rem;
+}
+main .modal_alerte_preecnche_todos_dados .card_todos_dados .bt_cancelar {
+  display: flex;
+  justify-content: flex-end;
+}

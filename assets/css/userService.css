@@ -1,0 +1,335 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style: none;
+  text-decoration: none;
+  font-family: "Inter";
+}
+:root {
+  --text-color-bt: #fff;
+  --bt-background:#00D9A5;
+  --text-color-menu:rgba(110, 128, 122, 0.8);
+  --text-color-welcome:#6E807A;
+  --background-welcome:#F7F5FD;
+  --bachground-bt-nossos-dotores:#1D2A4D;
+  --background-nossos-service:#F7F5FD;
+  --h1-about:#13C5DD;
+  --test-footer:#EFF5FF;
+  --background-geral:rgba(255, 255, 255, 0.95);
+}
+button{
+  border-radius: 0.25rem;
+  color: var(--text-color-bt);
+  background-color: var(--bt-background);
+  background-color: none;
+  border: none;
+  cursor: pointer;
+}
+header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 4rem;
+  height: 5rem;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  background-color: #Ffffff;
+  z-index: 2;
+}
+header h1 span{
+  color: var(--bt-background);
+}
+header h1{
+  color: rgba(0, 0, 0, 0.9);
+  font-weight: 600;
+  cursor: pointer;
+}
+header .menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+}
+header .menu nav ul{
+  display: flex;
+}
+header .menu nav ul li{
+  padding: .5rem 1rem;
+}
+header .menu nav ul li a{
+  color: var(--text-color-menu);
+  font-size: 18px;
+}
+
+main .banner{
+  height: 25rem;
+  background: url(../img/service/video-bg.jpg) no-repeat  center/cover;
+  position: relative;
+  z-index: -1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 4rem;
+}
+main .banner .banner-2{
+  position: absolute;
+  height: 25rem;
+  width: 100%;
+  opacity: .6;
+  background-color: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: -1;
+}
+main .banner .container--banner-2{
+   display: flex;
+   flex-direction: column;
+   position: absolute;
+   z-index: 1;
+   gap: .5rem;
+}
+main .banner .container--banner-2 h1{
+   text-align: center;
+   color: var(--text-color-bt);
+   font-size: 54px;
+   font-weight: 600;
+}
+main .banner .container--banner-2 span{
+  color: var(--text-color-bt);
+  margin: 0 auto;
+  font-size: 16px;
+  font-weight: normal;
+}
+
+main .info-service {
+  text-align: center;
+  margin: 4rem 0;
+  background: var(--background-geral);
+}
+main .info-service h1{
+  text-align: center;
+  margin: 3.5rem 0 1rem 0;
+  font-size: 2.5rem;
+  font-weight: 500;
+}
+main .info-service p {
+  text-align: center;
+  margin: 1rem  auto 4rem auto;
+  font-size: 1rem;
+  color: #828282;
+  width: 40rem;
+  line-height: 1.5;
+}
+main .serviceDispo-pesquisa {
+  padding: 0 6rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--background-geral);
+}
+main .serviceDispo-pesquisa .pesquisa {
+  border: 1px solid var(--bachground-bt-nossos-dotores);
+  border-radius: 0.4rem;
+}
+main .serviceDispo-pesquisa .pesquisa input {
+    padding: .6rem 1rem;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    border-radius: 0.4rem;
+}
+main .serviceDispo-pesquisa .pesquisa i{
+   padding: .25rem .25rem;
+   color: var(--bt-background);
+}
+main .card-service {
+  padding: 0 4rem;
+  margin: 2.5rem 0;
+  background: var(--background-geral);
+}
+main .card-service ul{
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+/* pesquisa servico nao encontrado */
+ul section div {
+  height: 30rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+ul section h1 {
+  text-align: center;
+  font-size: 2.5rem;
+}
+main .card-service ul li#lista-desc{
+  display: flex;
+  justify-content: space-around;
+  box-shadow: 0 0px 2px rgba(0,0,0,.15);
+}
+main .card-service ul li {
+  display: flex;
+  justify-content: space-around;
+  height: 3.5rem;
+}
+main .card-service ul li h3,h4{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 16rem;
+}
+main .card-service ul li h4 button{
+ padding: .5rem 1rem;
+}
+main .concluir_marcacao {
+  position: fixed;
+  z-index: 2;
+  bottom: 4%;
+  right: 2%;
+  display: none;
+}
+main .concluir_marcacao span {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  color: #fff;
+  right: 0;
+  top: -16%;
+}
+main .concluir_marcacao button {
+  width: 9rem;
+  height: 2.5rem;
+  box-shadow: 0px 0px 15px #999;
+}
+main .modal_modal_service_existente {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 2;
+  background-color: rgba(255, 255, 255, 0.5);
+  display: none;
+  transition: all ease .5s;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+}
+main .modal_modal_service_existente .card_eliminacao {
+  width: 31rem;
+  height: 15rem;
+  background-color: #FFF;
+  border-radius: 10px;
+  box-shadow: 0px 0px 15px #999;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem 4rem;
+}
+main .modal_modal_service_existente .card_eliminacao h1 {
+  font-weight: 500;
+  font-size: 1.8rem;
+}
+
+main .modal_modal_service_existente .card_eliminacao .bt_eliminar_cancelar button {
+  background: var(--bt-background);
+  width: 6rem;
+  height: 2.5rem;
+  font-size: 1rem;
+  color: var(--text-color-bt);
+}
+footer {
+  color: var(--test-footer);
+}
+footer {
+  color: var(--test-footer);
+}
+footer .info-footer{
+  display: flex;
+  justify-content: center;
+  gap: 6rem;
+  background: var(--bachground-bt-nossos-dotores);
+  padding: 4rem 0;
+}
+footer .info-footer ul {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+footer .info-footer ul li {
+color: #2D2D2D;
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+line-height: 24px;
+color: var(--test-footer);
+}
+footer .info-footer ul li a{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .5rem;
+  color: var(--test-footer);
+}
+footer .info-footer ul h1 {
+  font-size: 1.5rem;
+}
+footer .info-footer .mundo-hospital h1{
+   color: var(--test-footer);
+}
+footer .info-footer .mundo-hospital h1 span{
+   color: var(--bt-background);
+}
+footer .info-footer .mundo-hospital p{
+   width: 15rem;
+   line-height: 24px;
+   font-weight: 400;
+   margin:10px 0 .5rem 0;
+}
+footer .endereco li:nth-child(2){
+   width: 20rem;
+}
+footer .endereco .contact-footer {
+  margin-right: .5rem;
+}
+footer .endereco li:nth-child(5){
+  display: flex;
+  gap: .5rem;
+}
+footer .endereco li#icons-endereco i{
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
+  border-radius: 50%;
+  cursor: pointer;
+}
+footer .copyRigts{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 3rem;
+  gap: .5rem;
+  color: #2D2D2D;
+}
+footer .copyRigts section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .5rem;
+  font-size: 14px;
+}

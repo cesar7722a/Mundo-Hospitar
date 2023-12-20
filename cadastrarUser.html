@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="assets/css/cadastrarUser.css">
+  <title>Mundo Hospitalar</title>
+</head>
+<body class="dados_geral">
+  <h1 id="titulo_principal_cadastrar_user">Cria sua conta para marcar consultas e ter mais informações do nossos serviços</h1>
+    <div class="container-form">
+      <form action="">
+        <label for="inputNome">
+          <span>Nome</span>
+          <input type="text" placeholder="nome completo" id="inputNome">
+          <p id="texto_validando_nome">Nome inváldo</p>
+        </label>
+        <label for="inputEmail">
+          <span>Email</span>
+          <input type="email" placeholder="nome@gmail.com" id="inputEmail">
+          <p id="texto_validando_email">email existente</p>
+        </label>
+        <label for="inputBI">
+          <span>Número BI</span>
+          <input type="text" placeholder="00000LA043" id="inputBI">
+          <p id="texto_validando_bi">BI válido</p>
+        </label>
+        <label for="inputTelefone">
+          <span>Nº Telefone</span>
+          <input type="text" placeholder="926 614 139" id="inputTelefone">
+          <p id="texto_validando_telefone">número maximo digitos é 9</p>
+        </label>
+        <label for="inputPassword">
+          <span>PassWord</span>
+          <input type="password" id="inputPassword">
+          <p id="texto_validando_passWord">Password inváldo</p>
+        </label>
+        <label for="inputEndereco">
+        <span>Teu Endereço</span>
+        <input type="text" placeholder="Luanda/Cazenga/Kikolo" id="inputEndereco">
+        <p>Esse endereço não é válido</p>
+      </label>
+        <section class="date_sexo">
+            <section class="date">
+              <h2>Data de Nascimento</h2>
+              <input type="date" id="inputData">
+              <p id="texto_validando_idade">Idade mínima 16 anos</p>
+            </section>
+            <section class="sexo">
+              <h2>Sexo</h2>
+              <select name="sexo" id="selectSexo">
+                <option value="1">Escoher Sexo</option>
+                <option value="2">Masculino</option>
+                <option value="3">Femenino</option>
+                <option value="4">Não Dizer</option>
+              </select>
+            </section>
+        </section>
+      </form>
+      <div class="bt-cadastrar_cancelar">
+        <button class="btn-cadastrar-paciente">Cadastrar</button>
+        <button class="btn-cancelar-cadastro">Cancelar</button>
+      </div>
+    </div>
+    <div class="modalDados-errados">
+      <div class="cardDados-errados">
+        <h1>preenche todos os campos </h1>
+        <span>!</span>
+        <button>OK</button>
+      </div>
+    </div>
+    <script src="js/cadastrarUser.js"></script>
+</body>
+</html>

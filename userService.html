@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="assets/css/userService.css">
+  <link rel="stylesheet" href="assets/fonts/css/all.css">
+  <link rel="stylesheet" href="assets/css/opcao_sair_user.css">
+  <title>Mundo Hospitalar</title>
+</head>
+<body>
+  <header>
+    <h1><span>Mundo</span>-Hospitalar</h1>
+    <div class="menu">
+      <nav>
+        <ul>
+          <li><a href="userLogado.html">Home</a></li>
+          <li><a href="userSobre_nos.html">Sobre nós</a></li>
+          <li><a href="userDotores.html">Doctores</a></li>
+          <li><a href="userService.html">Serviços</a></li>
+        </ul>
+      </nav>
+      <div class="userLogado">
+        <div class="dadosUser"></div>
+        <div  class="descUser">
+          <section class="cardNomeUser">
+            <section  id="bt-fechar-card-user-logado"><h1>x</h1></section>
+            <span></span>
+            <h1 id="nome_user_cadastrado">nome</h1>
+          </section>
+          <section class="bts-card-sair">
+            <button><i></i><h2 id="editar_user_cadastrado">Editar</h2></button>
+            <button class="bt-sair-userLogado"><i></i><h2>sair</h2></button>
+          </section>
+       </div>
+      </div>
+    </div>
+  </header>
+<main>
+  <div class="banner"> 
+    <div class="banner-2"></div>
+       <div class="container--banner-2">
+         <h1>Nossos Serviços</h1>
+        <span>Faça a sua consulta e torne a sua vida mais feliz</span>
+      </div>
+  </div>
+  <div class="info-service">
+    <h1>Nossos Serviços</h1>
+    <p id="paragrafo-service">Lorem Ipsum dolroin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem!</p>
+  </div>
+  <div class="serviceDispo-pesquisa">
+    <section class="service-Dispo">
+      <h1>Serviços Disponiveis</h1>
+    </section>
+    <section class="pesquisa">
+      <input id="inputPesquisa" type="text" placeholder="Procurar serviço pelo nome">
+      <i class="fas fa-search"></i>
+    </section>
+  </div>
+  <div class="card-service">
+    <ul>
+      <li id="lista-desc">
+        <h3>Nome do Serviço</h3>
+        <h3>Preço</h3>
+        <h3>dias da semana</h3>
+        <h3>operação</h3>
+      </li>
+      <section></section>
+    </ul>
+  </div>
+  <div class="concluir_marcacao">
+    <span>5</span>
+    <button>Concluir Marcação</button>
+  </div>
+  <div class="modal_modal_service_existente">
+    <div class="card_eliminacao">
+      <h1>Esse Serviço já foi selecionado</h1>
+      <div class="bt_eliminar_cancelar">
+        <button id="bt_ok_service">ok</button>
+      </div>
+    </div>
+  </div>
+</main>
+<footer>
+  <div class="info-footer">
+   <ul class="mundo-hospital">
+     <h1><Span>Mundo</Span>-Hospitalar</h1>
+     <p>
+       Lorem ipsum dolor sit am consectetur adipisicing elit do eiusmod tempor incididunt ut labore dolore magna.
+     </p>
+   </ul>
+   <ul class="service">
+     <h1>Serviços</h1>
+     <li><a href="#"><i class="fas fa-caret-right"></i>Cardiologia</a></li>
+     <li><a href="#"><i class="fas fa-caret-right"></i>Nerologia</a></li>
+     <li><a href="#"><i class="fas fa-caret-right"></i>Ortopedia</a></li>
+     <li><a href="#"><i class="fas fa-caret-right"></i>Raio-x</a></li>
+   </ul>
+   <ul class="links-mundo-hosp">
+     <h1>Links Rapidos</h1>
+    <li><a href="#"><i class="fas fa-caret-right"></i>Home</a></li>
+    <li><a href="#"><i class="fas fa-caret-right"></i>Sobre-nós</a></li>
+    <li><a href="#"><i class="fas fa-caret-right"></i>Dotores</a></li>
+    <li><a href="#"><i class="fas fa-caret-right"></i>Serviços</a></li>
+   </ul>
+   <ul class="endereco">
+     <h1>Endereços</h1>
+     <li><i class="contact-footer fas fa-map-marker"></i>subscribe to our newsletter to get allour news in your inbox.. Lorem ipsum dolor</li>
+     <li><i class="contact-footer fas fa-envelope"></i>info@gmail.com</li>
+      <li><i class="contact-footer fas fa-phone"></i>+244 926-614-139</li>
+      <li id="icons-endereco">
+       <i class="fab fa-facebook"></i>
+       <i class="fab fa-twitter"></i>
+       <i class="fab fa-linkedin"></i>
+       <i class="fab fa-instagram"></i>
+      </li>
+   </ul>
+  </div>
+  <div class="copyRigts">
+   <section class="diretos">
+       <span>&copy;</span> <h1><span>Mundo</span>-Hospitalar</h1>
+     <p>Todos os Deritos Reservados</p>
+   </section>
+  </div>
+ </footer>
+ <script src="js/userService.js"></script>
+</body>
+</html>

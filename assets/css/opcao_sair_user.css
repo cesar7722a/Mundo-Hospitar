@@ -1,0 +1,102 @@
+header .menu .userLogado{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+header .menu .userLogado .dadosUser h1 {
+text-align: center;
+color: var(--bt-background);
+font-size: 1.6rem;
+}
+header .menu .userLogado .dadosUser{
+ border: 1px solid rgb(0, 0, 0);
+ width: 2.5rem;
+ height: 2.5rem;
+ border-radius: 50%;
+ cursor: pointer;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ color: var(--bt-background);
+}
+header .menu .userLogado .descUser {
+position: absolute;
+z-index: 2;
+display: none; 
+flex-direction: column;
+gap: 1rem;
+margin: 20rem 0 0 -8rem;
+width: 16rem;
+background: #302f2f;
+border-radius: 0.5rem;
+padding: 2.5rem 0 1.5rem 0;
+}
+header .menu .userLogado .descUser .cardNomeUser {
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ justify-content: center;
+ gap: .5rem;
+}
+header .menu .userLogado .descUser .cardNomeUser section#bt-fechar-card-user-logado {
+ display: flex;
+ justify-content: flex-end;
+ margin-top: -1rem;
+ width: 100%;
+ padding: 0 1.5rem;
+}
+header .menu .userLogado .descUser .cardNomeUser section#bt-fechar-card-user-logado h1{
+color: red;
+text-align: right;
+cursor: pointer;
+}
+header .menu .userLogado .descUser .cardNomeUser span {
+display: flex;
+justify-content: center;
+align-items: center;
+width: 4rem;
+height: 4rem;
+border-radius: 50%;
+background: #fff;
+}
+header .menu .userLogado .descUser .cardNomeUser span h1 {
+color: var(--bt-background);
+font-size: 2rem;
+
+}
+header .menu .userLogado .descUser .cardNomeUser h1 {
+ color: #fff;
+ font-weight: 500;
+ cursor: auto;
+}
+header .menu .userLogado .descUser .bts-card-sair {
+ display: flex;
+ flex-direction: column;
+ gap: .6rem;
+}
+header .menu .userLogado .descUser .bts-card-sair button {
+text-align: left;
+background: none;
+padding: 0 1rem;
+height: 2rem;
+}
+header .menu .userLogado .descUser .bts-card-sair button h2 {
+font-weight: 400;
+font-size: 16px;
+}
+header .menu .userLogado .notificacao {
+  background: red;
+  width: 1.5rem;
+  height: 1.5rem;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  margin: 0 0 2.5rem 1rem;
+  position: absolute;
+  z-index: 3;
+  color: #fff;
+  cursor: pointer;
+}

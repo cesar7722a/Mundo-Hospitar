@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="assets/css/teste.css">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function valor() {
+      let sexo = document.querySelector(`select`).value;
+      console.log(sexo)
+    }
+  </script>
+    <select name="sexo" id="" onchange="valor()">
+      <option value="1">escoher sexo</option>
+      <option value="4">Masculino</option>
+      <option value="2">Femenino</option>
+      <option value="3">Não Dizer</option>
+    </select>
+</body>
+</html>

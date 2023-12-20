@@ -1,0 +1,219 @@
+
+li#pageService {
+  background-color: var(--background-welcome);
+}
+li#pageService i {
+  color: #1D2A4D;
+}
+li#pageService a {
+  color: #000;
+}
+.card_service {
+  background: var(--background-welcome);
+}
+.card_service ul {
+  padding: 2rem 4rem;
+  margin-top: 2.5rem;
+}
+.card_service li {
+   display: flex;
+   justify-content: space-evenly;
+   align-items: center;
+   height: 3.5rem;
+   margin-bottom: 10px;
+   box-shadow: 0 0px 2px rgba(0,0,0,.15);
+   background: #FFF;
+   border-radius: 8px;
+}
+.card_service li h4 {
+  font-size: 1.2rem;
+  width: 20rem;
+}
+main .modalAdicionarServico {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 2;
+  background-color: rgba(255, 255, 255, 0.5);
+  display: none;
+  transition: all ease .5s;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+}
+main .modalAdicionarServico .card_adicionar p {
+  display: none;
+}
+main .modalAdicionarServico .card_adicionar {
+  width: 30rem;
+  height: 32rem;
+  background-color: #FFF;
+  border-radius: 10px;
+  box-shadow: 0px 0px 15px #999;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.5rem 0;
+}
+main .modalAdicionarServico .card_adicionar h1 {
+    font-weight: 600;
+    font-size: 2rem;
+    text-align: center;
+    width: 20rem;
+}
+main .modalAdicionarServico .card_adicionar form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+main .modalAdicionarServico .card_adicionar form label {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+main .modalAdicionarServico .card_adicionar form label input {
+  width: 20rem;
+  height: 2.5rem;
+  border-radius: 0.25rem;
+  outline: none;
+  border: 1px solid var(--border-input);
+  padding: 0 8px;
+  font-size: 16px;
+}
+main .modalAdicionarServico .card_adicionar form label span {
+  margin-top: 10px;
+}
+main .modalAdicionarServico .card_adicionar .bt_cancelar_adicionar {
+  display: flex;
+  gap: 1rem;
+}
+main .modalAdicionarServico .card_adicionar .bt_cancelar_adicionar button {
+  background: var(--bachground-bt-nossos-dotores);
+  width: 9.5rem;
+  height: 3rem;
+  font-size: 16px;
+  color: var(--text-color-bt);
+}
+main .modalAdicionarServico .card_adicionar button {
+  padding: .5rem 2rem;
+}
+main .modalEditeServico {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 2;
+  background-color: rgba(255, 255, 255, 0.5);
+  display: none;
+  transition: all ease .5s;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+}
+main .modalEditeServico .card_Edite {
+  width: 30rem;
+  height: 32rem;
+  background-color: #FFF;
+  border-radius: 10px;
+  box-shadow: 0px 0px 15px #999;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.5rem 0;
+}
+main .modalEditeServico .card_Edite p {
+  display: none;
+}
+main .modalEditeServico .card_Edite h1 {
+    font-weight: 600;
+    font-size: 2.5rem;
+    text-align: center;
+    width: 20rem;
+}
+main .modalEditeServico .card_Edite form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+main .modalEditeServico .card_Edite form label {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+main .modalEditeServico .card_Edite form label input {
+  width: 20rem;
+  height: 2.5rem;
+  border-radius: 0.25rem;
+  outline: none;
+  border: 1px solid var(--border-input);
+  padding: 0 8px;
+  font-size: 16px;
+}
+main .modalEditeServico .card_Edite form label span {
+  margin-top: 10px;
+}
+main .modalEditeServico .card_Edite .bt_cancelar_editar {
+  display: flex;
+  gap: 1rem;
+}
+main .modalEditeServico .card_Edite .bt_cancelar_editar button {
+  background: var(--bachground-bt-nossos-dotores);
+  width: 9.5rem;
+  height: 3rem;
+  font-size: 16px;
+  color: var(--text-color-bt);
+}
+main .modalEditeServico .card_Edite button {
+  padding: .5rem 2rem;
+}
+main .modal_alerte_elimnacao_service {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 2;
+  background-color: rgba(255, 255, 255, 0.5);
+  display: none;
+  transition: all ease .5s;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+}
+main .modal_alerte_elimnacao_service .card_eliminacao {
+  width: 31rem;
+  height: 15rem;
+  background-color: #FFF;
+  border-radius: 10px;
+  box-shadow: 0px 0px 15px #999;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem 4rem;
+}
+main .modal_alerte_elimnacao_service .card_eliminacao h1 {
+  font-weight: 500;
+  font-size: 1.8rem;
+}
+main .modal_alerte_elimnacao_service .card_eliminacao h2 {
+  font-size: 1rem;
+  font-weight: 400;
+}
+main .modal_alerte_elimnacao_service .card_eliminacao .bt_eliminar_cancelar  {
+    margin-top: 2rem;
+}
+main .modal_alerte_elimnacao_service .card_eliminacao .bt_eliminar_cancelar button {
+  background: var(--bachground-bt-nossos-dotores);
+  width: 6rem;
+  height: 2rem;
+  font-size: 12px;
+  color: var(--text-color-bt);
+}

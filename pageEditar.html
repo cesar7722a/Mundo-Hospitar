@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="assets/css/index.css">
+  <link rel="stylesheet" href="assets/fonts/css/all.css">
+  <link rel="stylesheet" href="assets/css/cadastrarUser.css">
+  <title>Mundo Hospital</title>
+</head>
+<body>
+  <div class="card_dados_user">
+    <h1>Editar</h1>
+    <div class="container-form">
+      <form action="">
+        <form action="">
+          <label for="inputNome">
+            <span>Nome</span>
+            <input type="text" placeholder="nome completo" id="inputNome">
+            <p id="texto_validando_nome">Nome inváldo</p>
+          </label>
+          <label for="inputEmail">
+            <span>Email</span>
+            <input type="email" placeholder="nome@gmail.com" id="inputEmail">
+            <p id="texto_validando_email">email existente</p>
+          </label>
+          <label for="inputBI">
+            <span>Número BI</span>
+            <input type="text" placeholder="00000LA043" id="inputBI">
+            <p id="texto_validando_bi">BI válido</p>
+          </label>
+          <label for="inputTelefone">
+            <span>Nº Telefone</span>
+            <input type="text" placeholder="926 614 139" id="inputTelefone">
+            <p id="texto_validando_telefone">número maximo digitos é 9</p>
+          </label>
+          <label for="inputPassword">
+            <span>PassWord</span>
+            <input type="password" id="inputPassword">
+            <p id="texto_validando_passWord">Password inváldo</p>
+          </label>
+          <label for="inputEndereco">
+          <span>Teu Endereço</span>
+          <input type="text" placeholder="Luanda/Cazenga/Kikolo" id="inputEndereco">
+          <p>Esse endereço não é válido</p>
+        </label>
+          <section class="date_sexo">
+              <section class="date">
+                <h2>Data de Nascimento</h2>
+                <input type="date" id="inputData">
+                <p id="texto_validando_idade">Idade mínima 16 anos</p>
+              </section>
+              <section class="sexo">
+                <h2>Sexo</h2>
+                <select name="sexo" id="selectSexo">
+                  <option value="1">Escoher Sexo</option>
+                  <option value="2">Masculino</option>
+                  <option value="3">Femenino</option>
+                  <option value="4">Não Dizer</option>
+                </select>
+              </section>
+          </section>
+        </form>
+         <div class="bt-editar_cancelar">
+          <button class="btn-editar-paciente">Editar</button>
+          <button class="btn-cancelar-editar">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <footer>
+    <div class="info-footer">
+     <ul class="mundo-hospital">
+       <h1><Span>Mundo</Span>-Hospitalar</h1>
+       <p>
+         Lorem ipsum dolor sit am consectetur adipisicing elit do eiusmod tempor incididunt ut labore dolore magna.
+       </p>
+     </ul>
+     <ul class="service">
+       <h1>Serviços</h1>
+       <li><a href="#"><i class="fas fa-caret-right"></i>Cardiologia</a></li>
+       <li><a href="#"><i class="fas fa-caret-right"></i>Nerologia</a></li>
+       <li><a href="#"><i class="fas fa-caret-right"></i>Ortopedia</a></li>
+       <li><a href="#"><i class="fas fa-caret-right"></i>Raio-x</a></li>
+     </ul>
+     <ul class="links-mundo-hosp">
+       <h1>Links Rapidos</h1>
+      <li><a href="#"><i class="fas fa-caret-right"></i>Home</a></li>
+      <li><a href="#"><i class="fas fa-caret-right"></i>Sobre-nós</a></li>
+      <li><a href="#"><i class="fas fa-caret-right"></i>Dotores</a></li>
+      <li><a href="#"><i class="fas fa-caret-right"></i>Serviços</a></li>
+     </ul>
+     <ul class="endereco">
+       <h1>Endereços</h1>
+       <li><i class="contact-footer fas fa-map-marker"></i>subscribe to our newsletter to get allour news in your inbox.. Lorem ipsum dolor</li>
+       <li><i class="contact-footer fas fa-envelope"></i>info@gmail.com</li>
+        <li><i class="contact-footer fas fa-phone"></i>+244 926-614-139</li>
+        <li id="icons-endereco">
+         <i class="fab fa-facebook"></i>
+         <i class="fab fa-twitter"></i>
+         <i class="fab fa-linkedin"></i>
+         <i class="fab fa-instagram"></i>
+        </li>
+     </ul>
+    </div>
+    <div class="copyRigts">
+     <section class="diretos">
+         <span>&copy;</span> <h1><span>Mundo</span>-Hospitalar</h1>
+       <p>Todos os Deritos Reservados</p>
+     </section>
+    </div>
+   </footer>
+   <script src="js/padeEditar.js"></script>
+</body>
+</html>

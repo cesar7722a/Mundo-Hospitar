@@ -1,0 +1,377 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style: none;
+  text-decoration: none;
+  font-family: "Inter";
+}
+:root {
+  --text-color-bt: #fff;
+  --bt-background:#00D9A5;
+  --text-color-menu:rgba(110, 128, 122, 0.8);
+  --text-color-welcome:#6E807A;
+  --background-welcome:#F7F5FD;
+  --bachground-bt-nossos-dotores:#1D2A4D;
+  --background-nossos-service:#F7F5FD;
+  --h1-about:#13C5DD;
+  --test-footer:#EFF5FF;
+  --background-geral:rgba(255, 255, 255, 0.95);
+}
+button{
+  border-radius: 0.25rem;
+  color: var(--text-color-bt);
+  background-color: var(--bt-background);
+  background-color: none;
+  border: none;
+  cursor: pointer;
+}
+header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 4rem;
+  height: 5rem;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  background-color: #fff;
+  z-index: 2;
+}
+header h1 span{
+  color: var(--bt-background);
+}
+header h1{
+  color: rgba(0, 0, 0, 0.9);
+  font-weight: 600;
+  cursor: pointer;
+}
+header .menu {
+  display: flex;
+}
+header .menu nav ul{
+  display: flex;
+}
+header .menu nav ul li{
+  padding: .5rem 1rem;
+}
+header .menu nav ul li a{
+  color: var(--text-color-menu);
+  font-size: 18px;
+}
+header .menu .bt-login{
+  padding: .5rem 2.5rem;
+}
+main .banner{
+  height: 25rem;
+  background: url(../img/about.jpg) no-repeat  center/cover;
+  position: relative;
+  z-index: -1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 4rem;
+}
+main .banner .banner-2{
+  position: absolute;
+  height: 25rem;
+  width: 100%;
+  opacity: .6;
+  background-color: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: -1;
+}
+main .banner .container--banner-2{
+   display: flex;
+   flex-direction: column;
+   position: absolute;
+   z-index: 1;
+   gap: .5rem;
+}
+main .banner .container--banner-2 h1{
+   text-align: center;
+   color: var(--text-color-bt);
+   font-size: 54px;
+   font-weight: 600;
+}
+main .banner .container--banner-2 span{
+  color: var(--text-color-bt);
+  margin: 0 auto;
+  font-size: 16px;
+  font-weight: normal;
+}
+main .nossos-doctores {
+  padding: 0 4rem;
+  margin-top: 6rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  background: var(--background-geral);
+}
+main .nossos-doctores h1{
+  text-align: center;
+  font-size: 2.5rem;
+  color: #1D2A4D;
+  font-weight: 500;
+}
+main .nossos-doctores p{
+  text-align: center;
+  margin-bottom: 2.5rem;
+  font-size: 1rem;
+  color: #828282;
+  width: 40rem;
+  line-height: 1.5;
+}
+main .nossos-doctores .card-doctor{
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+main .nossos-doctores .card-doctor .doctor {
+  width: 32rem;
+  height: 21rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0px 2px rgba(0,0,0,.15);
+  border-radius: 6px;
+}
+main .nossos-doctores .card-doctor .doctor .descricao-doctor {
+  display: flex;
+  flex-direction: column;
+  /* padding: 10px 0; */
+}
+main .nossos-doctores .card-doctor .doctor .descricao-doctor p {
+   width: 14rem;
+   text-align: left;
+   box-sizing: border-box;
+}
+main .nossos-doctores .card-doctor .doctor .descricao-doctor .desc-doctor {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+    padding: 1rem 0;
+}
+main .nossos-doctores .card-doctor .doctor .descricao-doctor .desc-doctor h2,h3 {
+   color: #1D2A4D;
+}
+main .nossos-doctores .card-doctor .doctor .descricao-doctor .desc-info button {
+   padding: 1rem 2rem;
+   margin-top: 2.5rem;
+}
+main .nossos-doctores .card-doctor .doctor section img{
+ width: 16rem;
+ height: auto;
+ border-radius: 0.25rem;
+}
+main .nossos-doctores .card-doctor .doctor button{
+  padding: .5rem 1rem;
+  color: #fff;
+  background-color: var(--bachground-bt-nossos-dotores);
+  border-color: #1D2A4D;
+}
+main .modalLogin {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 1;
+  background-color: rgba(255, 255, 255, 0.5);
+  display: none;
+  transition: all ease .5s;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+}
+main .modalLogin .cardLogin {
+  width: 25rem;
+  height: 30rem;
+  background-color: #FFF;
+  border-radius: 10px;
+  box-shadow: 0px 0px 15px #999;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+main .modalLogin .cardLogin h1 {
+    font-weight: 500;
+}
+main .modalLogin .cardLogin p {
+  text-align: center;
+  margin: 1rem 0;
+  width: 20rem;
+  line-height: 1.4;
+}
+main .modalLogin .cardLogin label {
+  display: block;
+  height: 2rem;
+  margin-bottom: 3rem;
+}
+
+main .modalLogin .cardLogin input {
+  width: 20rem;
+  height: 2.5rem;
+  outline: none;
+  padding-left: 8px;
+  border-radius: 0.25rem;
+  margin-top: .4rem;
+}
+
+main .modalLogin .cardLogin .btnADDCancel button {
+  border: none;
+  font-size: .9rem;
+}
+main .modalLogin .cardLogin .btnADDCancel .login {
+   padding: .9rem 3.8rem;
+}
+main .modalLogin .cardLogin .btnADDCancel .btCancelar {
+   padding: .9rem 3rem;
+   background: none;
+   border: 1px solid var(--bt-background);
+   color: #000;
+}
+main .modalLogin .cardLogin a {
+  margin-top: 2rem;
+  font-size: 12px;
+  color: #000;
+  border-bottom: 1px solid #000;
+}
+main .modalDados-errados {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 2;
+  background-color: rgba(255, 255, 255, 0.5);
+  display: none;
+  transition: all ease .5s;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+}
+main .modalDados-errados .cardDados-errados {
+  width: 30rem;
+  height: 15rem;
+  background-color: #FFF;
+  border-radius: 10px;
+  box-shadow: 0px 0px 15px #999;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+main .modalDados-errados .cardDados-errados h1 {
+    font-weight: 500;
+}
+main .modalDados-errados .cardDados-errados span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  border: 1px solid var(--bt-background);
+  font-size: 2.5rem;
+}
+main .modalDados-errados .cardDados-errados button {
+  padding: .5rem 2rem;
+}
+footer {
+  color: var(--test-footer);
+}
+footer {
+  color: var(--test-footer);
+}
+footer .info-footer{
+  display: flex;
+  justify-content: center;
+  gap: 6rem;
+  background: var(--bachground-bt-nossos-dotores);
+  padding: 4rem 0;
+}
+footer .info-footer ul {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+footer .info-footer ul li {
+color: #2D2D2D;
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+line-height: 24px;
+color: var(--test-footer);
+}
+footer .info-footer ul li a{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .5rem;
+  color: var(--test-footer);
+}
+footer .info-footer ul h1 {
+  font-size: 1.5rem;
+}
+footer .info-footer .mundo-hospital h1{
+   color: var(--test-footer);
+}
+footer .info-footer .mundo-hospital h1 span{
+   color: var(--bt-background);
+}
+footer .info-footer .mundo-hospital p{
+   width: 15rem;
+   line-height: 24px;
+   font-weight: 400;
+   margin:10px 0 .5rem 0;
+}
+footer .endereco li:nth-child(2){
+   width: 20rem;
+}
+footer .endereco .contact-footer {
+  margin-right: .5rem;
+}
+footer .endereco li:nth-child(5){
+  display: flex;
+  gap: .5rem;
+}
+footer .endereco li#icons-endereco i{
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
+  border-radius: 50%;
+  cursor: pointer;
+}
+footer .copyRigts{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 3rem;
+  gap: .5rem;
+  color: #2D2D2D;
+}
+footer .copyRigts section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .5rem;
+  font-size: 14px;
+}
