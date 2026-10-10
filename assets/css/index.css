@@ -1,4 +1,4 @@
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -8,17 +8,17 @@
 }
 :root {
   --text-color-bt: #fff;
-  --bt-background:#00D9A5;
-  --text-color-menu:rgba(110, 128, 122, 0.8);
-  --text-color-welcome:#6E807A;
-  --background-welcome:#F7F5FD;
-  --bachground-bt-nossos-dotores:#1D2A4D;
-  --background-nossos-service:#F7F5FD;
-  --h1-about:#13C5DD;
-  --test-footer:#EFF5FF;
-  --background-geral:rgba(255, 255, 255, 0.95);
+  --bt-background: #00d9a5;
+  --text-color-menu: rgba(110, 128, 122, 0.8);
+  --text-color-welcome: #6e807a;
+  --background-welcome: #f7f5fd;
+  --bachground-bt-nossos-dotores: #1d2a4d;
+  --background-nossos-service: #f7f5fd;
+  --h1-about: #13c5dd;
+  --test-footer: #eff5ff;
+  --background-geral: rgba(255, 255, 255, 0.95);
 }
-button{
+button {
   border-radius: 0.25rem;
   color: var(--text-color-bt);
   background-color: var(--bt-background);
@@ -26,7 +26,7 @@ button{
   border: none;
   cursor: pointer;
 }
-header{
+header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -36,13 +36,18 @@ header{
   top: 0;
   right: 0;
   left: 0;
-  background-color: #Ffffff;
+  background-color: #ffffff;
   z-index: 2;
 }
-header h1 span{
+
+header .logo {
+  font-size: 2.5rem;
+}
+
+header .logo span {
   color: var(--bt-background);
 }
-header h1{
+header .logo {
   color: rgba(0, 0, 0, 0.9);
   font-weight: 600;
   cursor: pointer;
@@ -50,68 +55,68 @@ header h1{
 header .menu {
   display: flex;
 }
-header .menu nav ul{
+header .menu nav ul {
   display: flex;
 }
-header .menu nav ul li{
-  padding: .5rem 1rem;
+header .menu nav ul li {
+  padding: 0.5rem 1rem;
 }
-header .menu nav ul li a{
+header .menu nav ul li a {
   color: var(--text-color-menu);
   font-size: 18px;
 }
-header .menu .bt-login{
-  padding: .5rem 2.5rem;
+header .menu .bt-login {
+  padding: 0.5rem 2.5rem;
 }
 main {
   background: var(--background-geral);
 }
-main .banner{
+main .banner {
   height: 40rem;
-  background: url(../img/bg_image_1.jpg) no-repeat  center/cover;
+  background: url(../img/bg_image_1.jpg) no-repeat center/cover;
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 4rem;
 }
-main .banner .banner-2{
+main .banner .banner-2 {
   position: absolute;
   z-index: 1;
   height: 40rem;
   width: 100%;
-  opacity: .6;
+  opacity: 0.6;
   background-color: rgba(0, 0, 0, 0.9);
   display: flex;
   justify-content: center;
   align-items: center;
 }
-main .banner .container--banner-2{
-   position: absolute;
-   z-index: 1;
-   display: flex;
-   flex-direction: column;
-   gap: .5rem;
+main .banner .container--banner-2 {
+  position: absolute;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
-main .banner .container--banner-2 h1{
-   text-align: center;
-   color: var(--text-color-bt);
-   font-size: 54px;
-   font-weight: 600;
+main .banner .container--banner-2 h1 {
+  text-align: center;
+  color: var(--text-color-bt);
+  font-size: 54px;
+  font-weight: 600;
 }
-main .banner .container--banner-2 span{
+main .banner .container--banner-2 span {
   color: var(--text-color-bt);
   margin: 0 auto;
   font-size: 16px;
   font-weight: normal;
 }
-main .banner .container--banner-2 button{
+main .banner .container--banner-2 button {
   color: var(--text-color-bt);
   font-size: 16px;
   width: 10rem;
   height: 2.5rem;
   margin: 24px auto 0 auto;
 }
-main .welcome{
+main .welcome {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -124,33 +129,33 @@ main .welcome .welcome-1 {
   justify-content: center;
   gap: 4rem;
 }
-main .welcome-inf{
+main .welcome-inf {
   width: 40rem;
   margin-top: 4rem;
 }
-main .welcome-inf h1{
+main .welcome-inf h1 {
   font-size: 2.5rem;
-  margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
   font-weight: 500;
   line-height: 1.2;
 }
-main .welcome-inf button{
+main .welcome-inf button {
   width: 8rem;
   height: 3rem;
   margin-top: 2rem;
   font-size: 16px;
 }
-main .welcome-inf p{
+main .welcome-inf p {
   line-height: 1.5;
   color: var(--text-color-welcome);
   font-size: 1.1rem;
   margin-top: 20px;
 }
-main .welcome-imagem img{
- width: 24rem;
- height: auto;
+main .welcome-imagem img {
+  width: 24rem;
+  height: auto;
 }
-main .welcome .sobre-img-info{
+main .welcome .sobre-img-info {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -159,16 +164,16 @@ main .welcome .sobre-img-info{
   margin-top: 4rem;
   margin-bottom: 6rem;
 }
-main .welcome h1#h1-about{
+main .welcome h1#h1-about {
   font-size: 2.5rem;
   font-weight: 500;
   line-height: 1.2;
   color: var(--bachground-bt-nossos-doto);
-   margin: 3.5rem 0 1.5rem 0;
+  margin: 3.5rem 0 1.5rem 0;
 }
-main .welcome .sobre-img-info .sobre-imagem img{
+main .welcome .sobre-img-info .sobre-imagem img {
   width: 35rem;
-  border-radius: .25rem;
+  border-radius: 0.25rem;
 }
 main .welcome .sobre-img-info .sobre-info {
   width: 35rem;
@@ -176,18 +181,18 @@ main .welcome .sobre-img-info .sobre-info {
   flex-direction: column;
   gap: 2rem;
 }
-main .welcome .sobre-img-info .sobre-info h1{
+main .welcome .sobre-img-info .sobre-info h1 {
   font-size: 2.5rem;
   font-weight: 500;
   line-height: 1.2;
   color: var(--bachground-bt-nossos-doto);
 }
-main .welcome .sobre-img-info .sobre-info p{
+main .welcome .sobre-img-info .sobre-info p {
   line-height: 1.5;
   color: var(--text-color-welcome);
   font-size: 1.1rem;
 }
-main .welcome .sobre-img-info .sobre-info button{
+main .welcome .sobre-img-info .sobre-info button {
   width: 8rem;
   height: 3rem;
   margin-top: 2rem;
@@ -203,13 +208,13 @@ main .nossos-doctores {
   gap: 2rem;
   background: var(--background-geral);
 }
-main .nossos-doctores h1{
+main .nossos-doctores h1 {
   text-align: center;
   font-size: 2.5rem;
-  color: #1D2A4D;
+  color: #1d2a4d;
   font-weight: 500;
 }
-main .nossos-doctores p{
+main .nossos-doctores p {
   text-align: center;
   margin-bottom: 2.5rem;
   font-size: 1rem;
@@ -222,14 +227,14 @@ main .nossos-doctores button {
   height: 2.8rem;
   font-size: 16px;
 }
-main .nossos-doctores .card-doctor{
+main .nossos-doctores .card-doctor {
   display: flex;
   gap: 2rem;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
 }
-main .nossos-doctores .card-doctor .doctor{
+main .nossos-doctores .card-doctor .doctor {
   width: 20rem;
   height: 25rem;
   display: flex;
@@ -237,53 +242,53 @@ main .nossos-doctores .card-doctor .doctor{
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: .5rem;
+  gap: 0.5rem;
 }
-main .nossos-doctores .card-doctor .doctor section img{
- width: 14rem;
- height: auto;
- border-radius: 0.25rem;
+main .nossos-doctores .card-doctor .doctor section img {
+  width: 14rem;
+  height: auto;
+  border-radius: 0.25rem;
 }
-main .nossos-service{
+main .nossos-service {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-content: center;
   padding: 0 4rem;
   margin-top: 6rem;
-  background: var(--background-nossos-service); 
+  background: var(--background-nossos-service);
   height: 70rem;
 }
-main .nossos-service h1{
- text-align: center;
- margin: 4rem 0 .5rem 0;
- font-size: 2.5rem;
- font-weight: 500;
-}
-main .nossos-service p#paragrafo-service{
+main .nossos-service h1 {
   text-align: center;
-  margin: 1rem  auto 6rem auto;
+  margin: 4rem 0 0.5rem 0;
+  font-size: 2.5rem;
+  font-weight: 500;
+}
+main .nossos-service p#paragrafo-service {
+  text-align: center;
+  margin: 1rem auto 6rem auto;
   font-size: 1rem;
   color: #828282;
   width: 40rem;
   line-height: 1.5;
 }
-main .nossos-service a{
+main .nossos-service a {
   margin: 2.5rem auto 4rem auto;
 }
-main .nossos-service a button{
+main .nossos-service a button {
   width: 8rem;
   height: 2.8rem;
   font-size: 16px;
 }
-main .nossos-service .card-service{
+main .nossos-service .card-service {
   display: flex;
   gap: 2rem;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
 }
-main .nossos-service .card-service .service{
+main .nossos-service .card-service .service {
   width: 20rem;
   height: 18rem;
   display: flex;
@@ -291,21 +296,21 @@ main .nossos-service .card-service .service{
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: .5rem;
+  gap: 0.5rem;
 }
-main .nossos-service .service img{
+main .nossos-service .service img {
   width: 18rem;
   height: auto;
   border-radius: 0.25rem;
 }
-main .desc-service{
+main .desc-service {
   display: flex;
   justify-content: center;
   gap: 2rem;
-  background:  #1D2A4D;
+  background: #1d2a4d;
   height: 24rem;
 }
-main .desc-service section{
+main .desc-service section {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -322,13 +327,13 @@ main .desc-service section span {
   display: block;
   color: white;
   font-weight: 400;
-  margin-bottom: 0.1em
+  margin-bottom: 0.1em;
 }
 main .desc-service section h3 {
   color: rgba(255, 255, 255, 0.8);
-    font-size: 16px;
-    margin-bottom: 2em;
-    display: block;
+  font-size: 16px;
+  margin-bottom: 2em;
+  display: block;
 }
 main .testemunho {
   display: flex;
@@ -339,34 +344,34 @@ main .testemunho {
   padding: 4rem 0;
   background: var(--background-geral);
 }
-main .testemunho .info-testemunho{
+main .testemunho .info-testemunho {
   text-align: center;
 }
-main .testemunho .info-testemunho h1{
+main .testemunho .info-testemunho h1 {
   text-align: center;
   font-size: 1.5rem;
   font-weight: 500;
 }
-main .testemunho .info-testemunho h2{
-   font-size: 3.5rem;
-   font-weight: 500;
-   margin:1rem 0;
-   line-height: 1.2;
-   width: 44rem;
+main .testemunho .info-testemunho h2 {
+  font-size: 3.5rem;
+  font-weight: 500;
+  margin: 1rem 0;
+  line-height: 1.2;
+  width: 44rem;
 }
 /* slider */
 main .testemunho .container-testemunho {
-   width: 100%;
-   overflow: hidden;
+  width: 100%;
+  overflow: hidden;
 }
 /* slider-width */
 main .testemunho .container-testemunho .slider-testemunho {
   display: flex;
   height: 100%;
-  transition: all ease .3s;
+  transition: all ease 0.3s;
 }
 /* slider-item */
-main .testemunho .container-testemunho .img-icons{
+main .testemunho .container-testemunho .img-icons {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -375,31 +380,31 @@ main .testemunho .container-testemunho .img-icons{
   width: 100%;
 }
 main .testemunho .container-testemunho .img-icons img {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
 }
-main .testemunho .container-testemunho .img-icons i{
-    background: var(--background-welcome);
-    width: 60px;
-    height: 60px;
-    border-radius: 59%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: -2rem;
-    font-size: 2rem;
-    font-weight: 900;
-    color: var(--bachground-bt-nossos-dotores);
+main .testemunho .container-testemunho .img-icons i {
+  background: var(--background-welcome);
+  width: 60px;
+  height: 60px;
+  border-radius: 59%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: -2rem;
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--bachground-bt-nossos-dotores);
 }
 main .testemunho .container-testemunho .img-icons p {
   font-size: 1.4rem;
   font-weight: 400;
-   line-height: 1.5;
-   text-align: center;
-   width: 50rem;
-   color: var(--bachground-bt-nossos-doto);
-   margin-top: 1rem;
+  line-height: 1.5;
+  text-align: center;
+  width: 50rem;
+  color: var(--bachground-bt-nossos-doto);
+  margin-top: 1rem;
 }
 main .testemunho .container-testemunho .img-icons h3 {
   font-size: 1.75rem;
@@ -410,28 +415,28 @@ main .testemunho .container-testemunho .img-icons h3 {
   padding-top: 10px;
   color: var(--bachground-bt-nossos-dotores);
 }
-main .testemunho .container-testemunho .img-icons h4{
+main .testemunho .container-testemunho .img-icons h4 {
   font-size: 1rem;
   font-weight: 400;
   color: var(--bachground-bt-nossos-dotores);
   margin-top: 10px;
 }
-main .testemunho .bt-slide-testemunho{
+main .testemunho .bt-slide-testemunho {
   display: flex;
-  gap: .5rem;
-  margin-top: .5rem;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
 }
-main .testemunho .bt-slide-testemunho span{
-   display: flex;
-   height: 1rem;
-   width: 1rem;
-   border: 1px solid var(--bachground-bt-nossos-dotores);
-   border-radius: 50%;
-   transition: .5s;
+main .testemunho .bt-slide-testemunho span {
+  display: flex;
+  height: 1rem;
+  width: 1rem;
+  border: 1px solid var(--bachground-bt-nossos-dotores);
+  border-radius: 50%;
+  transition: 0.5s;
 }
-main .testemunho .bt-slide-testemunho span:hover{
-   cursor: pointer;
-   transform: scale(1.5);
+main .testemunho .bt-slide-testemunho span:hover {
+  cursor: pointer;
+  transform: scale(1.5);
 }
 main .modalLogin {
   position: fixed;
@@ -442,7 +447,7 @@ main .modalLogin {
   z-index: 1;
   background-color: rgba(255, 255, 255, 0.5);
   display: none;
-  transition: all ease .5s;
+  transition: all ease 0.5s;
   justify-content: center;
   align-items: center;
   overflow-y: auto;
@@ -450,7 +455,7 @@ main .modalLogin {
 main .modalLogin .cardLogin {
   width: 25rem;
   height: 30rem;
-  background-color: #FFF;
+  background-color: #fff;
   border-radius: 10px;
   box-shadow: 0px 0px 15px #999;
   display: flex;
@@ -459,7 +464,7 @@ main .modalLogin .cardLogin {
   align-items: center;
 }
 main .modalLogin .cardLogin h1 {
-    font-weight: 500;
+  font-weight: 500;
 }
 main .modalLogin .cardLogin p {
   text-align: center;
@@ -479,22 +484,22 @@ main .modalLogin .cardLogin input {
   outline: none;
   padding-left: 8px;
   border-radius: 0.25rem;
-  margin-top: .4rem;
+  margin-top: 0.4rem;
   border: 1px solid var(--bachground-bt-nossos-dotores);
 }
 
 main .modalLogin .cardLogin .btnADDCancel button {
   border: none;
-  font-size: .9rem;
+  font-size: 0.9rem;
 }
 main .modalLogin .cardLogin .btnADDCancel .login {
-   padding: .9rem 3.8rem;
+  padding: 0.9rem 3.8rem;
 }
 main .modalLogin .cardLogin .btnADDCancel .btCancelar {
-   padding: .9rem 3rem;
-   background: none;
-   border: 1px solid var(--bt-background);
-   color: #000;
+  padding: 0.9rem 3rem;
+  background: none;
+  border: 1px solid var(--bt-background);
+  color: #000;
 }
 main .modalLogin .cardLogin a {
   margin-top: 2rem;
@@ -511,7 +516,7 @@ main .modalDados-errados {
   z-index: 2;
   background-color: rgba(255, 255, 255, 0.5);
   display: none;
-  transition: all ease .5s;
+  transition: all ease 0.5s;
   justify-content: center;
   align-items: center;
   overflow-y: auto;
@@ -519,7 +524,7 @@ main .modalDados-errados {
 main .modalDados-errados .cardDados-errados {
   width: 30rem;
   height: 15rem;
-  background-color: #FFF;
+  background-color: #fff;
   border-radius: 10px;
   box-shadow: 0px 0px 15px #999;
   display: flex;
@@ -529,20 +534,20 @@ main .modalDados-errados .cardDados-errados {
   gap: 1rem;
 }
 main .modalDados-errados .cardDados-errados h1 {
-    font-weight: 500;
+  font-weight: 500;
 }
 main .modalDados-errados .cardDados-errados span {
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   width: 4rem;
-   height: 4rem;
-   border-radius: 50%;
-   border: 1px solid var(--bt-background);
-   font-size: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  border: 1px solid var(--bt-background);
+  font-size: 2.5rem;
 }
 main .modalDados-errados .cardDados-errados button {
-  padding: .5rem 2rem;
+  padding: 0.5rem 2rem;
 }
 footer {
   color: var(--test-footer);
@@ -550,7 +555,7 @@ footer {
 footer {
   color: var(--test-footer);
 }
-footer .info-footer{
+footer .info-footer {
   display: flex;
   justify-content: center;
   gap: 6rem;
@@ -564,46 +569,46 @@ footer .info-footer ul {
   gap: 16px;
 }
 footer .info-footer ul li {
-color: #2D2D2D;
-font-size: 16px;
-font-style: normal;
-font-weight: 400;
-line-height: 24px;
-color: var(--test-footer);
+  color: #2d2d2d;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+  color: var(--test-footer);
 }
-footer .info-footer ul li a{
+footer .info-footer ul li a {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: .5rem;
+  gap: 0.5rem;
   color: var(--test-footer);
 }
 footer .info-footer ul h1 {
   font-size: 1.5rem;
 }
-footer .info-footer .mundo-hospital h1{
-   color: var(--test-footer);
+footer .info-footer .mundo-hospital h1 {
+  color: var(--test-footer);
 }
-footer .info-footer .mundo-hospital h1 span{
-   color: var(--bt-background);
+footer .info-footer .mundo-hospital h1 span {
+  color: var(--bt-background);
 }
-footer .info-footer .mundo-hospital p{
-   width: 15rem;
-   line-height: 24px;
-   font-weight: 400;
-   margin:10px 0 .5rem 0;
+footer .info-footer .mundo-hospital p {
+  width: 15rem;
+  line-height: 24px;
+  font-weight: 400;
+  margin: 10px 0 0.5rem 0;
 }
-footer .endereco li:nth-child(2){
-   width: 20rem;
+footer .endereco li:nth-child(2) {
+  width: 20rem;
 }
 footer .endereco .contact-footer {
-  margin-right: .5rem;
+  margin-right: 0.5rem;
 }
-footer .endereco li:nth-child(5){
+footer .endereco li:nth-child(5) {
   display: flex;
-  gap: .5rem;
+  gap: 0.5rem;
 }
-footer .endereco li#icons-endereco i{
+footer .endereco li#icons-endereco i {
   width: 2rem;
   height: 2rem;
   display: flex;
@@ -613,18 +618,18 @@ footer .endereco li#icons-endereco i{
   border-radius: 50%;
   cursor: pointer;
 }
-footer .copyRigts{
+footer .copyRigts {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 3rem;
-  gap: .5rem;
-  color: #2D2D2D;
+  gap: 0.5rem;
+  color: #2d2d2d;
 }
 footer .copyRigts section {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: .5rem;
+  gap: 0.5rem;
   font-size: 14px;
 }
