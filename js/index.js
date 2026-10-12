@@ -1,3 +1,9 @@
+import header from "./header";
+
+const headerContainer = document.querySelector("#header");
+
+headerContainer.innerHTML = Header({ ativo: "Home" });
+
 const usuarios =
   JSON.parse(localStorage.getItem(`pacientes_mundo_hospitalar`)) || [];
 let currentSlider = 0;
