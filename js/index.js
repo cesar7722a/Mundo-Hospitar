@@ -1,8 +1,51 @@
-import header from "./header";
+const arrayDoctores = [
+  {
+    id: 0,
+    nome: "Joana",
+    especialidade: "Pediatra",
+    imagem: "assets/img/doctors/doc/doctor_1.jpg",
+  },
+  {
+    id: 1,
+    nome: "Pedro",
+    especialidade: "Cardiologia",
+    imagem: "assets/img/doctors/doc/doctor_2.jpg",
+  },
+  {
+    id: 2,
+    nome: "Rosa",
+    especialidade: "Estomatologia",
+    imagem: "assets/img/doctors/doc/doctor_3.jpg",
+  },
+  {
+    id: 3,
+    nome: "Mateus",
+    especialidade: "Cardiologia",
+    imagem: "assets/img/doctors/doc/team-2.jpg",
+  },
+  {
+    id: 4,
+    nome: "Fonseca",
+    especialidade: "Pediatra",
+    imagem: "assets/img/doctors/doc/team-3.jpg",
+  },
+];
 
-const headerContainer = document.querySelector("#header");
-
-headerContainer.innerHTML = Header({ ativo: "Home" });
+document.querySelector(".card-doctor").innerHTML = () => {
+  arrayDoctores.map((item) => (
+    <div class="doctor">
+      <div>
+        <img src="assets/img/doctors/doc/doctor_1.jpg" alt="" />
+      </div>
+      <article>
+        <p>
+          <strong>Joana testes</strong>
+        </p>
+        <p>Pediatra</p>
+      </article>
+    </div>
+  ));
+};
 
 const usuarios =
   JSON.parse(localStorage.getItem(`pacientes_mundo_hospitalar`)) || [];

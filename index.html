@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="assets/fonts/css/all.css" />
     <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/heading.css " />
     <link rel="stylesheet" href="assets/css/index.css" />
     <link rel="stylesheet" href="assets/css/css-header/header.css" />
     <title>Mundo Hospitalar</title>
@@ -29,18 +30,18 @@
       <section class="banner">
         <div class="banner-2"></div>
         <div class="container--banner-2">
-          <span>Faça a sua consulta e torne a sua vida mais feliz</span>
+          <p>Faça a sua consulta e torne a sua vida mais feliz</p>
           <h1>Mundo Hospitalar</h1>
           <button id="bt-marcar-consulta" onclick="mostraMoodal()">
             Marcar consulta
           </button>
         </div>
       </section>
-      <div class="welcome">
-        <h1 id="h1-about">Sobre Nós</h1>
+      <section class="welcome">
+        <h2 id="h2-about">Sobre Nós</h2>
         <div class="welcome-1">
           <div class="welcome-inf">
-            <h1>Seja Bem Vindo ao Mundo Hospitalar</h1>
+            <h3>Seja Bem Vindo ao Mundo Hospitalar</h3>
             <p>
               Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
               nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
@@ -50,7 +51,9 @@
               Explicabo, excepturi accusantium! Placeat voluptates esse ut optio
               facilis!
             </p>
-            <button class="bt-saber-mais">Saber Mais</button>
+            <div id="link-saber-mais">
+              <a href="sobre_nos.html">Saber Mais</a>
+            </div>
           </div>
           <div class="welcome-imagem">
             <img src="assets/img/doctors/bg-doctor.png" alt="" />
@@ -63,8 +66,8 @@
               alt=""
             />
           </div>
-          <div class="sobre-info">
-            <h1>Um Mundo Novo Para Cuidar da Sua Saúde</h1>
+          <div class="welcome-inf">
+            <h3>Um Mundo Novo Para Cuidar da Sua Saúde</h3>
             <p>
               Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
               nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
@@ -74,63 +77,78 @@
               Explicabo, excepturi accusantium! Placeat voluptates esse ut optio
               facilis!
             </p>
-            <button class="bt-saber-mais-1">Saber Mais</button>
+            <div id="link-saber-mais">
+              <a href="sobre_nos.html">Saber Mais</a>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="nossos-doctores">
-        <h1>Nossos Dotores</h1>
-        <p>
+      </section>
+
+      <section class="nossos-doctores">
+        <h2>Nossos Doctores</h2>
+        <p id="desc-nossos-doctores">
           Dignissimos asperiores vitae velit veniam totam fuga molestias
           accusamus alias autem provident. Odit ab aliquam dolor eius.
         </p>
         <div class="card-doctor">
           <div class="doctor">
-            <section>
+            <div>
               <img src="assets/img/doctors/doc/doctor_1.jpg" alt="" />
-            </section>
-            <h2>Joana</h2>
-            <h3>Pediatra</h3>
+            </div>
+            <div class="card-info">
+              <p>Joana</p>
+              <p>Pediatra</p>
+            </div>
           </div>
           <div class="doctor">
-            <section>
+            <div>
               <img src="assets/img/doctors/doc/doctor_2.jpg" alt="" />
-            </section>
-            <h2>Pedro</h2>
-            <h3>Cardiologia</h3>
+            </div>
+            <div class="card-info">
+              <p>Pedro</p>
+              <p>Cardiologia</p>
+            </div>
           </div>
           <div class="doctor">
-            <section>
+            <div>
               <img src="assets/img/doctors/doc/doctor_3.jpg" alt="" />
-            </section>
-            <h2>Rosa</h2>
-            <h3>especialidade</h3>
+            </div>
+            <div class="card-info">
+              <p>Rosa</p>
+              <p>especialidade</p>
+            </div>
           </div>
           <div class="doctor">
-            <section>
+            <div>
               <img src="assets/img/doctors/doc/team-1.jpg" alt="" />
-            </section>
-            <h2>--</h2>
-            <h3>especialidade</h3>
+            </div>
+            <div class="card-info">
+              <p>--</p>
+              <p>especialidade</p>
+            </div>
           </div>
           <div class="doctor">
-            <section>
+            <div>
               <img src="assets/img/doctors/doc/team-2.jpg" alt="" />
-            </section>
-            <h2>--</h2>
-            <h3>especialidade</h3>
+            </div>
+            <div class="card-info">
+              <p>--</p>
+              <p>especialidade</p>
+            </div>
           </div>
           <div class="doctor">
-            <section>
+            <div>
               <img src="assets/img/doctors/doc/team-3.jpg" alt="" />
-            </section>
-            <h2>--</h2>
-            <h3>especialidade</h3>
+            </div>
+            <div class="card-info">
+              <p>--</p>
+              <p>especialidade</p>
+            </div>
           </div>
         </div>
         <a href="dotores.html"><button>Saber Mais</button></a>
-      </div>
-      <div class="nossos-service">
+      </section>
+      <section class="nossos-service">
         <h1>Nossos Serviços</h1>
         <p id="paragrafo-service">
           Lorem Ipsum dolroin gravida nibh vel velit auctor aliquet. Aenean
@@ -182,8 +200,8 @@
           </div>
         </div>
         <a href="servico.html"><button>Ver Mais</button></a>
-      </div>
-      <div class="desc-service">
+      </section>
+      <section class="desc-service">
         <section>
           <i class="fas fa-user-doctor"></i>
           <span>+0050</span>
@@ -204,8 +222,8 @@
           <span>+0010</span>
           <h3>Ambulancias</h3>
         </section>
-      </div>
-      <div class="testemunho">
+      </section>
+      <section class="testemunho">
         <div class="info-testemunho">
           <h1>Testemunho</h1>
           <h2>Pacientes Falam Sobre o Nosso Serviços</h2>
@@ -252,7 +270,7 @@
           <span class="slider-controlls"></span>
           <span class="slider-controlls" onclick="goNext()"></span>
         </section>
-      </div>
+      </section>
       <div class="modalLogin">
         <div class="cardLogin">
           <h1>Login</h1>

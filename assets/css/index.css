@@ -18,9 +18,11 @@ button {
   border: none;
   cursor: pointer;
 }
+
 main {
   background: var(--background-geral);
 }
+
 main .banner {
   height: 40rem;
   background: url(../img/bg_image_1.jpg) no-repeat center/cover;
@@ -29,6 +31,7 @@ main .banner {
   align-items: center;
   margin-top: 4rem;
 }
+
 main .banner .banner-2 {
   position: absolute;
   z-index: 1;
@@ -40,6 +43,7 @@ main .banner .banner-2 {
   justify-content: center;
   align-items: center;
 }
+
 main .banner .container--banner-2 {
   position: absolute;
   z-index: 1;
@@ -47,64 +51,64 @@ main .banner .container--banner-2 {
   flex-direction: column;
   gap: 0.5rem;
 }
+
 main .banner .container--banner-2 h1 {
   text-align: center;
   color: var(--text-color-bt);
-  font-size: 54px;
+  font-size: 96px;
   font-weight: 600;
 }
-main .banner .container--banner-2 span {
+
+main .banner .container--banner-2 p {
   color: var(--text-color-bt);
-  margin: 0 auto;
-  font-size: 16px;
+  font-size: 20px;
   font-weight: normal;
+  text-align: center;
 }
+
 main .banner .container--banner-2 button {
   color: var(--text-color-bt);
-  font-size: 16px;
-  width: 10rem;
-  height: 2.5rem;
+  font-size: 18px;
+  width: 16rem;
+  height: 3.5rem;
   margin: 24px auto 0 auto;
+  font-weight: 600;
 }
+
 main .welcome {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 4rem 4rem 0;
   background: var(--background-welcome);
+  padding: 80px 0;
 }
+
 main .welcome .welcome-1 {
   display: flex;
   justify-content: center;
   gap: 4rem;
 }
+
 main .welcome-inf {
   width: 40rem;
   margin-top: 4rem;
 }
-main .welcome-inf h1 {
-  font-size: 2.5rem;
-  margin-bottom: 0.5rem;
-  font-weight: 500;
-  line-height: 1.2;
-}
-main .welcome-inf button {
-  width: 8rem;
-  height: 3rem;
-  margin-top: 2rem;
-  font-size: 16px;
-}
-main .welcome-inf p {
+
+main .welcome p {
   line-height: 1.5;
   color: var(--text-color-welcome);
   font-size: 1.1rem;
   margin-top: 20px;
 }
+
 main .welcome-imagem img {
   width: 24rem;
   height: auto;
 }
+
+main .welcome #link-saber-mais {
+  padding: 2rem 0;
+}
+
 main .welcome .sobre-img-info {
   display: flex;
   align-items: center;
@@ -114,40 +118,11 @@ main .welcome .sobre-img-info {
   margin-top: 4rem;
   margin-bottom: 6rem;
 }
-main .welcome h1#h1-about {
-  font-size: 2.5rem;
-  font-weight: 500;
-  line-height: 1.2;
-  color: var(--bachground-bt-nossos-doto);
-  margin: 3.5rem 0 1.5rem 0;
-}
 main .welcome .sobre-img-info .sobre-imagem img {
   width: 35rem;
   border-radius: 0.25rem;
 }
-main .welcome .sobre-img-info .sobre-info {
-  width: 35rem;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-main .welcome .sobre-img-info .sobre-info h1 {
-  font-size: 2.5rem;
-  font-weight: 500;
-  line-height: 1.2;
-  color: var(--bachground-bt-nossos-doto);
-}
-main .welcome .sobre-img-info .sobre-info p {
-  line-height: 1.5;
-  color: var(--text-color-welcome);
-  font-size: 1.1rem;
-}
-main .welcome .sobre-img-info .sobre-info button {
-  width: 8rem;
-  height: 3rem;
-  margin-top: 2rem;
-  font-size: 16px;
-}
+
 main .nossos-doctores {
   padding: 0 4rem;
   margin-top: 6rem;
@@ -158,20 +133,15 @@ main .nossos-doctores {
   gap: 2rem;
   background: var(--background-geral);
 }
-main .nossos-doctores h1 {
-  text-align: center;
-  font-size: 2.5rem;
-  color: #1d2a4d;
-  font-weight: 500;
-}
-main .nossos-doctores p {
-  text-align: center;
-  margin-bottom: 2.5rem;
-  font-size: 1rem;
-  color: #828282;
-  width: 40rem;
+
+main .nossos-doctores #desc-nossos-doctores {
   line-height: 1.5;
+  color: var(--text-color-welcome);
+  font-size: 1.1rem;
+  width: 40rem;
+  text-align: center;
 }
+
 main .nossos-doctores button {
   width: 8rem;
   height: 2.8rem;
@@ -179,26 +149,36 @@ main .nossos-doctores button {
 }
 main .nossos-doctores .card-doctor {
   display: flex;
-  gap: 2rem;
+  gap: 4rem;
+  column-gap: 8rem;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  padding: 4rem 0;
 }
 main .nossos-doctores .card-doctor .doctor {
   width: 20rem;
-  height: 25rem;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: 0.5rem;
 }
-main .nossos-doctores .card-doctor .doctor section img {
-  width: 14rem;
+main .nossos-doctores .card-doctor .doctor div img {
+  width: 20rem;
   height: auto;
   border-radius: 0.25rem;
 }
+
+main .nossos-doctores .card-doctor .doctor .card-info {
+  padding: 8px 12px;
+}
+
+main .nossos-doctores .card-doctor .doctor .card-info p {
+  font-size: 28px;
+  text-align: center;
+}
+
+main .nossos-doctores .card-doctor .doctor .card-info p + p {
+  font-size: 14px;
+  margin-top: 4px;
+}
+
 main .nossos-service {
   display: flex;
   flex-direction: column;
