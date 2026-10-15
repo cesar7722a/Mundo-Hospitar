@@ -1,4 +1,4 @@
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -8,25 +8,33 @@
 }
 :root {
   --text-color-bt: #fff;
-  --bt-background:#00D9A5;
-  --text-color-menu:rgba(110, 128, 122, 0.8);
-  --text-color-welcome:#6E807A;
-  --background-welcome:#F7F5FD;
-  --bachground-bt-nossos-dotores:#1D2A4D;
-  --background-nossos-service:#F7F5FD;
-  --h1-about:#13C5DD;
-  --test-footer:#EFF5FF;
-  --background-geral:rgba(255, 255, 255, 0.95);
+  --bt-background: #00d9a5;
+  --bt-text: #0b1a33; /* texto dos botões: contraste AA sobre o verde */
+  --text-color-menu: rgba(110, 128, 122, 0.8);
+  --text-color-welcome: #52625c; /* escurecido para contraste AA */
+  --background-welcome: #f7f5fd;
+  --bachground-bt-nossos-dotores: #1d2a4d;
+  --background-nossos-service: #f7f5fd;
+  --h1-about: #13c5dd;
+  --test-footer: #eff5ff;
+  --background-geral: rgba(255, 255, 255, 0.95);
+
+  /* layout */
+  --gutter: clamp(1rem, 5vw, 4rem);
+  --container: 72rem;
 }
-button{
+
+/* Regra original mantida para não alterar o botão do header */
+button {
   border-radius: 0.25rem;
   color: var(--text-color-bt);
   background-color: var(--bt-background);
-  background-color: none;
   border: none;
   cursor: pointer;
 }
-header{
+
+/* ============ HEADER (inalterado) ============ */
+header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -36,13 +44,13 @@ header{
   top: 0;
   right: 0;
   left: 0;
-  background-color: #Ffffff;
+  background-color: #ffffff;
   z-index: 2;
 }
-header h1 span{
+header h1 span {
   color: var(--bt-background);
 }
-header h1{
+header h1 {
   color: rgba(0, 0, 0, 0.9);
   font-weight: 600;
   cursor: pointer;
@@ -50,202 +58,253 @@ header h1{
 header .menu {
   display: flex;
 }
-header .menu nav ul{
+header .menu nav ul {
   display: flex;
 }
-header .menu nav ul li{
-  padding: .5rem 1rem;
+header .menu nav ul li {
+  padding: 0.5rem 1rem;
 }
-header .menu nav ul li a{
+header .menu nav ul li a {
   color: var(--text-color-menu);
   font-size: 18px;
 }
-header .menu .bt-login{
-  padding: .5rem 2.5rem;
+header .menu .bt-login {
+  padding: 0.5rem 2.5rem;
 }
-main .banner {
-  background: url(../img/doctors/img-1.png) no-repeat center/cover;
-  height: 25rem;
-  position: relative;
-  z-index: -1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 4rem;
-}
-main .banner .banner-2{
+
+/* ============ Utilitários ============ */
+.sr-only {
   position: absolute;
-  height: 25rem;
-  width: 100%;
-  opacity: .6;
-  background-color: rgba(0, 0, 0, 0.9);
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Foco visível: anel duplo (funciona em fundo claro e escuro) */
+main :focus-visible,
+footer :focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 0;
+  box-shadow: 0 0 0 4px var(--bachground-bt-nossos-dotores);
+}
+main:focus {
+  outline: none;
+}
+
+/* Botões dentro do main (o header não é afectado) */
+main button {
+  font: inherit;
+  font-weight: 600;
+  color: var(--bt-text);
+  background-color: var(--bt-background);
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: filter 0.2s ease;
+}
+main button:hover {
+  filter: brightness(0.92);
+}
+
+/* ============ Banner ============ */
+main .banner {
+  position: relative;
+  isolation: isolate;
   display: flex;
   justify-content: center;
   align-items: center;
+  min-height: clamp(18rem, 55vh, 25rem);
+  margin-top: 5rem; /* altura do header fixo */
+  padding: 3rem var(--gutter);
+  background: url(../img/doctors/img-1.png) no-repeat center/cover;
+}
+main .banner .banner-2 {
+  position: absolute;
+  inset: 0;
   z-index: -1;
+  background-color: rgba(0, 0, 0, 0.54);
 }
-main .banner .container--banner-2{
-   display: flex;
-   flex-direction: column;
-   position: absolute;
-   z-index: 1;
-   gap: .5rem;
-}
-main .banner .container--banner-2 h1{
-   text-align: center;
-   color: var(--text-color-bt);
-   font-size: 54px;
-   font-weight: 600;
-}
-main .banner .container--banner-2 span{
-  color: var(--text-color-bt);
-  margin: 0 auto;
-  font-size: 16px;
-  font-weight: normal;
-}
-main .welcome{
+main .banner .container--banner-2 {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  gap: 0.5rem;
+  max-width: 52rem;
+}
+main .banner .container--banner-2 h1 {
+  text-align: center;
+  color: var(--text-color-bt);
+  font-size: clamp(2.25rem, 8vw, 3.375rem);
+  font-weight: 600;
+  line-height: 1.1;
+}
+main .banner .container--banner-2 p {
+  margin: 0 auto;
+  text-align: center;
+  color: var(--text-color-bt);
+  font-size: clamp(1rem, 2.5vw, 1.125rem);
+  font-weight: normal;
+}
+
+/* ============ Sobre nós ============ */
+main .welcome {
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  padding: 4rem 4rem 0;
+  gap: clamp(2rem, 5vw, 4rem);
+  padding: clamp(3rem, 8vw, 4.5rem) var(--gutter) clamp(3rem, 8vw, 6rem);
   background: var(--background-welcome);
 }
-main .welcome .welcome-1 {
-  display: flex;
-  justify-content: center;
-  gap: 4rem;
-}
-main .welcome-inf{
-  width: 40rem;
-  margin-top: 4rem;
-}
-main .welcome-inf h1{
-  font-size: 2.5rem;
-  margin-bottom: .5rem;
+
+main .welcome h2#h2-about {
+  font-size: clamp(2rem, 5vw, 2.5rem);
   font-weight: 500;
   line-height: 1.2;
+  text-align: center;
+  color: var(--bachground-bt-nossos-dotores);
 }
-main .welcome-inf p{
+
+main .welcome .welcome-1,
+main .welcome .sobre-img-info {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(1.5rem, 4vw, 4rem);
+  width: 100%;
+  max-width: var(--container);
+}
+
+main .welcome-inf,
+main .welcome .sobre-info {
+  flex: 1 1 22rem;
+  max-width: 40rem;
+}
+
+main .welcome-inf h3,
+main .welcome .sobre-info h3 {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 500;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+  color: var(--bachground-bt-nossos-dotores);
+}
+
+main .welcome-inf p,
+main .welcome .sobre-info p {
   line-height: 1.5;
   color: var(--text-color-welcome);
   font-size: 1.1rem;
   margin-top: 20px;
 }
-main .welcome-imagem img{
- width: 24rem;
- height: auto;
+
+main .welcome-imagem {
+  flex: 1 1 20rem;
+  max-width: 24rem;
 }
-main .welcome .sobre-img-info{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 2rem;
-  padding: 0 4rem;
-  margin-top: 4rem;
-  margin-bottom: 6rem;
+main .welcome-imagem img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
-main .welcome h1#h1-about{
-  font-size: 2.5rem;
-  font-weight: 500;
-  line-height: 1.2;
-  color: var(--bachground-bt-nossos-doto);
-   margin: 3.5rem 0 1.5rem 0;
+
+main .welcome .sobre-imagem {
+  flex: 1 1 28rem;
+  max-width: 35rem;
 }
-main .welcome .sobre-img-info .sobre-imagem img{
-  width: 35rem;
-  border-radius: .25rem;
+main .welcome .sobre-imagem img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 0.25rem;
 }
-main .welcome .sobre-img-info .sobre-info {
-  width: 35rem;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-main .welcome .sobre-img-info .sobre-info h1{
-  font-size: 2.5rem;
-  font-weight: 500;
-  line-height: 1.2;
-  color: var(--bachground-bt-nossos-doto);
-}
-main .welcome .sobre-img-info .sobre-info p{
-  line-height: 1.5;
-  color: var(--text-color-welcome);
-  font-size: 1.1rem;
-}
+
+/* ============ Missão, Visão e História ============ */
 main .container-visao-missao-historia {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
   gap: 1.5rem;
-  height: 34rem;
+  padding: clamp(3rem, 6vw, 5rem)
+    max(var(--gutter), calc((100% - var(--container)) / 2));
   background: var(--background-geral);
 }
-main .container-visao-missao-historia .missao, .visao, .historia {
-  padding: 15px;
-  box-shadow: 0 0px 10px rgba(0,0,0,.1);
-  position: relative;
-  overflow: hidden;
-  width: 24rem;
+
+main .container-visao-missao-historia .cartao {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  padding: 1.25rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+
 main .container-visao-missao-historia p {
-  line-height: 25.32px;
+  line-height: 1.6;
   font-weight: 400;
   color: rgb(51, 51, 51);
   font-size: 1rem;
   text-align: left;
 }
-main .container-visao-missao-historia h1 {
+
+main .container-visao-missao-historia h2 {
   font-size: 28px;
   color: #212121;
   font-weight: 500;
 }
-main .container-visao-missao-historia section .icons {
+
+main .container-visao-missao-historia .cartao .icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 6rem;
   width: 6rem;
   border: 2px solid black;
   border-radius: 6px;
+  font-size: 2.5rem;
+  color: var(--bachground-bt-nossos-dotores);
 }
+
+/* ============ Testemunhos ============ */
 main .testemunho {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 1rem;
-  padding: 4rem 0;
+  padding: clamp(3rem, 6vw, 4rem) 0;
   background: var(--background-welcome);
 }
-main .testemunho .info-testemunho{
+main .testemunho .info-testemunho {
+  padding: 0 var(--gutter);
   text-align: center;
 }
-main .testemunho .info-testemunho h1{
-  text-align: center;
+main .testemunho .info-testemunho .eyebrow {
   font-size: 1.5rem;
   font-weight: 500;
+  text-align: center;
 }
-main .testemunho .info-testemunho h2{
-   font-size: 3.5rem;
-   font-weight: 500;
-   margin:1rem 0;
-   line-height: 1.2;
-   width: 44rem;
+main .testemunho .info-testemunho h2 {
+  max-width: 44rem;
+  margin: 1rem auto;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 500;
+  line-height: 1.2;
 }
-/* slider */
+
+/* slider (mecânica mantida: depende do js/sobre_nos.js) */
 main .testemunho .container-testemunho {
-   width: 100%;
-   overflow: hidden;
+  width: 100%;
+  overflow: hidden;
 }
-/* slider-width */
 main .testemunho .container-testemunho .slider-testemunho {
   display: flex;
   height: 100%;
-  transition: all ease .3s;
+  transition: all ease 0.3s;
 }
-/* slider-item */
-main .testemunho .container-testemunho .img-icons{
+main .testemunho .container-testemunho .img-icons {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -254,126 +313,163 @@ main .testemunho .container-testemunho .img-icons{
   width: 100%;
 }
 main .testemunho .container-testemunho .img-icons img {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
 }
-main .testemunho .container-testemunho .img-icons i{
-    background: var(--background-welcome);
-    width: 60px;
-    height: 60px;
-    border-radius: 59%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: -2rem;
-    font-size: 2rem;
-    font-weight: 900;
-    color: var(--bachground-bt-nossos-dotores);
+main .testemunho .container-testemunho .img-icons i {
+  background: var(--background-welcome);
+  width: 60px;
+  height: 60px;
+  border-radius: 59%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: -2rem;
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--bachground-bt-nossos-dotores);
 }
-main .testemunho .container-testemunho .img-icons p {
-  font-size: 1.4rem;
+main .testemunho .container-testemunho .img-icons blockquote {
+  width: min(50rem, calc(100% - 2rem));
+  margin-top: 1rem;
+}
+main .testemunho .container-testemunho .img-icons blockquote p {
+  width: 100%;
+  font-size: clamp(1.05rem, 2.5vw, 1.4rem);
   font-weight: 400;
-   line-height: 1.5;
-   text-align: center;
-   width: 50rem;
-   color: var(--bachground-bt-nossos-doto);
-   margin-top: 1rem;
+  line-height: 1.5;
+  text-align: center;
+  color: var(--bachground-bt-nossos-dotores);
 }
-main .testemunho .container-testemunho .img-icons h3 {
-  font-size: 1.75rem;
+main .testemunho .container-testemunho .img-icons figcaption {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1rem;
+}
+main .testemunho .container-testemunho .img-icons .paciente-nome {
+  font-size: clamp(1.25rem, 3vw, 1.75rem);
   font-weight: 700;
   line-height: 1.2;
   border-top: 1px solid var(--text-color-welcome);
-  margin-top: 1rem;
   padding-top: 10px;
   color: var(--bachground-bt-nossos-dotores);
 }
-main .testemunho .container-testemunho .img-icons h4{
+main .testemunho .container-testemunho .img-icons .paciente-profissao {
+  margin-top: 10px;
   font-size: 1rem;
   font-weight: 400;
   color: var(--bachground-bt-nossos-dotores);
-  margin-top: 10px;
 }
-main .testemunho .bt-slide-testemunho{
+
+/* controlos */
+main .testemunho .bt-slide-testemunho {
   display: flex;
-  gap: .5rem;
-  margin-top: .5rem;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
 }
-main .testemunho .bt-slide-testemunho span{
+main .testemunho .bt-slide-testemunho .slider-controlls {
+  position: relative;
   display: flex;
   height: 1rem;
   width: 1rem;
+  padding: 0;
+  background: transparent;
   border: 1px solid var(--bachground-bt-nossos-dotores);
   border-radius: 50%;
-  transition: .5s;
+  transition: 0.5s;
 }
-main .testemunho .bt-slide-testemunho span:hover{
+/* área de toque maior (≈2.5rem) sem mudar o visual */
+main .testemunho .bt-slide-testemunho button.slider-controlls::after {
+  content: "";
+  position: absolute;
+  inset: -0.75rem;
+}
+main .testemunho .bt-slide-testemunho .slider-controlls:hover {
   cursor: pointer;
   transform: scale(1.5);
 }
-main .modalLogin {
+
+/* ============ Modais ============ */
+main .modalLogin,
+main .modalDados-errados {
   position: fixed;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  z-index: 1;
+  inset: 0;
   background-color: rgba(255, 255, 255, 0.5);
-  display: none;
-  transition: all ease .5s;
-  justify-content: center;
-  align-items: center;
+  display: none; /* o JS alterna para flex */
+  transition: all ease 0.5s;
+  padding: 1rem;
   overflow-y: auto;
 }
+main .modalLogin {
+  z-index: 1;
+}
+main .modalDados-errados {
+  z-index: 2;
+}
+
 main .modalLogin .cardLogin {
-  width: 25rem;
-  height: 30rem;
-  background-color: #FFF;
+  width: min(25rem, 100%);
+  margin: auto; /* centra sem cortar o topo em ecrãs baixos */
+  padding: 2rem 1.5rem;
+  background-color: #fff;
   border-radius: 10px;
   box-shadow: 0px 0px 15px #999;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  /* margin: 20px 0px; */
 }
-main .modalLogin .cardLogin h1 {
-    font-weight: 500;
+main .modalLogin .cardLogin h2 {
+  font-size: 2em;
+  font-weight: 500;
 }
 main .modalLogin .cardLogin p {
-  text-align: center;
+  max-width: 20rem;
   margin: 1rem 0;
-  width: 20rem;
   line-height: 1.4;
+  text-align: center;
+}
+main .modalLogin .cardLogin form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  width: 100%;
+  max-width: 20rem;
+  margin-top: 0.5rem;
 }
 main .modalLogin .cardLogin label {
   display: block;
-  height: 2rem;
-  margin-bottom: 3rem;
+  font-weight: 500;
 }
-
 main .modalLogin .cardLogin input {
-  width: 20rem;
+  width: 100%;
   height: 2.5rem;
-  outline: none;
   padding-left: 8px;
+  margin-top: 0.4rem;
   border-radius: 0.25rem;
-  margin-top: .4rem;
+  border: 1px solid var(--bachground-bt-nossos-dotores);
 }
-
+main .modalLogin .cardLogin .btnADDCancel {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
 main .modalLogin .cardLogin .btnADDCancel button {
   border: none;
-  font-size: .9rem;
+  font-size: 0.9rem;
 }
 main .modalLogin .cardLogin .btnADDCancel .login {
-   padding: .9rem 3.8rem;
+  padding: 0.9rem 2.5rem;
 }
 main .modalLogin .cardLogin .btnADDCancel .btCancelar {
-   padding: .9rem 3rem;
-   background: none;
-   border: 1px solid var(--bt-background);
-   color: #000;
+  padding: 0.9rem 2rem;
+  background: none;
+  border: 1px solid var(--bt-background);
+  color: #000;
 }
 main .modalLogin .cardLogin a {
   margin-top: 2rem;
@@ -381,24 +477,12 @@ main .modalLogin .cardLogin a {
   color: #000;
   border-bottom: 1px solid #000;
 }
-main .modalDados-errados {
-  position: fixed;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  z-index: 2;
-  background-color: rgba(255, 255, 255, 0.5);
-  display: none;
-  transition: all ease .5s;
-  justify-content: center;
-  align-items: center;
-  overflow-y: auto;
-}
+
 main .modalDados-errados .cardDados-errados {
-  width: 30rem;
-  height: 15rem;
-  background-color: #FFF;
+  width: min(30rem, 100%);
+  margin: auto;
+  padding: 2rem 1.5rem;
+  background-color: #fff;
   border-radius: 10px;
   box-shadow: 0px 0px 15px #999;
   display: flex;
@@ -406,9 +490,11 @@ main .modalDados-errados .cardDados-errados {
   justify-content: center;
   align-items: center;
   gap: 1rem;
+  text-align: center;
 }
-main .modalDados-errados .cardDados-errados h1 {
-    font-weight: 500;
+main .modalDados-errados .cardDados-errados h2 {
+  font-size: 2em;
+  font-weight: 500;
 }
 main .modalDados-errados .cardDados-errados span {
   display: flex;
@@ -421,105 +507,141 @@ main .modalDados-errados .cardDados-errados span {
   font-size: 2.5rem;
 }
 main .modalDados-errados .cardDados-errados button {
-  padding: .5rem 2rem;
+  padding: 0.5rem 2rem;
 }
+
+/* ============ Footer ============ */
 footer {
   color: var(--test-footer);
 }
-footer .info-footer{
-  display: flex;
-  justify-content: center;
-  gap: 6rem;
+
+footer .info-footer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: 2.5rem 3rem;
+  padding: clamp(3rem, 6vw, 4rem)
+    max(var(--gutter), calc((100% - var(--container)) / 2));
   background: var(--bachground-bt-nossos-dotores);
-  padding: 4rem 0;
 }
-footer .info-footer ul {
+
+footer .footer-col {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 16px;
+  gap: 1rem;
 }
-footer {
-  color: var(--test-footer);
-}
-footer {
-  color: var(--test-footer);
-}
-footer .info-footer{
-  display: flex;
-  justify-content: center;
-  gap: 6rem;
-  background: var(--bachground-bt-nossos-dotores);
-  padding: 4rem 0;
-}
-footer .info-footer ul {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 16px;
-}
-footer .info-footer ul li {
-color: #2D2D2D;
-font-size: 16px;
-font-style: normal;
-font-weight: 400;
-line-height: 24px;
-color: var(--test-footer);
-}
-footer .info-footer ul li a{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: .5rem;
-  color: var(--test-footer);
-}
-footer .info-footer ul h1 {
+
+footer .footer-brand {
   font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--test-footer);
 }
-footer .info-footer .mundo-hospital h1{
-   color: var(--test-footer);
+footer .footer-brand span {
+  color: var(--bt-background);
 }
-footer .info-footer .mundo-hospital h1 span{
-   color: var(--bt-background);
+
+footer .mundo-hospital p:not(.footer-brand) {
+  max-width: 20rem;
+  line-height: 24px;
+  font-weight: 400;
 }
-footer .info-footer .mundo-hospital p{
-   width: 15rem;
-   line-height: 24px;
-   font-weight: 400;
-   margin:10px 0 .5rem 0;
+
+footer .footer-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--test-footer);
 }
-footer .endereco li:nth-child(2){
-   width: 20rem;
-}
-footer .endereco .contact-footer {
-  margin-right: .5rem;
-}
-footer .endereco li:nth-child(5){
+
+footer .footer-list {
   display: flex;
-  gap: .5rem;
+  flex-direction: column;
+  gap: 1rem;
 }
-footer .endereco li#icons-endereco i{
-  width: 2rem;
-  height: 2rem;
+footer .footer-list li {
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--test-footer);
+}
+footer .footer-list a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--test-footer);
+}
+footer .footer-list a:hover {
+  text-decoration: underline;
+}
+
+footer address {
+  font-style: normal;
+}
+footer .footer-contactos .contact-footer {
+  margin-right: 0.5rem;
+}
+
+footer .footer-social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+footer .footer-social a {
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid black;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid var(--test-footer);
   border-radius: 50%;
-  cursor: pointer;
+  color: var(--test-footer);
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
 }
-footer .copyRigts{
+footer .footer-social a:hover {
+  background-color: var(--bt-background);
+  border-color: var(--bt-background);
+  color: var(--bt-text);
+}
+
+footer .copyright {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 3rem;
-  gap: .5rem;
-  color: #2D2D2D;
-}
-footer .copyRigts section {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: .5rem;
+  min-height: 3rem;
+  padding: 0.75rem var(--gutter);
+  color: #2d2d2d;
   font-size: 14px;
+  text-align: center;
+}
+
+/* ============ Responsividade ============ */
+@media (max-width: 48rem) {
+  main .welcome .welcome-inf,
+  main .welcome .sobre-info {
+    flex-basis: 100%;
+  }
+  main .welcome-inf p,
+  main .welcome .sobre-info p {
+    font-size: 1rem;
+  }
+  footer .info-footer {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 30rem) {
+  main .modalLogin .cardLogin .btnADDCancel button {
+    flex: 1 1 100%;
+  }
+  footer .info-footer {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============ Movimento reduzido ============ */
+@media (prefers-reduced-motion: reduce) {
+  main *,
+  footer * {
+    transition-duration: 0.01ms !important;
+  }
 }

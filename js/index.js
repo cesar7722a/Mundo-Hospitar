@@ -31,22 +31,6 @@ const arrayDoctores = [
   },
 ];
 
-document.querySelector(".card-doctor").innerHTML = () => {
-  arrayDoctores.map((item) => (
-    <div class="doctor">
-      <div>
-        <img src="assets/img/doctors/doc/doctor_1.jpg" alt="" />
-      </div>
-      <article>
-        <p>
-          <strong>Joana testes</strong>
-        </p>
-        <p>Pediatra</p>
-      </article>
-    </div>
-  ));
-};
-
 const usuarios =
   JSON.parse(localStorage.getItem(`pacientes_mundo_hospitalar`)) || [];
 let currentSlider = 0;

@@ -1,4 +1,4 @@
-:root {
+/* :root {
   --text-color-bt: #fff;
   --bt-background: #00d9a5;
   --text-color-menu: rgba(110, 128, 122, 0.8);
@@ -289,18 +289,17 @@ main .testemunho .info-testemunho h2 {
   line-height: 1.2;
   width: 44rem;
 }
-/* slider */
+
 main .testemunho .container-testemunho {
   width: 100%;
   overflow: hidden;
 }
-/* slider-width */
+
 main .testemunho .container-testemunho .slider-testemunho {
   display: flex;
   height: 100%;
   transition: all ease 0.3s;
 }
-/* slider-item */
 main .testemunho .container-testemunho .img-icons {
   display: flex;
   flex-direction: column;
@@ -562,4 +561,743 @@ footer .copyRigts section {
   align-items: center;
   gap: 0.5rem;
   font-size: 14px;
+} */
+
+:root {
+  --text-color-bt: #fff;
+  --bt-background: #00d9a5;
+  --bt-text: #0b1a33; /* texto dos botões: contraste AA sobre o verde */
+  --text-color-menu: rgba(110, 128, 122, 0.8);
+  --text-color-welcome: #52625c; /* escurecido para contraste AA */
+  --background-welcome: #f7f5fd;
+  --bachground-bt-nossos-dotores: #1d2a4d;
+  --background-nossos-service: #f7f5fd;
+  --h1-about: #13c5dd;
+  --test-footer: #eff5ff;
+  --background-geral: rgba(255, 255, 255, 0.95);
+
+  /* layout */
+  --gutter: clamp(1rem, 5vw, 4rem);
+  --container: 72rem;
+  --container-cards: 66rem;
+}
+
+/* Regra original mantida para não alterar o botão do header */
+button {
+  border-radius: 0.25rem;
+  color: var(--text-color-bt);
+  background-color: var(--bt-background);
+  border: none;
+  cursor: pointer;
+}
+
+/* ============ Utilitários ============ */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Foco visível: anel duplo (funciona em fundo claro e escuro) */
+main :focus-visible,
+footer :focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 0;
+  box-shadow: 0 0 0 4px var(--bachground-bt-nossos-dotores);
+}
+
+main {
+  background: var(--background-geral);
+}
+main:focus {
+  outline: none;
+}
+
+/* Botões e links-botão dentro do main */
+main button,
+.btn {
+  font: inherit;
+  font-weight: 600;
+  color: var(--bt-text);
+  background-color: var(--bt-background);
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: filter 0.2s ease;
+}
+main button:hover,
+.btn:hover {
+  filter: brightness(0.92);
+}
+.btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 8rem;
+  height: 2.8rem;
+  font-size: 16px;
+  text-decoration: none;
+}
+
+/* ============ Banner ============ */
+main .banner {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: clamp(28rem, 75vh, 40rem);
+  margin-top: 4rem;
+  padding: 3rem var(--gutter);
+  background: url(../img/bg_image_1.jpg) no-repeat center/cover;
+}
+
+main .banner .banner-2 {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-color: rgba(0, 0, 0, 0.54);
+}
+
+main .banner .container--banner-2 {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-width: 52rem;
+}
+
+main .banner .container--banner-2 h1 {
+  text-align: center;
+  color: var(--text-color-bt);
+  font-size: clamp(2.5rem, 9vw, 6rem);
+  font-weight: 600;
+  line-height: 1.1;
+}
+
+main .banner .container--banner-2 p {
+  color: var(--text-color-bt);
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  font-weight: normal;
+  text-align: center;
+}
+
+main .banner .container--banner-2 button {
+  font-size: 1.125rem;
+  width: min(16rem, 100%);
+  height: 3.5rem;
+  margin: 1.5rem auto 0 auto;
+}
+
+/* ============ Sobre nós ============ */
+main .welcome {
+  display: flex;
+  flex-direction: column;
+  background: var(--background-welcome);
+  padding: clamp(3rem, 8vw, 5rem) var(--gutter);
+}
+
+main .welcome .welcome-1,
+main .welcome .sobre-img-info {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(1.5rem, 4vw, 4rem);
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+}
+
+main .welcome .sobre-img-info {
+  margin-top: clamp(2.5rem, 6vw, 4rem);
+}
+
+main .welcome-inf {
+  flex: 1 1 22rem;
+  max-width: 40rem;
+}
+
+main .welcome p {
+  line-height: 1.5;
+  color: var(--text-color-welcome);
+  font-size: 1.1rem;
+  margin-top: 20px;
+}
+
+main .welcome-imagem {
+  flex: 1 1 20rem;
+  max-width: 24rem;
+}
+main .welcome-imagem img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+main .welcome .link-saber-mais {
+  padding: 2rem 0 0;
+}
+
+main .welcome .sobre-imagem {
+  flex: 1 1 28rem;
+  max-width: 35rem;
+}
+main .welcome .sobre-imagem img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 0.25rem;
+}
+
+/* ============ Doutores ============ */
+main .nossos-doctores {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  padding: 0 var(--gutter);
+  margin-top: clamp(3rem, 8vw, 6rem);
+  background: var(--background-geral);
+}
+
+main .nossos-doctores #desc-nossos-doctores {
+  max-width: 40rem;
+  line-height: 1.5;
+  color: var(--text-color-welcome);
+  font-size: 1.1rem;
+  text-align: center;
+}
+
+main .nossos-doctores .card-doctor {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+  gap: 3rem 2rem;
+  width: 100%;
+  max-width: var(--container-cards);
+  margin: 0;
+  padding: 2rem 0;
+  list-style: none;
+}
+
+main .nossos-doctores .doctor img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 0.25rem;
+}
+
+main .nossos-doctores .doctor .card-info {
+  padding: 8px 12px;
+  text-align: center;
+}
+
+main .nossos-doctores .doctor .doctor-nome {
+  margin: 0;
+  font-size: clamp(1.5rem, 3vw, 1.75rem);
+  font-weight: 400;
+  text-align: center;
+}
+
+main .nossos-doctores .doctor .doctor-especialidade {
+  margin-top: 4px;
+  font-size: 14px;
+  text-align: center;
+}
+
+/* ============ Serviços ============ */
+main .nossos-service {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  padding: clamp(3rem, 6vw, 5rem) var(--gutter);
+  margin-top: clamp(3rem, 8vw, 6rem);
+  background: var(--background-nossos-service);
+}
+
+main .nossos-service p#paragrafo-service {
+  max-width: 40rem;
+  margin: 0 auto;
+  font-size: 1rem;
+  color: #5f6b66; /* contraste AA */
+  line-height: 1.5;
+  text-align: center;
+}
+
+main .nossos-service .card-service {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+  gap: 2rem;
+  width: 100%;
+  max-width: var(--container-cards);
+  margin: 1rem 0;
+  padding: 0;
+  list-style: none;
+}
+
+main .nossos-service .card-service .service {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  text-align: center;
+}
+
+main .nossos-service .service img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 0.25rem;
+}
+
+main .nossos-service .service .service-nome {
+  margin: 0.5rem 0 0;
+  font-size: 1.25rem;
+}
+
+main .nossos-service .service p {
+  max-width: 22rem;
+  color: #5f6b66;
+  line-height: 1.5;
+}
+
+/* ============ Números ============ */
+main .desc-service {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: 2.5rem 2rem;
+  padding: clamp(3rem, 6vw, 5rem)
+    max(var(--gutter), calc((100% - var(--container)) / 2));
+  background: var(--bachground-bt-nossos-dotores);
+  text-align: center;
+}
+
+main .desc-service .stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+main .desc-service .stat i {
+  font-size: 45px;
+  color: #fff;
+}
+main .desc-service .stat-number {
+  display: block;
+  font-size: clamp(2rem, 5vw, 2.75rem);
+  font-weight: 400;
+  color: #fff;
+}
+main .desc-service .stat-label {
+  margin: 0;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* ============ Testemunhos ============ */
+main .testemunho {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: clamp(3rem, 6vw, 4rem) 0;
+  background: var(--background-geral);
+}
+main .testemunho .info-testemunho {
+  padding: 0 var(--gutter);
+  text-align: center;
+}
+main .testemunho .info-testemunho .eyebrow {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 500;
+  text-align: center;
+}
+main .testemunho .info-testemunho h2 {
+  max-width: 44rem;
+  margin: 1rem auto;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+/* slider (mecânica mantida: depende do js/index.js) */
+main .testemunho .container-testemunho {
+  width: 100%;
+  overflow: hidden;
+}
+main .testemunho .container-testemunho .slider-testemunho {
+  display: flex;
+  height: 100%;
+  transition: all ease 0.3s;
+}
+/* item do slider */
+main .testemunho .container-testemunho .img-icons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: inherit;
+  width: 100%;
+  margin: 0;
+}
+main .testemunho .container-testemunho .img-icons img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+main .testemunho .container-testemunho .img-icons i {
+  background: var(--background-welcome);
+  width: 60px;
+  height: 60px;
+  border-radius: 59%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: -2rem;
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--bachground-bt-nossos-dotores);
+}
+main .testemunho .container-testemunho .img-icons blockquote {
+  width: min(50rem, calc(100% - 2rem));
+  margin: 1rem 0 0;
+}
+main .testemunho .container-testemunho .img-icons blockquote p {
+  width: 100%;
+  margin: 0;
+  font-size: clamp(1.05rem, 2.5vw, 1.4rem);
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: center;
+  color: var(--bachground-bt-nossos-dotores);
+}
+main .testemunho .container-testemunho .img-icons figcaption {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1rem;
+}
+main .testemunho .container-testemunho .img-icons .paciente-nome {
+  font-size: clamp(1.25rem, 3vw, 1.75rem);
+  font-weight: 700;
+  line-height: 1.2;
+  border-top: 1px solid var(--text-color-welcome);
+  padding-top: 10px;
+  color: var(--bachground-bt-nossos-dotores);
+}
+main .testemunho .container-testemunho .img-icons .paciente-profissao {
+  margin-top: 10px;
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--bachground-bt-nossos-dotores);
+}
+
+/* controlos */
+main .testemunho .bt-slide-testemunho {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+main .testemunho .bt-slide-testemunho .slider-controlls {
+  position: relative;
+  display: flex;
+  height: 1rem;
+  width: 1rem;
+  padding: 0;
+  background: transparent;
+  border: 1px solid var(--bachground-bt-nossos-dotores);
+  border-radius: 50%;
+  transition: 0.5s;
+}
+/* área de toque maior (≈2.5rem) sem mudar o visual */
+main .testemunho .bt-slide-testemunho button.slider-controlls::after {
+  content: "";
+  position: absolute;
+  inset: -0.75rem;
+}
+main .testemunho .bt-slide-testemunho .slider-controlls:hover {
+  cursor: pointer;
+  transform: scale(1.5);
+}
+
+/* ============ Modais ============ */
+main .modalLogin,
+main .modalDados-errados {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(255, 255, 255, 0.5);
+  display: none; /* o JS alterna para flex */
+  transition: all ease 0.5s;
+  padding: 1rem;
+  overflow-y: auto;
+}
+main .modalLogin {
+  z-index: 1;
+}
+main .modalDados-errados {
+  z-index: 2;
+}
+
+main .modalLogin .cardLogin {
+  width: min(25rem, 100%);
+  margin: auto; /* centra sem cortar o topo em ecrãs baixos */
+  padding: 2rem 1.5rem;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 0px 15px #999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+main .modalLogin .cardLogin h2 {
+  font-weight: 500;
+}
+main .modalLogin .cardLogin p {
+  max-width: 20rem;
+  margin: 1rem 0;
+  line-height: 1.4;
+  text-align: center;
+}
+main .modalLogin .cardLogin form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  width: 100%;
+  max-width: 20rem;
+  margin-top: 0.5rem;
+}
+main .modalLogin .cardLogin label {
+  display: block;
+  font-weight: 500;
+}
+main .modalLogin .cardLogin input {
+  box-sizing: border-box;
+  width: 100%;
+  height: 2.5rem;
+  padding-left: 8px;
+  margin-top: 0.4rem;
+  border-radius: 0.25rem;
+  border: 1px solid var(--bachground-bt-nossos-dotores);
+}
+main .modalLogin .cardLogin .btnADDCancel {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+main .modalLogin .cardLogin .btnADDCancel button {
+  border: none;
+  font-size: 0.9rem;
+}
+main .modalLogin .cardLogin .btnADDCancel .login {
+  padding: 0.9rem 2.5rem;
+}
+main .modalLogin .cardLogin .btnADDCancel .btCancelar {
+  padding: 0.9rem 2rem;
+  background: none;
+  border: 1px solid var(--bt-background);
+  color: #000;
+}
+main .modalLogin .cardLogin a {
+  margin-top: 2rem;
+  font-size: 12px;
+  color: #000;
+  border-bottom: 1px solid #000;
+}
+
+main .modalDados-errados .cardDados-errados {
+  width: min(30rem, 100%);
+  margin: auto;
+  padding: 2rem 1.5rem;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 0px 15px #999;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
+}
+main .modalDados-errados .cardDados-errados h2 {
+  font-weight: 500;
+}
+main .modalDados-errados .cardDados-errados span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  border: 1px solid var(--bt-background);
+  font-size: 2.5rem;
+}
+main .modalDados-errados .cardDados-errados button {
+  padding: 0.5rem 2rem;
+}
+
+/* ============ Footer ============ */
+footer {
+  color: var(--test-footer);
+}
+
+footer .info-footer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: 2.5rem 3rem;
+  padding: clamp(3rem, 6vw, 4rem)
+    max(var(--gutter), calc((100% - var(--container)) / 2));
+  background: var(--bachground-bt-nossos-dotores);
+}
+
+footer .footer-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+footer .footer-brand {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--test-footer);
+}
+footer .footer-brand span {
+  color: var(--bt-background);
+}
+
+footer .mundo-hospital p:not(.footer-brand) {
+  max-width: 20rem;
+  line-height: 24px;
+  font-weight: 400;
+}
+
+footer .footer-title {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-align: left;
+  color: var(--test-footer);
+}
+
+footer .footer-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+footer .footer-list li {
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--test-footer);
+}
+footer .footer-list a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--test-footer);
+  text-decoration: none;
+}
+footer .footer-list a:hover {
+  text-decoration: underline;
+}
+
+footer address {
+  font-style: normal;
+}
+footer .footer-contactos .contact-footer {
+  margin-right: 0.5rem;
+}
+
+footer .footer-social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+footer .footer-social a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid var(--test-footer);
+  border-radius: 50%;
+  color: var(--test-footer);
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+footer .footer-social a:hover {
+  background-color: var(--bt-background);
+  border-color: var(--bt-background);
+  color: var(--bt-text);
+}
+
+footer .copyright {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 3rem;
+  padding: 0.75rem var(--gutter);
+  color: #2d2d2d;
+  font-size: 14px;
+  text-align: center;
+}
+footer .copyright span {
+  color: #2d2d2d;
+}
+
+/* ============ Responsividade ============ */
+@media (max-width: 48rem) {
+  main .banner {
+    min-height: 26rem;
+  }
+  main .welcome .welcome-inf {
+    flex-basis: 100%;
+  }
+  main .welcome p,
+  main .nossos-doctores #desc-nossos-doctores {
+    font-size: 1rem;
+  }
+  main .nossos-doctores .card-doctor {
+    gap: 2rem 1.5rem;
+  }
+  footer .info-footer {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 30rem) {
+  main .modalLogin .cardLogin .btnADDCancel button {
+    flex: 1 1 100%;
+  }
+  footer .info-footer {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============ Movimento reduzido ============ */
+@media (prefers-reduced-motion: reduce) {
+  main *,
+  footer * {
+    transition-duration: 0.01ms !important;
+  }
 }
