@@ -1,111 +1,269 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="assets/css/dotores.css">
-  <link rel="stylesheet" href="assets/fonts/css/all.css">
-  <title>Mundo Hospitalar</title>
-</head>
-<body>
-  <header>
-    <h1><span>Mundo</span>-Hospitalar</h1>
-    <div class="menu">
-      <nav>
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="sobre_nos.html">Sobre nós</a></li>
-          <li><a href="dotores.html">Doctores</a></li>
-          <li><a href="servico.html">Serviços</a></li>
-        </ul>
-      </nav>
-      <button class="bt-login">Login</button>
-    </div>
-  </header>
-  <main>
-    <div class="banner"> 
-      <div class="banner-2"></div>
-         <div class="container--banner-2">
-           <h1>Nossos Doctores</h1>
-          <span>Faça a sua consulta e torne a sua vida mais feliz</span>
-        </div>
-    </div>
-    <div class="nossos-doctores">
-      <h1>Nossos Dotores</h1>
-      <p>Dignissimos asperiores vitae velit veniam totam fuga molestias accusamus alias autem provident. Odit ab aliquam dolor eius.</p>
-      <div class="card-doctor"></div>
-    </div>
-    <div class="modalLogin">
-      <div class="cardLogin">
-        <h1>Login</h1>
-        <p>faço login para marcar sua consulta,e ter mais informações</p>
-        <form action="">
-          <label for="inputEmail">
-            Email:<br>
-            <input type="email" id="inputEmail">
-          </label>
-          <label for="inputPassword">
-            Password: <br>
-            <input type="password" id="inputPassword">
-          </label>
-        </form>
-        <div class="btnADDCancel">
-          <button class="login">Login</button>
-          <button class="btCancelar">Cancelar</button>
-        </div>
-        <a href="cadastrarUser.html">click aqui para criar uma conta!</a>
+<!doctype html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Conheça os doutores do Mundo Hospitalar e consulte o perfil, a experiência e o horário de cada especialista."
+    />
+    <meta name="theme-color" content="#1d2a4d" />
+    <link rel="stylesheet" href="assets/css/dotores.css" />
+    <link rel="stylesheet" href="assets/fonts/css/all.css" />
+    <title>Doutores | Mundo Hospitalar</title>
+  </head>
+  <body>
+    <!-- HEADER: mantido exatamente como estava -->
+    <header>
+      <h1><span>Mundo</span>-Hospitalar</h1>
+      <div class="menu">
+        <nav>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="sobre_nos.html">Sobre nós</a></li>
+            <li><a href="dotores.html">Doctores</a></li>
+            <li><a href="servico.html">Serviços</a></li>
+          </ul>
+        </nav>
+        <button class="bt-login">Login</button>
       </div>
-    </div>
-    <div class="modalDados-errados">
-      <div class="cardDados-errados">
-        <h1>Usuario não encontrado</h1>
-        <span>!</span>
-        <button>OK</button>
+    </header>
+
+    <main id="conteudo" tabindex="-1">
+      <!-- Banner -->
+      <section class="banner">
+        <div class="banner-2" aria-hidden="true"></div>
+        <div class="container--banner-2">
+          <h1>Nossos Doutores</h1>
+          <p>Faça a sua consulta e torne a sua vida mais feliz</p>
+        </div>
+      </section>
+
+      <!-- Lista de doutores (gerada por js/doutores-lista.js) -->
+      <section class="nossos-doctores" aria-labelledby="titulo-doutores">
+        <h2 id="titulo-doutores">Nossos Doutores</h2>
+        <p id="desc-nossos-doctores">
+          Dignissimos asperiores vitae velit veniam totam fuga molestias
+          accusamus alias autem provident. Odit ab aliquam dolor eius.
+        </p>
+        <ul class="card-doctor" id="lista-doutores"></ul>
+        <noscript>
+          <p class="aviso-noscript">
+            É necessário ativar o JavaScript para ver a lista de doutores.
+          </p>
+        </noscript>
+      </section>
+
+      <!-- Modal do perfil do doutor (elemento nativo <dialog>) -->
+      <dialog
+        class="modalDoutor"
+        id="modal-doutor"
+        aria-labelledby="doutor-nome"
+      >
+        <div class="doutor-conteudo">
+          <button
+            type="button"
+            class="doutor-fechar"
+            aria-label="Fechar perfil do doutor"
+          >
+            <i class="fas fa-xmark" aria-hidden="true"></i>
+          </button>
+          <img class="doutor-foto" id="doutor-foto" alt="" />
+          <div class="doutor-info">
+            <h2 id="doutor-nome"></h2>
+            <p class="doutor-especialidade" id="doutor-especialidade"></p>
+            <p class="doutor-sobre" id="doutor-sobre"></p>
+            <dl class="doutor-detalhes" id="doutor-detalhes"></dl>
+            <a class="btn-ligar" href="tel:+244926614139"
+              ><i class="fas fa-phone" aria-hidden="true"></i>Ligar para marcar
+              consulta</a
+            >
+          </div>
+        </div>
+      </dialog>
+
+      <!-- Modal de login -->
+      <div
+        class="modalLogin"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="titulo-login"
+        aria-describedby="desc-login"
+      >
+        <div class="cardLogin">
+          <h2 id="titulo-login">Login</h2>
+          <p id="desc-login">
+            Faça login para marcar a sua consulta e ter mais informações.
+          </p>
+          <form id="form-login" action="">
+            <div class="campo">
+              <label for="inputEmail">Email</label>
+              <input
+                type="email"
+                id="inputEmail"
+                name="email"
+                autocomplete="email"
+                required
+              />
+            </div>
+            <div class="campo">
+              <label for="inputPassword">Password</label>
+              <input
+                type="password"
+                id="inputPassword"
+                name="password"
+                autocomplete="current-password"
+                required
+              />
+            </div>
+          </form>
+          <div class="btnADDCancel">
+            <button type="button" class="login">Login</button>
+            <button type="button" class="btCancelar">Cancelar</button>
+          </div>
+          <a href="cadastrarUser.html">Clique aqui para criar uma conta!</a>
+        </div>
       </div>
-    </div>
-  </main>
-  <footer>
-    <div class="info-footer">
-     <ul class="mundo-hospital">
-       <h1><Span>Mundo</Span>-Hospitalar</h1>
-       <p>
-         Lorem ipsum dolor sit am consectetur adipisicing elit do eiusmod tempor incididunt ut labore dolore magna.
-       </p>
-     </ul>
-     <ul class="service">
-       <h1>Serviços</h1>
-       <li><a href="#"><i class="fas fa-caret-right"></i>Cardiologia</a></li>
-       <li><a href="#"><i class="fas fa-caret-right"></i>Nerologia</a></li>
-       <li><a href="#"><i class="fas fa-caret-right"></i>Ortopedia</a></li>
-       <li><a href="#"><i class="fas fa-caret-right"></i>Raio-x</a></li>
-     </ul>
-     <ul class="links-mundo-hosp">
-       <h1>Links Rapidos</h1>
-      <li><a href="#"><i class="fas fa-caret-right"></i>Home</a></li>
-      <li><a href="#"><i class="fas fa-caret-right"></i>Sobre-nós</a></li>
-      <li><a href="#"><i class="fas fa-caret-right"></i>Dotores</a></li>
-      <li><a href="#"><i class="fas fa-caret-right"></i>Serviços</a></li>
-     </ul>
-     <ul class="endereco">
-       <h1>Endereços</h1>
-       <li><i class="contact-footer fas fa-map-marker"></i>subscribe to our newsletter to get allour news in your inbox.. Lorem ipsum dolor</li>
-       <li><i class="contact-footer fas fa-envelope"></i>info@gmail.com</li>
-        <li><i class="contact-footer fas fa-phone"></i>+244 926-614-139</li>
-        <li id="icons-endereco">
-         <i class="fab fa-facebook"></i>
-         <i class="fab fa-twitter"></i>
-         <i class="fab fa-linkedin"></i>
-         <i class="fab fa-instagram"></i>
-        </li>
-     </ul>
-    </div>
-    <div class="copyRigts">
-     <section class="diretos">
-        <span>&copy;</span> <h1><span>Mundo</span>-Hospitalar</h1>
-       <p>Todos os Deritos Reservados</p>
-     </section>
-    </div>
-   </footer>
-   <script src="js/dotores.js"></script>
-</body>
+
+      <!-- Modal de erro -->
+      <div
+        class="modalDados-errados"
+        role="alertdialog"
+        aria-modal="true"
+        aria-labelledby="titulo-erro"
+      >
+        <div class="cardDados-errados">
+          <h2 id="titulo-erro">Utilizador não encontrado</h2>
+          <span aria-hidden="true">!</span>
+          <button type="button">OK</button>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <div class="info-footer">
+        <div class="footer-col mundo-hospital">
+          <p class="footer-brand"><span>Mundo</span>-Hospitalar</p>
+          <p>
+            Lorem ipsum dolor sit am consectetur adipisicing elit do eiusmod
+            tempor incididunt ut labore dolore magna.
+          </p>
+        </div>
+
+        <section class="footer-col" aria-labelledby="footer-servicos">
+          <h2 class="footer-title" id="footer-servicos">Serviços</h2>
+          <ul class="footer-list">
+            <li>
+              <a href="servico.html"
+                ><i class="fas fa-caret-right" aria-hidden="true"></i
+                >Cardiologia</a
+              >
+            </li>
+            <li>
+              <a href="servico.html"
+                ><i class="fas fa-caret-right" aria-hidden="true"></i
+                >Neurologia</a
+              >
+            </li>
+            <li>
+              <a href="servico.html"
+                ><i class="fas fa-caret-right" aria-hidden="true"></i
+                >Ortopedia</a
+              >
+            </li>
+            <li>
+              <a href="servico.html"
+                ><i class="fas fa-caret-right" aria-hidden="true"></i>Raio-X</a
+              >
+            </li>
+          </ul>
+        </section>
+
+        <nav class="footer-col" aria-labelledby="footer-links">
+          <h2 class="footer-title" id="footer-links">Links Rápidos</h2>
+          <ul class="footer-list">
+            <li>
+              <a href="index.html"
+                ><i class="fas fa-caret-right" aria-hidden="true"></i>Home</a
+              >
+            </li>
+            <li>
+              <a href="sobre_nos.html"
+                ><i class="fas fa-caret-right" aria-hidden="true"></i>Sobre
+                nós</a
+              >
+            </li>
+            <li>
+              <a href="dotores.html"
+                ><i class="fas fa-caret-right" aria-hidden="true"></i
+                >Doutores</a
+              >
+            </li>
+            <li>
+              <a href="servico.html"
+                ><i class="fas fa-caret-right" aria-hidden="true"></i
+                >Serviços</a
+              >
+            </li>
+          </ul>
+        </nav>
+
+        <section class="footer-col" aria-labelledby="footer-contactos">
+          <h2 class="footer-title" id="footer-contactos">Contactos</h2>
+          <address>
+            <ul class="footer-list footer-contactos">
+              <li>
+                <i
+                  class="contact-footer fas fa-map-marker"
+                  aria-hidden="true"
+                ></i
+                >Luanda, Angola
+              </li>
+              <li>
+                <i class="contact-footer fas fa-envelope" aria-hidden="true"></i
+                ><a href="mailto:info@gmail.com">info@gmail.com</a>
+              </li>
+              <li>
+                <i class="contact-footer fas fa-phone" aria-hidden="true"></i
+                ><a href="tel:+244926614139">+244 926-614-139</a>
+              </li>
+            </ul>
+          </address>
+          <ul class="footer-social">
+            <li>
+              <a href="#" aria-label="Facebook"
+                ><i class="fab fa-facebook" aria-hidden="true"></i
+              ></a>
+            </li>
+            <li>
+              <a href="#" aria-label="Twitter"
+                ><i class="fab fa-twitter" aria-hidden="true"></i
+              ></a>
+            </li>
+            <li>
+              <a href="#" aria-label="LinkedIn"
+                ><i class="fab fa-linkedin" aria-hidden="true"></i
+              ></a>
+            </li>
+            <li>
+              <a href="#" aria-label="Instagram"
+                ><i class="fab fa-instagram" aria-hidden="true"></i
+              ></a>
+            </li>
+          </ul>
+        </section>
+      </div>
+      <div class="copyright">
+        <p>
+          &copy; <span>Mundo</span>-Hospitalar. Todos os direitos reservados.
+        </p>
+      </div>
+    </footer>
+
+    <!-- Script existente (login, etc.) -->
+    <script src="js/dotores.js"></script>
+    <!-- Novos: dados + lista + modal do doutor (sem defer, para correrem depois do script acima) -->
+    <script src="js/data/doctor-lista.js"></script>
+    <script src="js/data/doctores.js"></script>
+  </body>
 </html>
