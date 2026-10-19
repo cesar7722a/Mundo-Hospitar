@@ -4,7 +4,12 @@
   box-sizing: border-box;
   list-style: none;
   text-decoration: none;
-  font-family: "Inter";
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    sans-serif;
 }
 :root {
   --text-color-bt: #fff;
@@ -24,54 +29,6 @@
   --container: 72rem;
 }
 
-/* Regra original mantida para não alterar o botão do header */
-button {
-  border-radius: 0.25rem;
-  color: var(--text-color-bt);
-  background-color: var(--bt-background);
-  border: none;
-  cursor: pointer;
-}
-
-/* ============ HEADER (inalterado) ============ */
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 4rem;
-  height: 5rem;
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
-  background-color: #ffffff;
-  z-index: 2;
-}
-header h1 span {
-  color: var(--bt-background);
-}
-header h1 {
-  color: rgba(0, 0, 0, 0.9);
-  font-weight: 600;
-  cursor: pointer;
-}
-header .menu {
-  display: flex;
-}
-header .menu nav ul {
-  display: flex;
-}
-header .menu nav ul li {
-  padding: 0.5rem 1rem;
-}
-header .menu nav ul li a {
-  color: var(--text-color-menu);
-  font-size: 18px;
-}
-header .menu .bt-login {
-  padding: 0.5rem 2.5rem;
-}
-
 /* ============ Utilitários ============ */
 .sr-only {
   position: absolute;
@@ -86,8 +43,7 @@ header .menu .bt-login {
 }
 
 /* Foco visível: anel duplo (funciona em fundo claro e escuro) */
-main :focus-visible,
-footer :focus-visible {
+main :focus-visible {
   outline: 2px solid #fff;
   outline-offset: 0;
   box-shadow: 0 0 0 4px var(--bachground-bt-nossos-dotores);
@@ -294,23 +250,24 @@ main .testemunho .info-testemunho h2 {
   line-height: 1.2;
 }
 
-/* slider (mecânica mantida: depende do js/sobre_nos.js) */
+/* carrossel (js/testemunhos.js) */
 main .testemunho .container-testemunho {
   width: 100%;
   overflow: hidden;
 }
 main .testemunho .container-testemunho .slider-testemunho {
   display: flex;
-  height: 100%;
-  transition: all ease 0.3s;
+  width: 100%;
+  transition: transform 0.4s ease;
 }
 main .testemunho .container-testemunho .img-icons {
+  flex: 0 0 100%;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: inherit;
-  width: 100%;
+  margin: 0;
 }
 main .testemunho .container-testemunho .img-icons img {
   width: 150px;
@@ -367,251 +324,57 @@ main .testemunho .container-testemunho .img-icons .paciente-profissao {
 /* controlos */
 main .testemunho .bt-slide-testemunho {
   display: flex;
-  gap: 0.75rem;
+  align-items: center;
+  gap: 1rem;
   margin-top: 0.5rem;
 }
-main .testemunho .bt-slide-testemunho .slider-controlls {
-  position: relative;
-  display: flex;
-  height: 1rem;
-  width: 1rem;
-  padding: 0;
-  background: transparent;
-  border: 1px solid var(--bachground-bt-nossos-dotores);
-  border-radius: 50%;
-  transition: 0.5s;
-}
-/* área de toque maior (≈2.5rem) sem mudar o visual */
-main .testemunho .bt-slide-testemunho button.slider-controlls::after {
-  content: "";
-  position: absolute;
-  inset: -0.75rem;
-}
-main .testemunho .bt-slide-testemunho .slider-controlls:hover {
-  cursor: pointer;
-  transform: scale(1.5);
-}
-
-/* ============ Modais ============ */
-main .modalLogin,
-main .modalDados-errados {
-  position: fixed;
-  inset: 0;
-  background-color: rgba(255, 255, 255, 0.5);
-  display: none; /* o JS alterna para flex */
-  transition: all ease 0.5s;
-  padding: 1rem;
-  overflow-y: auto;
-}
-main .modalLogin {
-  z-index: 1;
-}
-main .modalDados-errados {
-  z-index: 2;
-}
-
-main .modalLogin .cardLogin {
-  width: min(25rem, 100%);
-  margin: auto; /* centra sem cortar o topo em ecrãs baixos */
-  padding: 2rem 1.5rem;
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0px 0px 15px #999;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-main .modalLogin .cardLogin h2 {
-  font-size: 2em;
-  font-weight: 500;
-}
-main .modalLogin .cardLogin p {
-  max-width: 20rem;
-  margin: 1rem 0;
-  line-height: 1.4;
-  text-align: center;
-}
-main .modalLogin .cardLogin form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-  width: 100%;
-  max-width: 20rem;
-  margin-top: 0.5rem;
-}
-main .modalLogin .cardLogin label {
-  display: block;
-  font-weight: 500;
-}
-main .modalLogin .cardLogin input {
-  width: 100%;
-  height: 2.5rem;
-  padding-left: 8px;
-  margin-top: 0.4rem;
-  border-radius: 0.25rem;
-  border: 1px solid var(--bachground-bt-nossos-dotores);
-}
-main .modalLogin .cardLogin .btnADDCancel {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.75rem;
-  margin-top: 1.5rem;
-}
-main .modalLogin .cardLogin .btnADDCancel button {
-  border: none;
-  font-size: 0.9rem;
-}
-main .modalLogin .cardLogin .btnADDCancel .login {
-  padding: 0.9rem 2.5rem;
-}
-main .modalLogin .cardLogin .btnADDCancel .btCancelar {
-  padding: 0.9rem 2rem;
-  background: none;
-  border: 1px solid var(--bt-background);
-  color: #000;
-}
-main .modalLogin .cardLogin a {
-  margin-top: 2rem;
-  font-size: 12px;
-  color: #000;
-  border-bottom: 1px solid #000;
-}
-
-main .modalDados-errados .cardDados-errados {
-  width: min(30rem, 100%);
-  margin: auto;
-  padding: 2rem 1.5rem;
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0px 0px 15px #999;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-  text-align: center;
-}
-main .modalDados-errados .cardDados-errados h2 {
-  font-size: 2em;
-  font-weight: 500;
-}
-main .modalDados-errados .cardDados-errados span {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 4rem;
-  height: 4rem;
-  border-radius: 50%;
-  border: 1px solid var(--bt-background);
-  font-size: 2.5rem;
-}
-main .modalDados-errados .cardDados-errados button {
-  padding: 0.5rem 2rem;
-}
-
-/* ============ Footer ============ */
-footer {
-  color: var(--test-footer);
-}
-
-footer .info-footer {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
-  gap: 2.5rem 3rem;
-  padding: clamp(3rem, 6vw, 4rem)
-    max(var(--gutter), calc((100% - var(--container)) / 2));
-  background: var(--bachground-bt-nossos-dotores);
-}
-
-footer .footer-col {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 1rem;
-}
-
-footer .footer-brand {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--test-footer);
-}
-footer .footer-brand span {
-  color: var(--bt-background);
-}
-
-footer .mundo-hospital p:not(.footer-brand) {
-  max-width: 20rem;
-  line-height: 24px;
-  font-weight: 400;
-}
-
-footer .footer-title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--test-footer);
-}
-
-footer .footer-list {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-footer .footer-list li {
-  font-size: 16px;
-  line-height: 24px;
-  color: var(--test-footer);
-}
-footer .footer-list a {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: var(--test-footer);
-}
-footer .footer-list a:hover {
-  text-decoration: underline;
-}
-
-footer address {
-  font-style: normal;
-}
-footer .footer-contactos .contact-footer {
-  margin-right: 0.5rem;
-}
-
-footer .footer-social {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-footer .footer-social a {
+main .testemunho .bt-slide-testemunho .slider-btn {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 2.5rem;
   height: 2.5rem;
-  border: 1px solid var(--test-footer);
+  padding: 0;
+  font-size: 1rem;
+  color: var(--bachground-bt-nossos-dotores);
+  background: transparent;
+  border: 1px solid var(--bachground-bt-nossos-dotores);
   border-radius: 50%;
-  color: var(--test-footer);
   transition:
     background-color 0.2s ease,
     color 0.2s ease;
 }
-footer .footer-social a:hover {
-  background-color: var(--bt-background);
-  border-color: var(--bt-background);
-  color: var(--bt-text);
+main .testemunho .bt-slide-testemunho .slider-btn:hover {
+  color: #fff;
+  background: var(--bachground-bt-nossos-dotores);
+  filter: none;
 }
-
-footer .copyright {
+main .testemunho .slider-dots {
   display: flex;
-  justify-content: center;
   align-items: center;
-  min-height: 3rem;
-  padding: 0.75rem var(--gutter);
-  color: #2d2d2d;
-  font-size: 14px;
-  text-align: center;
+  gap: 0.6rem;
+}
+main .testemunho .slider-dots button {
+  position: relative;
+  width: 0.75rem;
+  height: 0.75rem;
+  padding: 0;
+  background: transparent;
+  border: 1px solid var(--bachground-bt-nossos-dotores);
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+}
+/* área de toque maior sem mudar o visual */
+main .testemunho .slider-dots button::after {
+  content: "";
+  position: absolute;
+  inset: -0.6rem;
+}
+main .testemunho .slider-dots button[aria-current="true"] {
+  background: var(--bachground-bt-nossos-dotores);
+}
+main [hidden] {
+  display: none !important;
 }
 
 /* ============ Responsividade ============ */
@@ -624,24 +387,11 @@ footer .copyright {
   main .welcome .sobre-info p {
     font-size: 1rem;
   }
-  footer .info-footer {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-@media (max-width: 30rem) {
-  main .modalLogin .cardLogin .btnADDCancel button {
-    flex: 1 1 100%;
-  }
-  footer .info-footer {
-    grid-template-columns: 1fr;
-  }
 }
 
 /* ============ Movimento reduzido ============ */
 @media (prefers-reduced-motion: reduce) {
-  main *,
-  footer * {
+  main * {
     transition-duration: 0.01ms !important;
   }
 }

@@ -8,11 +8,20 @@
   --bt-text: #0b1a33; /* texto dos botões: contraste AA sobre o verde */
   --bachground-bt-nossos-dotores: #1d2a4d;
   --menu-text: #4a5a54; /* contraste AA sobre branco */
+  --test-footer: #eff5ff;
   --gutter: clamp(1rem, 5vw, 4rem);
+  --container: 72rem;
 }
 
 /* Reset só para os componentes (especificidade 0, não briga com nada) */
-:where(.site-header, .site-header *, .dialog-login, .dialog-login *) {
+:where(
+  .site-header,
+  .site-header *,
+  .site-footer,
+  .site-footer *,
+  .dialog-login,
+  .dialog-login *
+) {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -33,6 +42,7 @@ body:has(dialog[open]) {
 
 /* Foco visível: anel duplo (funciona em fundo claro e escuro) */
 .site-header :focus-visible,
+.site-footer :focus-visible,
 .skip-link:focus-visible,
 .dialog-login :focus-visible {
   outline: 2px solid #fff;
@@ -316,9 +326,125 @@ body:has(dialog[open]) {
   }
 }
 
+/* ============ Footer ============ */
+.site-footer {
+  color: var(--test-footer);
+}
+
+.site-footer .info-footer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: 2.5rem 3rem;
+  padding: clamp(3rem, 6vw, 4rem)
+    max(var(--gutter), calc((100% - var(--container)) / 2));
+  background: var(--bachground-bt-nossos-dotores);
+}
+
+.site-footer .footer-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.site-footer .footer-brand {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--test-footer);
+}
+.site-footer .footer-brand span {
+  color: var(--bt-background);
+}
+
+.site-footer .mundo-hospital p:not(.footer-brand) {
+  max-width: 20rem;
+  line-height: 24px;
+  font-weight: 400;
+}
+
+.site-footer .footer-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--test-footer);
+}
+
+.site-footer .footer-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.site-footer .footer-list li {
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--test-footer);
+}
+.site-footer .footer-list a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--test-footer);
+}
+.site-footer .footer-list a:hover {
+  text-decoration: underline;
+}
+
+.site-footer address {
+  font-style: normal;
+}
+.site-footer .footer-contactos .contact-footer {
+  margin-right: 0.5rem;
+}
+
+.site-footer .footer-social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.site-footer .footer-social a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid var(--test-footer);
+  border-radius: 50%;
+  color: var(--test-footer);
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+.site-footer .footer-social a:hover {
+  background-color: var(--bt-background);
+  border-color: var(--bt-background);
+  color: var(--bt-text);
+}
+
+.site-footer .copyright {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 3rem;
+  padding: 0.75rem var(--gutter);
+  color: #2d2d2d;
+  font-size: 14px;
+  text-align: center;
+}
+
+@media (max-width: 48rem) {
+  .site-footer .info-footer {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 30rem) {
+  .site-footer .info-footer {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .site-header,
   .site-header *,
+  .site-footer *,
   .skip-link,
   .dialog-login * {
     transition-duration: 0.01ms !important;

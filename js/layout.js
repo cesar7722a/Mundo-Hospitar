@@ -6,6 +6,8 @@
  *   2. logo a seguir ao <body>:
  *        <div id="site-header"></div>
  *        <script src="js/layout.js"></script>
+ *   3. no sítio do rodapé:
+ *        <div id="site-footer"></div>
  *
  * O menu e a ligação ativa (aria-current) são gerados a partir da lista LINKS.
  * Para abrir o login a partir de qualquer botão:
@@ -19,7 +21,6 @@
   /* ---------- Configuração ---------- */
 
   var LINKS = [
-    { href: "index.html", texto: "Home" },
     { href: "sobre_nos.html", texto: "Sobre nós" },
     { href: "dotores.html", texto: "Doutores" },
     { href: "servico.html", texto: "Serviços" },
@@ -29,6 +30,23 @@
   var CHAVE_PACIENTES = "pacientes_mundo_hospitalar";
   var CHAVE_LETRA = "userParaLogar";
   var CHAVE_POSICAO = "posPaciente_mundo_hospitalar";
+
+  // Rodapé
+  var DESCRICAO_RODAPE =
+    "Lorem ipsum dolor sit am consectetur adipisicing elit do eiusmod tempor incididunt ut labore dolore magna.";
+  var SERVICOS_RODAPE = ["Cardiologia", "Neurologia", "Ortopedia", "Raio-X"];
+  var CONTACTOS = {
+    local: "Luanda, Angola",
+    email: "info@gmail.com",
+    telefone: "+244 926-614-139",
+    tel: "+244926614139",
+  };
+  var REDES = [
+    { nome: "Facebook", icone: "fab fa-facebook" },
+    { nome: "Twitter", icone: "fab fa-twitter" },
+    { nome: "LinkedIn", icone: "fab fa-linkedin" },
+    { nome: "Instagram", icone: "fab fa-instagram" },
+  ];
 
   /* ---------- Utilitários ---------- */
 
@@ -122,6 +140,82 @@
     }
     window.addEventListener("scroll", atualizarSombra, { passive: true });
     atualizarSombra();
+  }
+
+  /* ---------- Footer ---------- */
+
+  function htmlFooter() {
+    var seta = '<i class="fas fa-caret-right" aria-hidden="true"></i>';
+
+    var servicos = SERVICOS_RODAPE.map(function (nome) {
+      return '<li><a href="servico.html">' + seta + nome + "</a></li>";
+    }).join("");
+
+    var links = LINKS.map(function (l) {
+      return '<li><a href="' + l.href + '">' + seta + l.texto + "</a></li>";
+    }).join("");
+
+    var redes = REDES.map(function (r) {
+      return (
+        '<li><a href="#" aria-label="' +
+        r.nome +
+        '">' +
+        '<i class="' +
+        r.icone +
+        '" aria-hidden="true"></i></a></li>'
+      );
+    }).join("");
+
+    return (
+      '<footer class="site-footer"><div class="info-footer">' +
+      '<div class="footer-col mundo-hospital">' +
+      '<p class="footer-brand"><span>Mundo</span>-Hospitalar</p>' +
+      "<p>" +
+      DESCRICAO_RODAPE +
+      "</p></div>" +
+      '<section class="footer-col" aria-labelledby="footer-servicos">' +
+      '<h2 class="footer-title" id="footer-servicos">Serviços</h2>' +
+      '<ul class="footer-list">' +
+      servicos +
+      "</ul></section>" +
+      '<nav class="footer-col" aria-labelledby="footer-links">' +
+      '<h2 class="footer-title" id="footer-links">Links Rápidos</h2>' +
+      '<ul class="footer-list">' +
+      links +
+      "</ul></nav>" +
+      '<section class="footer-col" aria-labelledby="footer-contactos">' +
+      '<h2 class="footer-title" id="footer-contactos">Contactos</h2>' +
+      '<address><ul class="footer-list footer-contactos">' +
+      '<li><i class="contact-footer fas fa-map-marker" aria-hidden="true"></i>' +
+      CONTACTOS.local +
+      "</li>" +
+      '<li><i class="contact-footer fas fa-envelope" aria-hidden="true"></i>' +
+      '<a href="mailto:' +
+      CONTACTOS.email +
+      '">' +
+      CONTACTOS.email +
+      "</a></li>" +
+      '<li><i class="contact-footer fas fa-phone" aria-hidden="true"></i>' +
+      '<a href="tel:' +
+      CONTACTOS.tel +
+      '">' +
+      CONTACTOS.telefone +
+      "</a></li>" +
+      "</ul></address>" +
+      '<ul class="footer-social">' +
+      redes +
+      "</ul></section>" +
+      "</div>" +
+      '<div class="copyright"><p>&copy; ' +
+      new Date().getFullYear() +
+      " <span>Mundo</span>-Hospitalar. Todos os direitos reservados.</p></div>" +
+      "</footer>"
+    );
+  }
+
+  function montarFooter() {
+    var alvo = document.getElementById("site-footer");
+    if (alvo) alvo.replaceWith(criarDeHtml(htmlFooter()));
   }
 
   /* ---------- Modal de login ---------- */
@@ -255,10 +349,15 @@
   window.abrirLogin = abrirLogin;
   window.mostraMoodal = abrirLogin; // nome antigo, mantido por compatibilidade
 
+  function aoCarregar() {
+    montarFooter();
+    montarLogin();
+  }
+
   montarHeader(); // corre já, para o header aparecer sem "piscar"
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", montarLogin);
+    document.addEventListener("DOMContentLoaded", aoCarregar);
   } else {
-    montarLogin();
+    aoCarregar();
   }
 })();

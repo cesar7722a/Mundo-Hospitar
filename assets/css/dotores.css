@@ -31,8 +31,7 @@
 
 /* ============ Utilitários ============ */
 /* Foco visível: anel duplo (funciona em fundo claro e escuro) */
-main :focus-visible,
-footer :focus-visible {
+main :focus-visible {
   outline: 2px solid #fff;
   outline-offset: 0;
   box-shadow: 0 0 0 4px var(--bachground-bt-nossos-dotores);
@@ -316,117 +315,7 @@ main .modalDoutor .btn-ligar:hover {
   color: #fff;
 }
 
-/* ============ Footer ============ */
-footer {
-  color: var(--test-footer);
-}
-
-footer .info-footer {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
-  gap: 2.5rem 3rem;
-  padding: clamp(3rem, 6vw, 4rem)
-    max(var(--gutter), calc((100% - var(--container)) / 2));
-  background: var(--bachground-bt-nossos-dotores);
-}
-
-footer .footer-col {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 1rem;
-}
-
-footer .footer-brand {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--test-footer);
-}
-footer .footer-brand span {
-  color: var(--bt-background);
-}
-
-footer .mundo-hospital p:not(.footer-brand) {
-  max-width: 20rem;
-  line-height: 24px;
-  font-weight: 400;
-}
-
-footer .footer-title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--test-footer);
-}
-
-footer .footer-list {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-footer .footer-list li {
-  font-size: 16px;
-  line-height: 24px;
-  color: var(--test-footer);
-}
-footer .footer-list a {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: var(--test-footer);
-}
-footer .footer-list a:hover {
-  text-decoration: underline;
-}
-
-footer address {
-  font-style: normal;
-}
-footer .footer-contactos .contact-footer {
-  margin-right: 0.5rem;
-}
-
-footer .footer-social {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-footer .footer-social a {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 2.5rem;
-  height: 2.5rem;
-  border: 1px solid var(--test-footer);
-  border-radius: 50%;
-  color: var(--test-footer);
-  transition:
-    background-color 0.2s ease,
-    color 0.2s ease;
-}
-footer .footer-social a:hover {
-  background-color: var(--bt-background);
-  border-color: var(--bt-background);
-  color: var(--bt-text);
-}
-
-footer .copyright {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 3rem;
-  padding: 0.75rem var(--gutter);
-  color: #2d2d2d;
-  font-size: 14px;
-  text-align: center;
-}
-
 /* ============ Responsividade ============ */
-@media (max-width: 48rem) {
-  footer .info-footer {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
 @media (max-width: 40rem) {
   main .modalDoutor .doutor-conteudo {
     grid-template-columns: 1fr;
@@ -444,16 +333,9 @@ footer .copyright {
   }
 }
 
-@media (max-width: 30rem) {
-  footer .info-footer {
-    grid-template-columns: 1fr;
-  }
-}
-
 /* ============ Movimento reduzido ============ */
 @media (prefers-reduced-motion: reduce) {
-  main *,
-  footer * {
+  main * {
     transition-duration: 0.01ms !important;
   }
 }
