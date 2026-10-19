@@ -1,403 +1,540 @@
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   list-style: none;
   text-decoration: none;
-  font-family: "Inter";
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    sans-serif;
 }
 :root {
   --text-color-bt: #fff;
-  --bt-background:#00D9A5;
-  --text-color-menu:rgba(110, 128, 122, 0.8);
-  --text-color-welcome:#6E807A;
-  --background-welcome:#F7F5FD;
-  --bachground-bt-nossos-dotores:#1D2A4D;
-  --background-nossos-service:#F7F5FD;
-  --h1-about:#13C5DD;
-  --test-footer:#EFF5FF;
-  --background-geral:rgba(255, 255, 255, 0.95);
+  --bt-background: #00d9a5;
+  --bt-text: #0b1a33; /* texto dos botões: contraste AA sobre o verde */
+  --text-color-menu: rgba(110, 128, 122, 0.8);
+  --text-color-welcome: #52625c; /* escurecido para contraste AA */
+  --background-welcome: #f7f5fd;
+  --bachground-bt-nossos-dotores: #1d2a4d;
+  --background-nossos-service: #f7f5fd;
+  --h1-about: #13c5dd;
+  --test-footer: #eff5ff;
+  --background-geral: rgba(255, 255, 255, 0.95);
+
+  /* layout */
+  --gutter: clamp(1rem, 5vw, 4rem);
+  --container: 72rem;
 }
-button{
-  border-radius: 0.25rem;
-  color: var(--text-color-bt);
-  background-color: var(--bt-background);
-  background-color: none;
-  border: none;
-  cursor: pointer;
-}
-header{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 4rem;
-  height: 5rem;
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
-  background-color: #Ffffff;
-  z-index: 2;
-}
-header h1 span{
-  color: var(--bt-background);
-}
-header h1{
-  color: rgba(0, 0, 0, 0.9);
-  font-weight: 600;
-  cursor: pointer;
-}
-header .menu {
-  display: flex;
-  }
-header .menu nav ul{
-  display: flex;
-}
-header .menu nav ul li{
-  padding: .5rem 1rem;
-}
-header .menu nav ul li a{
-  color: var(--text-color-menu);
-  font-size: 18px;
-}
-header .menu .bt-login{
-  padding: .5rem 2.5rem;
-}
-main .banner{
-  height: 25rem;
-  background: url(../img/service/video-bg.jpg) no-repeat  center/cover;
-  position: relative;
-  z-index: -1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 4rem;
-}
-main .banner .banner-2{
+
+/* ============ Utilitários ============ */
+.sr-only {
   position: absolute;
-  height: 25rem;
-  width: 100%;
-  opacity: .6;
-  background-color: rgba(0, 0, 0, 0.9);
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Foco visível: anel duplo (funciona em fundo claro e escuro) */
+main :focus-visible,
+footer :focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 0;
+  box-shadow: 0 0 0 4px var(--bachground-bt-nossos-dotores);
+}
+main:focus {
+  outline: none;
+}
+
+/* Botões dentro do main (o header não é afectado) */
+main button {
+  font: inherit;
+  font-weight: 600;
+  color: var(--bt-text);
+  background-color: var(--bt-background);
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: filter 0.2s ease;
+}
+main button:hover {
+  filter: brightness(0.92);
+}
+
+/* ============ Banner ============ */
+main .banner {
+  position: relative;
+  isolation: isolate;
   display: flex;
   justify-content: center;
   align-items: center;
+  min-height: clamp(18rem, 55vh, 25rem);
+  margin-top: 5rem; /* altura do header fixo */
+  padding: 3rem var(--gutter);
+  background: url(../img/service/video-bg.jpg) no-repeat center/cover;
+}
+main .banner .banner-2 {
+  position: absolute;
+  inset: 0;
   z-index: -1;
+  background-color: rgba(0, 0, 0, 0.54);
 }
-main .banner .container--banner-2{
-   display: flex;
-   flex-direction: column;
-   position: absolute;
-   z-index: 1;
-   gap: .5rem;
+main .banner .container--banner-2 {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-width: 52rem;
 }
-main .banner .container--banner-2 h1{
-   text-align: center;
-   color: var(--text-color-bt);
-   font-size: 54px;
-   font-weight: 600;
-}
-main .banner .container--banner-2 span{
+main .banner .container--banner-2 h1 {
+  text-align: center;
   color: var(--text-color-bt);
+  font-size: clamp(2.25rem, 8vw, 3.375rem);
+  font-weight: 600;
+  line-height: 1.1;
+}
+main .banner .container--banner-2 p {
   margin: 0 auto;
-  font-size: 16px;
+  text-align: center;
+  color: var(--text-color-bt);
+  font-size: clamp(1rem, 2.5vw, 1.125rem);
   font-weight: normal;
 }
+
+/* ============ Introdução ============ */
 main .info-service {
+  margin: clamp(2.5rem, 6vw, 4rem) 0;
+  padding: 0 var(--gutter);
   text-align: center;
-  margin: 4rem 0;
   background: var(--background-geral);
 }
-main .info-service h1{
-  text-align: center;
-  margin: 3.5rem 0 1rem 0;
-  font-size: 2.5rem;
+main .info-service h2 {
+  margin: clamp(1.5rem, 4vw, 3.5rem) 0 1rem;
+  font-size: clamp(2rem, 5vw, 2.5rem);
   font-weight: 500;
+  text-align: center;
 }
 main .info-service p {
-  text-align: center;
-  margin: 1rem  auto 4rem auto;
+  max-width: 40rem;
+  margin: 1rem auto clamp(2rem, 5vw, 4rem);
   font-size: 1rem;
-  color: #828282;
-  width: 40rem;
+  color: #5f6b66; /* contraste AA */
   line-height: 1.5;
+  text-align: center;
 }
+
+/* ============ Pesquisa ============ */
 main .serviceDispo-pesquisa {
-  padding: 0 6rem;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
+  gap: 1rem 2rem;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+main .serviceDispo-pesquisa h2 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 600;
 }
 main .serviceDispo-pesquisa .pesquisa {
+  display: flex;
+  align-items: center;
+  width: min(24rem, 100%);
+  padding-right: 0.5rem;
   border: 1px solid var(--bachground-bt-nossos-dotores);
   border-radius: 0.4rem;
 }
 main .serviceDispo-pesquisa .pesquisa input {
-    padding: .6rem 1rem;
-    border: none;
-    outline: none;
-    font-size: 1rem;
-    border-radius: 0.4rem;
-}
-main .serviceDispo-pesquisa .pesquisa i{
-   padding: .25rem .25rem;
-   color: var(--bt-background);
-}
-main .card-service {
-  padding: 0 4rem;
-  margin: 2.5rem 0;
-}
-main .card-service ul{
-  display: flex;
-  flex-direction: column;
-  gap: .5rem;
-}
-/* pesquisa servico nao encontrado */
-ul section div {
-  height: 30rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-ul section h1 {
-  text-align: center;
-  font-size: 2.5rem;
-}
-main .card-service ul li#lista-desc{
-  display: flex;
-  justify-content: space-around;
-  box-shadow: 0 0px 2px rgba(0,0,0,.15);
-
-}
-main .card-service ul li {
-  display: flex;
-  justify-content: space-around;
-  height: 3.5rem;
-}
-main .card-service ul li h3,h4{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 16rem;
-}
-main .card-service ul li h4 button{
- padding: .5rem 1rem; 
-}
-main .modalLogin {
-  position: fixed;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  z-index: 1;
-  background-color: rgba(255, 255, 255, 0.5);
-  display: none;
-  transition: all ease .5s;
-  justify-content: center;
-  align-items: center;
-  overflow-y: auto;
-}
-main .modalLogin .cardLogin {
-  width: 25rem;
-  height: 30rem;
-  background-color: #FFF;
-  border-radius: 10px;
-  box-shadow: 0px 0px 15px #999;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-main .modalLogin .cardLogin h1 {
-    font-weight: 500;
-}
-main .modalLogin .cardLogin p {
-  text-align: center;
-  margin: 1rem 0;
-  width: 20rem;
-  line-height: 1.4;
-}
-main .modalLogin .cardLogin label {
-  display: block;
-  height: 2rem;
-  margin-bottom: 3rem;
-}
-
-main .modalLogin .cardLogin input {
-  width: 20rem;
-  height: 2.5rem;
-  outline: none;
-  padding-left: 8px;
-  border-radius: 0.25rem;
-  margin-top: .4rem;
-}
-
-main .modalLogin .cardLogin .btnADDCancel button {
+  flex: 1;
+  min-width: 0;
+  padding: 0.6rem 1rem;
   border: none;
-  font-size: .9rem;
+  font-size: 1rem;
+  border-radius: 0.4rem;
+  background: transparent;
 }
-main .modalLogin .cardLogin .btnADDCancel .login {
-   padding: .9rem 3.8rem;
+main .serviceDispo-pesquisa .pesquisa i {
+  padding: 0.25rem;
+  color: var(--bachground-bt-nossos-dotores);
 }
-main .modalLogin .cardLogin .btnADDCancel .btCancelar {
-   padding: .9rem 3rem;
-   background: none;
-   border: 1px solid var(--bt-background);
-   color: #000;
+
+/* ============ Tabela de serviços ============ */
+main .card-service {
+  max-width: var(--container);
+  margin: 2rem auto;
+  padding: 0 var(--gutter);
 }
-main .modalLogin .cardLogin a {
-  margin-top: 2rem;
-  font-size: 12px;
-  color: #000;
-  border-bottom: 1px solid #000;
+
+main .tabela-servicos {
+  width: 100%;
+  border-collapse: collapse;
 }
-main .modalDados-errados {
-  position: fixed;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  z-index: 2;
-  background-color: rgba(255, 255, 255, 0.5);
-  display: none;
-  transition: all ease .5s;
-  justify-content: center;
-  align-items: center;
-  overflow-y: auto;
+main .tabela-servicos th,
+main .tabela-servicos td {
+  padding: 1rem;
+  text-align: left;
+  vertical-align: middle;
 }
-main .modalDados-errados .cardDados-errados {
-  width: 30rem;
-  height: 15rem;
-  background-color: #FFF;
+
+main .tabela-servicos thead th {
+  font-weight: 600;
+  color: var(--bachground-bt-nossos-dotores);
+  background: var(--background-welcome);
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.15);
+}
+
+main .tabela-servicos tbody tr {
+  border-bottom: 1px solid rgba(29, 42, 77, 0.12);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+main .tabela-servicos tbody tr:hover {
+  background: var(--background-welcome);
+}
+main .tabela-servicos tbody tr.sem-resultados {
+  cursor: default;
+}
+main .tabela-servicos tbody tr.sem-resultados:hover {
+  background: none;
+}
+main .tabela-servicos tbody tr.sem-resultados td {
+  padding: 4rem 1rem;
+  text-align: center;
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-weight: 700;
+}
+
+main .tabela-servicos tbody th {
+  font-weight: 600;
+  color: var(--bachground-bt-nossos-dotores);
+}
+main .tabela-servicos .preco {
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+main .tabela-servicos .acao {
+  text-align: right;
+}
+main .tabela-servicos .btn-detalhes {
+  padding: 0.5rem 1rem;
+  color: #fff;
+  background-color: var(--bachground-bt-nossos-dotores);
+}
+
+main .aviso-noscript {
+  text-align: center;
+  color: #5f6b66;
+}
+
+/* ============ Modal do serviço (<dialog>) ============ */
+main .modalServico {
+  /* o reset "* { margin: 0 }" desfaz o centramento nativo do dialog */
+  margin: auto;
+  width: min(36rem, calc(100% - 2rem));
+  max-height: calc(100dvh - 2rem);
+  padding: 0;
+  overflow: auto;
+  border: none;
   border-radius: 10px;
-  box-shadow: 0px 0px 15px #999;
+  background: #fff;
+  color: #212121;
+  box-shadow: 0 0 15px #999;
+}
+main .modalServico::backdrop {
+  background: rgba(29, 42, 77, 0.55);
+}
+main .modalServico[open] {
+  display: block;
+}
+main .modalServico [hidden] {
+  display: none !important;
+}
+
+main .modalServico .servico-conteudo {
+  position: relative;
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 1.5rem;
+}
+main .modalServico .servico-fechar {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  display: flex;
   justify-content: center;
   align-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  font-size: 1.25rem;
+  color: #fff;
+  background-color: var(--bachground-bt-nossos-dotores);
+  border-radius: 50%;
+}
+
+main .modalServico .servico-categoria {
+  padding: 0.2rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--bachground-bt-nossos-dotores);
+  background: var(--background-welcome);
+  border-radius: 999px;
+}
+main .modalServico #servico-nome {
+  padding-right: 2.5rem; /* não fica por baixo do botão de fechar */
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--bachground-bt-nossos-dotores);
+}
+main .modalServico .servico-descricao {
+  line-height: 1.6;
+  color: rgb(51, 51, 51);
+}
+
+main .modalServico .servico-detalhes {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.5rem 1rem;
+  width: 100%;
+  padding: 0.75rem 0;
+  border-top: 1px solid rgba(29, 42, 77, 0.15);
+}
+main .modalServico .servico-detalhes dt {
+  font-weight: 600;
+  color: var(--bachground-bt-nossos-dotores);
+}
+main .modalServico .servico-detalhes dd {
+  line-height: 1.5;
+}
+
+main .modalServico .servico-acoes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+main .modalServico .btn-marcar {
+  padding: 0.75rem 1.5rem;
+}
+main .modalServico .btn-ligar {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.25rem;
+  font-weight: 600;
+  color: var(--bachground-bt-nossos-dotores);
+  border: 1px solid var(--bachground-bt-nossos-dotores);
+  border-radius: 0.25rem;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+main .modalServico .btn-ligar:hover {
+  background-color: var(--bachground-bt-nossos-dotores);
+  color: #fff;
+}
+
+/* ============ Footer ============ */
+footer {
+  color: var(--test-footer);
+}
+
+footer .info-footer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: 2.5rem 3rem;
+  padding: clamp(3rem, 6vw, 4rem)
+    max(var(--gutter), calc((100% - var(--container)) / 2));
+  background: var(--bachground-bt-nossos-dotores);
+}
+
+footer .footer-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   gap: 1rem;
 }
-main .modalDados-errados .cardDados-errados h1 {
-    font-weight: 500;
-}
-main .modalDados-errados .cardDados-errados span {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 4rem;
-  height: 4rem;
-  border-radius: 50%;
-  border: 1px solid var(--bt-background);
-  font-size: 2.5rem;
-}
-main .modalDados-errados .cardDados-errados button {
-  padding: .5rem 2rem;
-}
-footer {
-  color: var(--test-footer);
-}
-footer .info-footer{
-  display: flex;
-  justify-content: center;
-  gap: 6rem;
-  background: var(--bachground-bt-nossos-dotores);
-  padding: 4rem 0;
-}
-footer .info-footer ul {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 16px;
-}
-footer .info-footer ul li {
-color: #2D2D2D;
-font-size: 18px;
-font-style: normal;
-font-weight: 400;
-line-height: 24px;
-color: var(--test-footer);
-}
-footer {
-  color: var(--test-footer);
-}
-footer {
-  color: var(--test-footer);
-}
-footer .info-footer{
-  display: flex;
-  justify-content: center;
-  gap: 6rem;
-  background: var(--bachground-bt-nossos-dotores);
-  padding: 4rem 0;
-}
-footer .info-footer ul {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 16px;
-}
-footer .info-footer ul li {
-color: #2D2D2D;
-font-size: 16px;
-font-style: normal;
-font-weight: 400;
-line-height: 24px;
-color: var(--test-footer);
-}
-footer .info-footer ul li a{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: .5rem;
-  color: var(--test-footer);
-}
-footer .info-footer ul h1 {
+
+footer .footer-brand {
   font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--test-footer);
 }
-footer .info-footer .mundo-hospital h1{
-   color: var(--test-footer);
+footer .footer-brand span {
+  color: var(--bt-background);
 }
-footer .info-footer .mundo-hospital h1 span{
-   color: var(--bt-background);
+
+footer .mundo-hospital p:not(.footer-brand) {
+  max-width: 20rem;
+  line-height: 24px;
+  font-weight: 400;
 }
-footer .info-footer .mundo-hospital p{
-   width: 15rem;
-   line-height: 24px;
-   font-weight: 400;
-   margin:10px 0 .5rem 0;
+
+footer .footer-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--test-footer);
 }
-footer .endereco li:nth-child(2){
-   width: 20rem;
-}
-footer .endereco .contact-footer {
-  margin-right: .5rem;
-}
-footer .endereco li:nth-child(5){
+
+footer .footer-list {
   display: flex;
-  gap: .5rem;
+  flex-direction: column;
+  gap: 1rem;
 }
-footer .endereco li#icons-endereco i{
-  width: 2rem;
-  height: 2rem;
+footer .footer-list li {
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--test-footer);
+}
+footer .footer-list a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--test-footer);
+}
+footer .footer-list a:hover {
+  text-decoration: underline;
+}
+
+footer address {
+  font-style: normal;
+}
+footer .footer-contactos .contact-footer {
+  margin-right: 0.5rem;
+}
+
+footer .footer-social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+footer .footer-social a {
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid black;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid var(--test-footer);
   border-radius: 50%;
-  cursor: pointer;
+  color: var(--test-footer);
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
 }
-footer .copyRigts{
+footer .footer-social a:hover {
+  background-color: var(--bt-background);
+  border-color: var(--bt-background);
+  color: var(--bt-text);
+}
+
+footer .copyright {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 3rem;
-  gap: .5rem;
-  color: #2D2D2D;
-}
-footer .copyRigts section {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: .5rem;
+  min-height: 3rem;
+  padding: 0.75rem var(--gutter);
+  color: #2d2d2d;
   font-size: 14px;
+  text-align: center;
+}
+
+/* ============ Responsividade ============ */
+@media (max-width: 48rem) {
+  footer .info-footer {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Tabela vira uma lista de cartões em ecrãs pequenos */
+@media (max-width: 40rem) {
+  main .tabela-servicos,
+  main .tabela-servicos tbody,
+  main .tabela-servicos tr,
+  main .tabela-servicos th,
+  main .tabela-servicos td {
+    display: block;
+  }
+
+  /* cabeçalho só para leitores de ecrã (as colunas passam a etiquetas) */
+  main .tabela-servicos thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+  }
+
+  main .tabela-servicos tbody tr {
+    margin-bottom: 1rem;
+    padding: 0.5rem 0;
+    border: 1px solid rgba(29, 42, 77, 0.15);
+    border-radius: 6px;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.15);
+  }
+  main .tabela-servicos tbody th {
+    padding: 0.5rem 1rem 0.25rem;
+    font-size: 1.125rem;
+  }
+  main .tabela-servicos tbody td {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.4rem 1rem;
+  }
+  main .tabela-servicos tbody td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: var(--bachground-bt-nossos-dotores);
+  }
+  main .tabela-servicos tbody td.acao {
+    justify-content: stretch;
+    padding-top: 0.75rem;
+  }
+  main .tabela-servicos tbody td.acao .btn-detalhes {
+    width: 100%;
+  }
+  main .tabela-servicos tbody tr.sem-resultados {
+    border: none;
+    box-shadow: none;
+  }
+  main .tabela-servicos tbody tr.sem-resultados td {
+    display: block;
+  }
+  main .tabela-servicos tbody tr.sem-resultados td::before {
+    content: none;
+  }
+
+  main .modalServico .servico-detalhes {
+    grid-template-columns: 1fr;
+    gap: 0.15rem;
+  }
+  main .modalServico .servico-detalhes dd {
+    margin-bottom: 0.5rem;
+  }
+}
+
+@media (max-width: 30rem) {
+  footer .info-footer {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============ Movimento reduzido ============ */
+@media (prefers-reduced-motion: reduce) {
+  main *,
+  footer * {
+    transition-duration: 0.01ms !important;
+  }
 }

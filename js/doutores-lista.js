@@ -1,7 +1,8 @@
 /**
  * Lista de doutores + modal de perfil.
  *
- * Os dados vêm de js/doutores-data.js (window.DOUTORES).
+ * Os dados vêm de js/doutores-data.js (window.DOUTORES, ou uma variável
+ * global chamada DOUTORES: "const DOUTORES = [...]" também funciona).
  * Para adicionar, editar ou remover um doutor, altera apenas esse ficheiro.
  *
  * O modal usa o elemento nativo <dialog> (foco, Esc e fundo tratados pelo
@@ -35,8 +36,15 @@
     };
   }
 
+  /** Devolve a lista de doutores, ou null se não existir / não for uma lista. */
   function carregarDados() {
-    return (window.DOUTORES || []).map(normalizar);
+    var origem = typeof DOUTORES !== "undefined" ? DOUTORES : window.DOUTORES;
+    if (!Array.isArray(origem)) return null;
+    return origem
+      .filter(function (d) {
+        return d && typeof d === "object";
+      })
+      .map(normalizar);
   }
 
   /* ---------- Utilitários ---------- */
@@ -119,7 +127,15 @@
       );
       return;
     }
-    lista.replaceChildren.apply(lista, dados.map(criarCartao));
+    var cartoes = [];
+    dados.forEach(function (d) {
+      try {
+        cartoes.push(criarCartao(d));
+      } catch (erro) {
+        console.error("[doutores] Erro ao desenhar este doutor:", d, erro);
+      }
+    });
+    lista.replaceChildren.apply(lista, cartoes);
   }
 
   /* ---------- Modal ---------- */
@@ -189,11 +205,9 @@
     } else {
       modal.setAttribute("open", ""); // navegadores muito antigos
     }
-    document.body.classList.add("modal-aberto");
   }
 
   function aoFechar() {
-    document.body.classList.remove("modal-aberto");
     if (gatilhoAtual) {
       gatilhoAtual.focus();
       gatilhoAtual = null;
@@ -211,14 +225,23 @@
       return;
     }
 
-    if (!Array.isArray(window.DOUTORES)) {
-      console.error(
-        "[doutores] window.DOUTORES não existe. Confirma que js/doutores-data.js " +
-          "está carregado antes de js/doutores-lista.js.",
-      );
-    }
-
     dados = carregarDados();
+    if (dados === null) {
+      console.error(
+        "[doutores] Não encontrei a lista DOUTORES. Possíveis causas: " +
+          "(1) js/doutores-data.js não carregou (404 no separador Network); " +
+          "(2) esse ficheiro tem um erro de sintaxe (vírgula, aspas ou parêntese a faltar); " +
+          "(3) a variável não se chama DOUTORES ou não é uma lista [ ... ].",
+      );
+      lista.replaceChildren(
+        el("li", {
+          classe: "lista-vazia",
+          texto:
+            "Não foi possível carregar os dados dos doutores. Abra a consola do navegador (F12) para ver o erro.",
+        }),
+      );
+      return;
+    }
     renderLista();
 
     // Clique em qualquer parte do cartão (o botão serve o teclado)
@@ -249,7 +272,7 @@
       marcar.addEventListener("click", function () {
         gatilhoAtual = null; // o foco passa para o modal de login
         modal.close();
-        if (typeof window.mostraMoodal === "function") window.mostraMoodal();
+        if (typeof window.abrirLogin === "function") window.abrirLogin();
       });
     }
   }

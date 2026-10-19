@@ -1,130 +1,240 @@
-<!DOCTYPE html>  <link rel="stylesheet" href="assets/fonts/css/all.css">
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="assets/css/servico.css">
-  <link rel="stylesheet" href="assets/fonts/css/all.css">
-  <title>Mundo Hospitalar</title>
-</head>
-<body>
-  <header>
-    <h1><span>Mundo</span>-Hospitalar</h1>
-    <div class="menu">
-      <nav>
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="sobre_nos.html">Sobre nós</a></li>
-          <li><a href="dotores.html">Doctores</a></li>
-          <li><a href="servico.html">Serviços</a></li>
-        </ul>
-      </nav>
-      <button class="bt-login">Login</button>
-    </div>
-  </header>
-<main>
-  <div class="banner"> 
-    <div class="banner-2"></div>
-       <div class="container--banner-2">
-         <h1>Nossos Serviços</h1>
-        <span>Faça a sua consulta e torne a sua vida mais feliz</span>
+<!doctype html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Consulte os serviços do Mundo Hospitalar, com preços, dias de atendimento e informações para marcar a sua consulta."
+    />
+    <meta name="theme-color" content="#1d2a4d" />
+    <link rel="stylesheet" href="assets/css/layout.css" />
+    <link rel="stylesheet" href="assets/css/servico.css" />
+    <link rel="stylesheet" href="assets/fonts/css/all.css" />
+    <title>Serviços | Mundo Hospitalar</title>
+  </head>
+  <body>
+    <!-- Header partilhado (js/layout.js) -->
+    <div id="site-header"></div>
+    <script src="js/layout.js"></script>
+
+    <main id="conteudo" tabindex="-1">
+      <!-- Banner -->
+      <section class="banner">
+        <div class="banner-2" aria-hidden="true"></div>
+        <div class="container--banner-2">
+          <h1>Nossos Serviços</h1>
+          <p>Faça a sua consulta e torne a sua vida mais feliz</p>
+        </div>
+      </section>
+
+      <section class="info-service" aria-labelledby="titulo-servicos">
+        <h2 id="titulo-servicos">Nossos Serviços</h2>
+        <p id="paragrafo-service">
+          Lorem Ipsum dolroin gravida nibh vel velit auctor aliquet. Aenean
+          sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum,
+          nec sagittis sem!
+        </p>
+      </section>
+
+      <!-- Tabela de serviços (gerada por js/servicos-lista.js) -->
+      <section class="servicos-lista" aria-labelledby="titulo-disponiveis">
+        <div class="serviceDispo-pesquisa">
+          <h2 id="titulo-disponiveis">Serviços Disponíveis</h2>
+          <form class="pesquisa" role="search">
+            <label for="inputPesquisa" class="sr-only"
+              >Procurar serviço pelo nome</label
+            >
+            <input
+              type="search"
+              id="inputPesquisa"
+              name="pesquisa"
+              placeholder="Procurar serviço pelo nome"
+              autocomplete="off"
+            />
+            <i class="fas fa-search" aria-hidden="true"></i>
+          </form>
+        </div>
+
+        <p class="sr-only" id="resultado-pesquisa" role="status"></p>
+
+        <div class="card-service">
+          <table class="tabela-servicos" role="table">
+            <caption class="sr-only">
+              Serviços disponíveis, com preço e dias de atendimento. Escolha um
+              serviço para ver mais detalhes.
+            </caption>
+            <thead role="rowgroup">
+              <tr role="row">
+                <th scope="col" role="columnheader">Nome do Serviço</th>
+                <th scope="col" role="columnheader">Preço</th>
+                <th scope="col" role="columnheader">Dias da semana</th>
+                <th scope="col" role="columnheader">Operação</th>
+              </tr>
+            </thead>
+            <tbody id="corpo-servicos" role="rowgroup"></tbody>
+          </table>
+          <noscript>
+            <p class="aviso-noscript">
+              É necessário ativar o JavaScript para ver a lista de serviços.
+            </p>
+          </noscript>
+        </div>
+      </section>
+
+      <!-- Modal de detalhes do serviço (elemento nativo <dialog>) -->
+      <dialog
+        class="modalServico"
+        id="modal-servico"
+        aria-labelledby="servico-nome"
+      >
+        <div class="servico-conteudo">
+          <button
+            type="button"
+            class="servico-fechar"
+            aria-label="Fechar detalhes do serviço"
+          >
+            <i class="fas fa-xmark" aria-hidden="true"></i>
+          </button>
+          <p class="servico-categoria" id="servico-categoria"></p>
+          <h2 id="servico-nome"></h2>
+          <p class="servico-descricao" id="servico-descricao"></p>
+          <dl class="servico-detalhes" id="servico-detalhes"></dl>
+          <div class="servico-acoes">
+            <button type="button" class="btn-marcar" id="servico-marcar">
+              Marcar consulta
+            </button>
+            <a class="btn-ligar" href="tel:+244926614139"
+              ><i class="fas fa-phone" aria-hidden="true"></i>Ligar</a
+            >
+          </div>
+        </div>
+      </dialog>
+    </main>
+
+    <footer>
+      <div class="info-footer">
+        <div class="footer-col mundo-hospital">
+          <p class="footer-brand"><span>Mundo</span>-Hospitalar</p>
+          <p>
+            Lorem ipsum dolor sit am consectetur adipisicing elit do eiusmod
+            tempor incididunt ut labore dolore magna.
+          </p>
+        </div>
+
+        <section class="footer-col" aria-labelledby="footer-servicos">
+          <h2 class="footer-title" id="footer-servicos">Serviços</h2>
+          <ul class="footer-list">
+            <li>
+              <a href="servico.html"
+                ><i class="fas fa-caret-right" aria-hidden="true"></i
+                >Cardiologia</a
+              >
+            </li>
+            <li>
+              <a href="servico.html"
+                ><i class="fas fa-caret-right" aria-hidden="true"></i
+                >Neurologia</a
+              >
+            </li>
+            <li>
+              <a href="servico.html"
+                ><i class="fas fa-caret-right" aria-hidden="true"></i
+                >Ortopedia</a
+              >
+            </li>
+            <li>
+              <a href="servico.html"
+                ><i class="fas fa-caret-right" aria-hidden="true"></i>Raio-X</a
+              >
+            </li>
+          </ul>
+        </section>
+
+        <nav class="footer-col" aria-labelledby="footer-links">
+          <h2 class="footer-title" id="footer-links">Links Rápidos</h2>
+          <ul class="footer-list">
+            <li>
+              <a href="index.html"
+                ><i class="fas fa-caret-right" aria-hidden="true"></i>Home</a
+              >
+            </li>
+            <li>
+              <a href="sobre_nos.html"
+                ><i class="fas fa-caret-right" aria-hidden="true"></i>Sobre
+                nós</a
+              >
+            </li>
+            <li>
+              <a href="dotores.html"
+                ><i class="fas fa-caret-right" aria-hidden="true"></i
+                >Doutores</a
+              >
+            </li>
+            <li>
+              <a href="servico.html"
+                ><i class="fas fa-caret-right" aria-hidden="true"></i
+                >Serviços</a
+              >
+            </li>
+          </ul>
+        </nav>
+
+        <section class="footer-col" aria-labelledby="footer-contactos">
+          <h2 class="footer-title" id="footer-contactos">Contactos</h2>
+          <address>
+            <ul class="footer-list footer-contactos">
+              <li>
+                <i
+                  class="contact-footer fas fa-map-marker"
+                  aria-hidden="true"
+                ></i
+                >Luanda, Angola
+              </li>
+              <li>
+                <i class="contact-footer fas fa-envelope" aria-hidden="true"></i
+                ><a href="mailto:info@gmail.com">info@gmail.com</a>
+              </li>
+              <li>
+                <i class="contact-footer fas fa-phone" aria-hidden="true"></i
+                ><a href="tel:+244926614139">+244 926-614-139</a>
+              </li>
+            </ul>
+          </address>
+          <ul class="footer-social">
+            <li>
+              <a href="#" aria-label="Facebook"
+                ><i class="fab fa-facebook" aria-hidden="true"></i
+              ></a>
+            </li>
+            <li>
+              <a href="#" aria-label="Twitter"
+                ><i class="fab fa-twitter" aria-hidden="true"></i
+              ></a>
+            </li>
+            <li>
+              <a href="#" aria-label="LinkedIn"
+                ><i class="fab fa-linkedin" aria-hidden="true"></i
+              ></a>
+            </li>
+            <li>
+              <a href="#" aria-label="Instagram"
+                ><i class="fab fa-instagram" aria-hidden="true"></i
+              ></a>
+            </li>
+          </ul>
+        </section>
       </div>
-  </div>
-  <div class="info-service">
-    <h1>Nossos Serviços</h1>
-    <p id="paragrafo-service">Lorem Ipsum dolroin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem!</p>
-  </div>
-  <div class="serviceDispo-pesquisa">
-    <section class="service-Dispo">
-      <h1>Serviços Disponiveis</h1>
-    </section>
-    <section class="pesquisa">
-      <input type="text" placeholder="Procurar serviço pelo nome" id="inputPesquisa">
-      <i class="fas fa-search"></i>
-    </section>
-  </div>
-  <div class="card-service">
-    <ul>
-      <li id="lista-desc">
-        <h3>Nome do Serviço</h3>
-        <h3>Preço</h3>
-        <h3>dias da semana</h3>
-        <h3>operação</h3>
-      </li>
-      <section></section>
-    </ul>
-  </div>
-  <div class="modalLogin">
-    <div class="cardLogin">
-      <h1>Login</h1>
-      <p>faço login para marcar sua consulta,e ter mais informações</p>
-      <form action="">
-        <label for="inputEmail">
-          Email:<br>
-          <input type="email" id="inputEmail">
-        </label>
-        <label for="inputPassword">
-          Password: <br>
-          <input type="password" id="inputPassword">
-        </label>
-      </form>
-      <div class="btnADDCancel">
-        <button class="login">Login</button>
-        <button class="btCancelar">Cancelar</button>
+      <div class="copyright">
+        <p>
+          &copy; <span>Mundo</span>-Hospitalar. Todos os direitos reservados.
+        </p>
       </div>
-      <a href="cadastrarUser.html">click aqui para criar uma conta!</a>
-    </div>
-  </div>
-  <div class="modalDados-errados">
-    <div class="cardDados-errados">
-      <h1>Usuario não encontrado</h1>
-      <span>!</span>
-      <button>OK</button>
-    </div>
-  </div>
-</main>
-<footer>
-  <div class="info-footer">
-   <ul class="mundo-hospital">
-     <h1><Span>Mundo</Span>-Hospitalar</h1>
-     <p>
-       Lorem ipsum dolor sit am consectetur adipisicing elit do eiusmod tempor incididunt ut labore dolore magna.
-     </p>
-   </ul>
-   <ul class="service">
-     <h1>Serviços</h1>
-     <li><a href="#"><i class="fas fa-caret-right"></i>Cardiologia</a></li>
-     <li><a href="#"><i class="fas fa-caret-right"></i>Nerologia</a></li>
-     <li><a href="#"><i class="fas fa-caret-right"></i>Ortopedia</a></li>
-     <li><a href="#"><i class="fas fa-caret-right"></i>Raio-x</a></li>
-   </ul>
-   <ul class="links-mundo-hosp">
-     <h1>Links Rapidos</h1>
-    <li><a href="#"><i class="fas fa-caret-right"></i>Home</a></li>
-    <li><a href="#"><i class="fas fa-caret-right"></i>Sobre-nós</a></li>
-    <li><a href="#"><i class="fas fa-caret-right"></i>Dotores</a></li>
-    <li><a href="#"><i class="fas fa-caret-right"></i>Serviços</a></li>
-   </ul>
-   <ul class="endereco">
-     <h1>Endereços</h1>
-     <li><i class="contact-footer fas fa-map-marker"></i>subscribe to our newsletter to get allour news in your inbox.. Lorem ipsum dolor</li>
-     <li><i class="contact-footer fas fa-envelope"></i>info@gmail.com</li>
-      <li><i class="contact-footer fas fa-phone"></i>+244 926-614-139</li>
-      <li id="icons-endereco">
-       <i class="fab fa-facebook"></i>
-       <i class="fab fa-twitter"></i>
-       <i class="fab fa-linkedin"></i>
-       <i class="fab fa-instagram"></i>
-      </li>
-   </ul>
-  </div>
-  <div class="copyRigts">
-   <section class="diretos">
-       <span>&copy;</span> <h1><span>Mundo</span>-Hospitalar</h1>
-     <p>Todos os Deritos Reservados</p>
-   </section>
-  </div>
- </footer>
-   <script src="js/servico.js"></script>
-</body>
+    </footer>
+
+    <!-- 1. Dados fixos dos serviços -->
+    <script src="js/servicos-data.js"></script>
+    <!-- 2. Tabela, pesquisa e modal de detalhes -->
+    <script src="js/servicos-lista.js"></script>
+  </body>
 </html>
