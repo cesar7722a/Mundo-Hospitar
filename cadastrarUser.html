@@ -1,74 +1,274 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="assets/css/cadastrarUser.css">
-  <title>Mundo Hospitalar</title>
-</head>
-<body class="dados_geral">
-  <h1 id="titulo_principal_cadastrar_user">Cria sua conta para marcar consultas e ter mais informações do nossos serviços</h1>
-    <div class="container-form">
-      <form action="">
-        <label for="inputNome">
-          <span>Nome</span>
-          <input type="text" placeholder="nome completo" id="inputNome">
-          <p id="texto_validando_nome">Nome inváldo</p>
-        </label>
-        <label for="inputEmail">
-          <span>Email</span>
-          <input type="email" placeholder="nome@gmail.com" id="inputEmail">
-          <p id="texto_validando_email">email existente</p>
-        </label>
-        <label for="inputBI">
-          <span>Número BI</span>
-          <input type="text" placeholder="00000LA043" id="inputBI">
-          <p id="texto_validando_bi">BI válido</p>
-        </label>
-        <label for="inputTelefone">
-          <span>Nº Telefone</span>
-          <input type="text" placeholder="926 614 139" id="inputTelefone">
-          <p id="texto_validando_telefone">número maximo digitos é 9</p>
-        </label>
-        <label for="inputPassword">
-          <span>PassWord</span>
-          <input type="password" id="inputPassword">
-          <p id="texto_validando_passWord">Password inváldo</p>
-        </label>
-        <label for="inputEndereco">
-        <span>Teu Endereço</span>
-        <input type="text" placeholder="Luanda/Cazenga/Kikolo" id="inputEndereco">
-        <p>Esse endereço não é válido</p>
-      </label>
-        <section class="date_sexo">
-            <section class="date">
-              <h2>Data de Nascimento</h2>
-              <input type="date" id="inputData">
-              <p id="texto_validando_idade">Idade mínima 16 anos</p>
-            </section>
-            <section class="sexo">
-              <h2>Sexo</h2>
-              <select name="sexo" id="selectSexo">
-                <option value="1">Escoher Sexo</option>
-                <option value="2">Masculino</option>
-                <option value="3">Femenino</option>
-                <option value="4">Não Dizer</option>
-              </select>
-            </section>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Crie a sua conta no Mundo Hospitalar para marcar consultas e ter mais informações sobre os nossos serviços."
+    />
+    <meta name="theme-color" content="#1d2a4d" />
+    <link rel="stylesheet" href="assets/css/layout.css" />
+    <link rel="stylesheet" href="assets/css/cadastro.css" />
+    <link rel="stylesheet" href="assets/fonts/css/all.css" />
+    <title>Criar conta | Mundo Hospitalar</title>
+  </head>
+  <body>
+    <!-- Header partilhado (js/layout.js) -->
+    <div id="site-header"></div>
+    <script src="js/layout.js"></script>
+
+    <main id="conteudo" tabindex="-1" class="cadastro">
+      <div class="cadastro-cartao">
+        <!-- Painel lateral -->
+        <aside class="cadastro-painel" aria-labelledby="titulo-painel">
+          <p class="painel-marca"><span>Mundo</span>-Hospitalar</p>
+          <h2 id="titulo-painel">Cuide da sua saúde com poucos cliques</h2>
+          <ul class="painel-lista">
+            <li>
+              <i class="fas fa-calendar-check" aria-hidden="true"></i>
+              <span>Marque consultas sem sair de casa</span>
+            </li>
+            <li>
+              <i class="fas fa-notes-medical" aria-hidden="true"></i>
+              <span>Acompanhe os serviços que solicitou</span>
+            </li>
+            <li>
+              <i class="fas fa-circle-info" aria-hidden="true"></i>
+              <span>Receba informações sobre os nossos serviços</span>
+            </li>
+          </ul>
+        </aside>
+
+        <!-- Formulário -->
+        <section class="cadastro-form" aria-labelledby="titulo-cadastro">
+          <h1 id="titulo-cadastro">Crie a sua conta</h1>
+          <p class="intro">
+            Para marcar consultas e ter mais informações sobre os nossos
+            serviços. Os campos são todos obrigatórios.
+          </p>
+
+          <div
+            class="resumo-erros"
+            id="resumo-erros"
+            role="alert"
+            tabindex="-1"
+            hidden
+          ></div>
+          <div class="sucesso" id="sucesso" role="status" hidden>
+            <p>
+              <strong>Conta criada com sucesso!</strong> A abrir a sua área…
+            </p>
+            <a href="userLogado.html">Continuar agora</a>
+          </div>
+
+          <form id="form-cadastro" novalidate>
+            <fieldset>
+              <legend>Dados pessoais</legend>
+              <div class="grade">
+                <div class="campo campo--largo" data-campo="nome">
+                  <label for="inputNome">Nome completo</label>
+                  <input
+                    type="text"
+                    id="inputNome"
+                    name="nome"
+                    placeholder="Maria da Silva"
+                    autocomplete="name"
+                    maxlength="80"
+                    required
+                    aria-describedby="ajuda-nome erro-nome"
+                  />
+                  <p class="ajuda" id="ajuda-nome">Nome e apelido.</p>
+                  <p class="erro" id="erro-nome" aria-live="polite"></p>
+                </div>
+
+                <div class="campo" data-campo="data">
+                  <label for="inputData">Data de nascimento</label>
+                  <input
+                    type="date"
+                    id="inputData"
+                    name="data"
+                    autocomplete="bday"
+                    required
+                    aria-describedby="ajuda-data erro-data"
+                  />
+                  <p class="ajuda" id="ajuda-data">Idade mínima: 16 anos.</p>
+                  <p class="erro" id="erro-data" aria-live="polite"></p>
+                </div>
+
+                <div class="campo" data-campo="sexo">
+                  <label for="selectSexo">Sexo</label>
+                  <select
+                    id="selectSexo"
+                    name="sexo"
+                    autocomplete="sex"
+                    required
+                    aria-describedby="erro-sexo"
+                  >
+                    <option value="">Escolher…</option>
+                    <option value="masculino">Masculino</option>
+                    <option value="feminino">Feminino</option>
+                    <option value="nao-dizer">Prefiro não dizer</option>
+                  </select>
+                  <p class="erro" id="erro-sexo" aria-live="polite"></p>
+                </div>
+
+                <div class="campo campo--largo" data-campo="bilhete">
+                  <label for="inputBI">Número do BI</label>
+                  <input
+                    type="text"
+                    id="inputBI"
+                    name="bilhete"
+                    placeholder="000123456LA043"
+                    autocomplete="off"
+                    maxlength="18"
+                    required
+                    aria-describedby="ajuda-bilhete erro-bilhete"
+                  />
+                  <p class="ajuda" id="ajuda-bilhete">
+                    9 números, 2 letras e 3 números (14 caracteres).
+                  </p>
+                  <p class="erro" id="erro-bilhete" aria-live="polite"></p>
+                </div>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend>Contacto</legend>
+              <div class="grade">
+                <div class="campo" data-campo="email">
+                  <label for="inputEmail">Email</label>
+                  <input
+                    type="email"
+                    id="inputEmail"
+                    name="email"
+                    placeholder="nome@gmail.com"
+                    autocomplete="email"
+                    maxlength="254"
+                    required
+                    aria-describedby="erro-email"
+                  />
+                  <p class="erro" id="erro-email" aria-live="polite"></p>
+                </div>
+
+                <div class="campo" data-campo="telefone">
+                  <label for="inputTelefone">Nº de telefone</label>
+                  <input
+                    type="tel"
+                    id="inputTelefone"
+                    name="telefone"
+                    placeholder="926 614 139"
+                    autocomplete="tel-national"
+                    maxlength="18"
+                    required
+                    aria-describedby="ajuda-telefone erro-telefone"
+                  />
+                  <p class="ajuda" id="ajuda-telefone">9 dígitos.</p>
+                  <p class="erro" id="erro-telefone" aria-live="polite"></p>
+                </div>
+
+                <div class="campo campo--largo" data-campo="endereco">
+                  <label for="inputEndereco">Endereço</label>
+                  <input
+                    type="text"
+                    id="inputEndereco"
+                    name="endereco"
+                    placeholder="Luanda / Cazenga / Kikolo"
+                    autocomplete="street-address"
+                    maxlength="120"
+                    required
+                    aria-describedby="erro-endereco"
+                  />
+                  <p class="erro" id="erro-endereco" aria-live="polite"></p>
+                </div>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend>Segurança</legend>
+              <div class="grade">
+                <div class="campo" data-campo="password">
+                  <label for="inputPassword">Password</label>
+                  <div class="input-com-botao">
+                    <input
+                      type="password"
+                      id="inputPassword"
+                      name="password"
+                      autocomplete="new-password"
+                      maxlength="64"
+                      required
+                      aria-describedby="ajuda-password erro-password"
+                    />
+                    <button
+                      type="button"
+                      class="btn-mostrar"
+                      aria-controls="inputPassword"
+                      aria-pressed="false"
+                      aria-label="Mostrar password"
+                    >
+                      <i class="fas fa-eye" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                  <p class="ajuda" id="ajuda-password">
+                    Mínimo de 8 caracteres, com letras e números.
+                  </p>
+                  <div class="forca" id="forca-password" data-nivel="">
+                    <span class="forca-barra" aria-hidden="true"></span>
+                    <span class="forca-texto" id="forca-texto"></span>
+                  </div>
+                  <p class="erro" id="erro-password" aria-live="polite"></p>
+                </div>
+
+                <div class="campo" data-campo="confirmar">
+                  <label for="inputConfirmar">Repetir password</label>
+                  <div class="input-com-botao">
+                    <input
+                      type="password"
+                      id="inputConfirmar"
+                      name="confirmar"
+                      autocomplete="new-password"
+                      maxlength="64"
+                      required
+                      aria-describedby="erro-confirmar"
+                    />
+                    <button
+                      type="button"
+                      class="btn-mostrar"
+                      aria-controls="inputConfirmar"
+                      aria-pressed="false"
+                      aria-label="Mostrar password"
+                    >
+                      <i class="fas fa-eye" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                  <p class="erro" id="erro-confirmar" aria-live="polite"></p>
+                </div>
+              </div>
+            </fieldset>
+
+            <div class="acoes">
+              <button type="submit" class="btn-cadastrar-paciente btn-primario">
+                Criar conta
+              </button>
+              <a class="btn-cancelar-cadastro btn-secundario" href="index.html"
+                >Cancelar</a
+              >
+            </div>
+
+            <p class="ja-tem-conta">
+              Já tem conta?
+              <button type="button" class="link-botao" data-abrir-login>
+                Faça login
+              </button>
+            </p>
+          </form>
         </section>
-      </form>
-      <div class="bt-cadastrar_cancelar">
-        <button class="btn-cadastrar-paciente">Cadastrar</button>
-        <button class="btn-cancelar-cadastro">Cancelar</button>
       </div>
-    </div>
-    <div class="modalDados-errados">
-      <div class="cardDados-errados">
-        <h1>preenche todos os campos </h1>
-        <span>!</span>
-        <button>OK</button>
-      </div>
-    </div>
-    <script src="js/cadastrarUser.js"></script>
-</body>
+    </main>
+
+    <!-- Footer partilhado (js/layout.js) -->
+    <div id="site-footer"></div>
+
+    <script src="js/cadastro.js"></script>
+  </body>
 </html>
