@@ -1,0 +1,130 @@
+/* ==========================================================
+   Editar perfil (pageEditar.html)
+   Reaproveita cadastro.css (cartão, campos, erros, botões) e acrescenta
+   só o que é específico desta página.
+   ========================================================== */
+
+/* ---------- painel lateral: resumo da conta ---------- */
+.perfil-painel {
+  align-items: flex-start;
+}
+.perfil-avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 4.5rem;
+  height: 4.5rem;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--bt-text);
+  background: var(--verde);
+  border-radius: 50%;
+}
+.perfil-painel h2 {
+  font-size: 1.4rem;
+  overflow-wrap: anywhere;
+}
+.perfil-email {
+  margin-top: 0.25rem;
+  color: rgba(255, 255, 255, 0.85);
+  overflow-wrap: anywhere;
+}
+.perfil-desde {
+  margin-top: 0.25rem;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+.perfil-desde:empty {
+  display: none;
+}
+
+.painel-acao {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  width: 100%;
+  padding: 0;
+  font: inherit;
+  text-align: left;
+  color: rgba(255, 255, 255, 0.95);
+  background: none;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.painel-acao i {
+  display: flex;
+  flex: none;
+  justify-content: center;
+  align-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  color: var(--verde);
+  background: rgba(0, 217, 165, 0.15);
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+}
+.painel-acao:hover i {
+  background: rgba(0, 217, 165, 0.3);
+}
+.painel-acao:hover span {
+  text-decoration: underline;
+}
+
+/* o foco do painel (fundo escuro) usa o anel claro */
+.perfil-painel :focus-visible {
+  box-shadow: 0 0 0 4px #fff;
+  outline: 2px solid var(--navy);
+}
+
+/* ---------- formulário ---------- */
+.nota-seguranca {
+  margin-bottom: 1rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+  color: var(--texto-suave);
+  background: var(--fundo);
+  border-radius: 8px;
+}
+
+.aviso-info {
+  margin-top: 1.25rem;
+  padding: 1rem 1.25rem;
+  color: #1d2a4d;
+  background: #eef1fb;
+  border-left: 4px solid var(--navy);
+  border-radius: 8px;
+  scroll-margin-top: 7rem;
+}
+
+/* campo desativado (ex.: password atual quando não é precisa) */
+.campo input:disabled {
+  color: #8a8a99;
+  background-color: #f2f1f6;
+  cursor: not-allowed;
+}
+
+@media (max-width: 56rem) {
+  .perfil-painel {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .perfil-painel .painel-lista {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1rem;
+    width: 100%;
+  }
+  .perfil-painel .painel-lista li {
+    flex: 1 1 14rem;
+  }
+}
+
+@media (max-width: 40rem) {
+  /* o cadastro.css esconde a lista do painel em ecrãs pequenos; aqui são ações úteis */
+  .perfil-painel .painel-lista {
+    display: flex;
+  }
+}
