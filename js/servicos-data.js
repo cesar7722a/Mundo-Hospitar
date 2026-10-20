@@ -11,7 +11,10 @@
  *  - preco       número, em kwanzas (ex.: 15000)
  *  - dias        dias de atendimento
  *  - horario     horário de atendimento
- *  - duracao     duração aproximada
+ *  - duracao     duração aproximada (texto mostrado ao utilizador)
+ *  - diasSemana  dias em que se pode marcar: 0 = domingo ... 6 = sábado
+ *  - abre/fecha  primeira hora e hora de fecho ("HH:MM") usadas na marcação
+ *  - duracaoMin  duração em minutos (a última marcação termina até à hora de fecho)
  *  - local       piso e sala
  *  - descricao   texto mostrado no modal
  *  - preparacao  (opcional) lista de cuidados antes do serviço
@@ -26,6 +29,10 @@ window.SERVICOS = [
     preco: 10000,
     dias: "Segunda a sexta",
     horario: "08h–18h",
+    diasSemana: [1, 2, 3, 4, 5],
+    abre: "08:00",
+    fecha: "18:00",
+    duracaoMin: 30,
     duracao: "30 minutos",
     local: "Piso 1 · Sala 2",
     descricao:
@@ -42,6 +49,10 @@ window.SERVICOS = [
     preco: 25000,
     dias: "Segunda a quinta",
     horario: "09h–17h",
+    diasSemana: [1, 2, 3, 4],
+    abre: "09:00",
+    fecha: "17:00",
+    duracaoMin: 40,
     duracao: "40 minutos",
     local: "Piso 2 · Sala 3",
     descricao:
@@ -58,6 +69,10 @@ window.SERVICOS = [
     preco: 30000,
     dias: "Terça a sexta",
     horario: "10h–18h",
+    diasSemana: [2, 3, 4, 5],
+    abre: "10:00",
+    fecha: "18:00",
+    duracaoMin: 45,
     duracao: "45 minutos",
     local: "Piso 2 · Sala 7",
     descricao:
@@ -71,6 +86,10 @@ window.SERVICOS = [
     preco: 25000,
     dias: "Segunda a sexta",
     horario: "08h–15h",
+    diasSemana: [1, 2, 3, 4, 5],
+    abre: "08:00",
+    fecha: "15:00",
+    duracaoMin: 30,
     duracao: "30 minutos",
     local: "Piso 1 · Sala 5",
     descricao:
@@ -87,6 +106,10 @@ window.SERVICOS = [
     preco: 18000,
     dias: "Segunda a sexta",
     horario: "08h–16h",
+    diasSemana: [1, 2, 3, 4, 5],
+    abre: "08:00",
+    fecha: "16:00",
+    duracaoMin: 30,
     duracao: "30 minutos",
     local: "Piso 1 · Sala 12",
     descricao:
@@ -100,6 +123,10 @@ window.SERVICOS = [
     preco: 12000,
     dias: "Segunda a sábado",
     horario: "08h–14h",
+    diasSemana: [1, 2, 3, 4, 5, 6],
+    abre: "08:00",
+    fecha: "14:00",
+    duracaoMin: 15,
     duracao: "15 minutos",
     local: "Piso 0 · Imagiologia",
     descricao:
@@ -116,6 +143,10 @@ window.SERVICOS = [
     preco: 8000,
     dias: "Segunda a sábado",
     horario: "07h–12h",
+    diasSemana: [1, 2, 3, 4, 5, 6],
+    abre: "07:00",
+    fecha: "12:00",
+    duracaoMin: 15,
     duracao: "15 minutos",
     local: "Piso 0 · Laboratório",
     descricao:
@@ -132,6 +163,10 @@ window.SERVICOS = [
     preco: 15000,
     dias: "Segunda a sexta",
     horario: "09h–16h",
+    diasSemana: [1, 2, 3, 4, 5],
+    abre: "09:00",
+    fecha: "16:00",
+    duracaoMin: 20,
     duracao: "20 minutos",
     local: "Piso 2 · Sala 4",
     descricao:

@@ -187,6 +187,115 @@ body:has(dialog[open]) {
     width: 100%;
     padding: 0.75rem 1rem;
   }
+
+  /* conta do utilizador: dentro do menu aberto o painel aparece sempre */
+  .site-header .menu-conta {
+    width: 100%;
+  }
+  .site-header .user-avatar {
+    display: none;
+  }
+  .site-header .user-painel,
+  .site-header .user-painel[hidden] {
+    position: static;
+    display: block !important;
+    width: 100%;
+    padding: 0;
+    box-shadow: none;
+  }
+  .site-header .user-nome {
+    padding-left: 0;
+  }
+  .site-header .user-email {
+    padding-left: 0;
+  }
+  .site-header .user-link {
+    padding-left: 0;
+  }
+}
+
+/* ============ Conta do utilizador (avatar + menu) ============ */
+.site-header .menu-conta {
+  display: flex;
+  align-items: center;
+}
+.site-header .user-menu {
+  position: relative;
+}
+.site-header .user-avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  font: inherit;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--bt-text);
+  background: var(--bt-background);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: filter 0.2s ease;
+}
+.site-header .user-avatar:hover {
+  filter: brightness(0.92);
+}
+.site-header .user-painel {
+  position: absolute;
+  top: calc(100% + 0.75rem);
+  right: 0;
+  z-index: 12;
+  width: min(18rem, calc(100vw - 2rem));
+  padding: 0.5rem;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+.site-header .user-painel[hidden] {
+  display: none !important;
+}
+.site-header .user-nome {
+  padding: 0.5rem 0.75rem 0;
+  font-weight: 700;
+  color: var(--bachground-bt-nossos-dotores);
+  overflow-wrap: anywhere;
+}
+.site-header .user-email {
+  margin-bottom: 0.25rem;
+  padding: 0 0.75rem 0.6rem;
+  font-size: 0.85rem;
+  color: var(--menu-text);
+  overflow-wrap: anywhere;
+  border-bottom: 1px solid rgba(29, 42, 77, 0.1);
+}
+.site-header .user-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.65rem 0.75rem;
+  font: inherit;
+  font-size: 0.95rem;
+  text-align: left;
+  color: #212121;
+  background: none;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.site-header .user-link i {
+  width: 1.1rem;
+  text-align: center;
+  color: var(--bachground-bt-nossos-dotores);
+}
+.site-header .user-link:hover {
+  background: #f7f5fd;
+}
+.site-header .user-sair,
+.site-header .user-sair i {
+  color: #8a1c1c;
 }
 
 /* ============ Modal de login (<dialog>) ============ */

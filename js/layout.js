@@ -1,5 +1,10 @@
 /**
- * Componentes partilhados por todas as páginas: HEADER e MODAL DE LOGIN.
+ * Componentes partilhados por todas as páginas: HEADER, FOOTER, MODAL DE LOGIN
+ * e SESSÃO do utilizador.
+ *
+ * O mesmo header serve quem não tem conta (botão "Login") e quem já entrou
+ * (avatar com menu: marcar consulta, as minhas marcações, editar perfil, sair).
+ * Já não são precisas páginas "user*.html" duplicadas.
  *
  * Como usar numa página:
  *   1. <link rel="stylesheet" href="assets/css/layout.css" />   (no <head>)
@@ -10,10 +15,17 @@
  *        <div id="site-footer"></div>
  *
  * O menu e a ligação ativa (aria-current) são gerados a partir da lista LINKS.
- * Para abrir o login a partir de qualquer botão:
- *   - HTML:  <button data-abrir-login>Marcar consulta</button>
- *   - JS:    window.abrirLogin()   (também existe window.mostraMoodal, por
- *                                   compatibilidade com o código antigo)
+ * Atributos que podem ser usados em qualquer botão:
+ *   data-abrir-login        abre o modal de login
+ *   data-marcar-consulta    inicia a marcação (pede login se for preciso)
+ *   data-minhas-marcacoes   abre a lista das marcações do utilizador
+ * No <body> de uma página que exige sessão (ex.: editar perfil):
+ *   <body data-requer-login>
+ *
+ * API em window:
+ *   abrirLogin({ destino }), marcarConsulta({ servico, doutor }),
+ *   Sessao.atual(), Sessao.terminar()
+ *   (window.mostraMoodal continua a existir, por compatibilidade)
  */
 (function () {
   "use strict";
@@ -21,15 +33,19 @@
   /* ---------- Configuração ---------- */
 
   var LINKS = [
+    { href: "index.html", texto: "Home" },
     { href: "sobre_nos.html", texto: "Sobre nós" },
     { href: "dotores.html", texto: "Doutores" },
     { href: "servico.html", texto: "Serviços" },
   ];
 
-  var PAGINA_DO_UTILIZADOR = "userLogado.html";
+  var PAGINA_INICIAL = "index.html";
+  var PAGINA_EDITAR = "pageEditar.html";
+  var PAGINA_MARCACAO = "servico.html";
   var CHAVE_PACIENTES = "pacientes_mundo_hospitalar";
   var CHAVE_LETRA = "userParaLogar";
   var CHAVE_POSICAO = "posPaciente_mundo_hospitalar";
+  var CHAVE_INTENCAO = "mh_marcacao_pendente"; // sessionStorage: o que o utilizador queria marcar
 
   // Rodapé
   var DESCRICAO_RODAPE =
@@ -64,6 +80,62 @@
     return location.pathname.split("/").pop() || "index.html";
   }
 
+  /* ---------- Sessão ---------- */
+
+  function lerPacientes() {
+    try {
+      var valor = JSON.parse(localStorage.getItem(CHAVE_PACIENTES));
+      return Array.isArray(valor) ? valor : [];
+    } catch (erro) {
+      return [];
+    }
+  }
+
+  /** O utilizador com sessão iniciada, ou null. */
+  function utilizadorAtual() {
+    var posicao;
+    try {
+      posicao = JSON.parse(localStorage.getItem(CHAVE_POSICAO));
+    } catch (erro) {
+      return null;
+    }
+    if (typeof posicao === "string" && /^\d+$/.test(posicao))
+      posicao = Number(posicao);
+    if (!Number.isInteger(posicao) || posicao < 0) return null;
+
+    var paciente = lerPacientes()[posicao];
+    if (!paciente || !paciente.nome) return null;
+
+    return {
+      posicao: posicao,
+      nome: String(paciente.nome),
+      email: String(paciente.email),
+      inicial: String(paciente.nome).trim().charAt(0).toUpperCase(),
+    };
+  }
+
+  function terminarSessao() {
+    localStorage.removeItem(CHAVE_LETRA);
+    localStorage.removeItem(CHAVE_POSICAO);
+    try {
+      sessionStorage.removeItem(CHAVE_INTENCAO);
+    } catch (erro) {}
+  }
+
+  /** Só aceita páginas do próprio site (evita redirecionamentos para fora). */
+  function destinoSeguro(valor) {
+    var texto = String(valor || "");
+    return /^[A-Za-z0-9_.-]+\.html(\?[A-Za-z0-9=&_.-]*)?$/.test(texto)
+      ? texto
+      : "";
+  }
+
+  function paginaComPesquisa() {
+    return (
+      (location.pathname.split("/").pop() || PAGINA_INICIAL) + location.search
+    );
+  }
+
   /* ---------- Header ---------- */
 
   function htmlHeader(pagina) {
@@ -86,17 +158,108 @@
       '<nav aria-label="Principal"><ul>' +
       itens +
       "</ul></nav>" +
-      '<button class="bt-login" type="button" aria-haspopup="dialog" data-abrir-login>Login</button>' +
+      '<div class="menu-conta"></div>' +
       "</div></header>"
     );
   }
 
+  /** Botão "Login" (visitante) ou avatar com menu (utilizador com sessão). */
+  function montarConta(alvo, utilizador) {
+    if (!utilizador) {
+      alvo.append(
+        criarDeHtml(
+          '<button class="bt-login" type="button" aria-haspopup="dialog" data-abrir-login>Login</button>',
+        ),
+      );
+      return;
+    }
+
+    var menu = criarDeHtml(
+      '<div class="user-menu">' +
+        '<button type="button" class="user-avatar" aria-expanded="false" aria-controls="user-painel">' +
+        '<span class="user-inicial" aria-hidden="true"></span></button>' +
+        '<div class="user-painel" id="user-painel" hidden>' +
+        '<p class="user-nome"></p><p class="user-email"></p>' +
+        '<button type="button" class="user-link" data-marcar-consulta>' +
+        '<i class="fas fa-calendar-check" aria-hidden="true"></i>Marcar consulta</button>' +
+        '<button type="button" class="user-link" data-minhas-marcacoes>' +
+        '<i class="fas fa-list-check" aria-hidden="true"></i>As minhas marcações</button>' +
+        '<a class="user-link" href="' +
+        PAGINA_EDITAR +
+        '">' +
+        '<i class="fas fa-user-pen" aria-hidden="true"></i>Editar perfil</a>' +
+        '<button type="button" class="user-link user-sair">' +
+        '<i class="fas fa-right-from-bracket" aria-hidden="true"></i>Sair</button>' +
+        "</div></div>",
+    );
+
+    // o nome vem do utilizador: entra sempre como texto, nunca como HTML
+    menu.querySelector(".user-inicial").textContent = utilizador.inicial;
+    menu.querySelector(".user-nome").textContent = utilizador.nome;
+    menu.querySelector(".user-email").textContent = utilizador.email;
+
+    var avatar = menu.querySelector(".user-avatar");
+    var painel = menu.querySelector(".user-painel");
+    avatar.setAttribute("aria-label", "Conta de " + utilizador.nome);
+
+    function definir(aberto) {
+      painel.hidden = !aberto;
+      avatar.setAttribute("aria-expanded", String(aberto));
+    }
+
+    avatar.addEventListener("click", function () {
+      definir(painel.hidden);
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && !painel.hidden) {
+        definir(false);
+        avatar.focus();
+      }
+    });
+    document.addEventListener("click", function (e) {
+      if (!menu.contains(e.target)) definir(false);
+    });
+    menu.addEventListener("focusout", function (e) {
+      if (e.relatedTarget && !menu.contains(e.relatedTarget)) definir(false);
+    });
+    painel.addEventListener("click", function (e) {
+      if (e.target.closest("a, button")) definir(false);
+    });
+
+    menu.querySelector(".user-sair").addEventListener("click", function () {
+      terminarSessao();
+      if (document.body.hasAttribute("data-requer-login")) {
+        location.href = PAGINA_INICIAL;
+      } else {
+        location.reload();
+      }
+    });
+
+    alvo.append(menu);
+  }
+
+  /** Páginas com <body data-requer-login>: sem sessão voltam ao início com o login aberto. */
+  function exigirSessao(utilizador) {
+    if (utilizador || !document.body.hasAttribute("data-requer-login"))
+      return false;
+    location.replace(
+      PAGINA_INICIAL +
+        "?login=1&voltar=" +
+        encodeURIComponent(paginaComPesquisa()),
+    );
+    return true;
+  }
+
   function montarHeader() {
+    var utilizador = utilizadorAtual();
+    if (exigirSessao(utilizador)) return;
+
     var alvo = document.getElementById("site-header");
     if (!alvo) return;
 
     var header = criarDeHtml(htmlHeader(paginaAtual(alvo)));
     alvo.replaceWith(header);
+    montarConta(header.querySelector(".menu-conta"), utilizador);
 
     var botao = header.querySelector(".menu-toggle");
     var icone = botao.querySelector("i");
@@ -122,7 +285,7 @@
 
     // Escolher uma ligação ou abrir o login fecha o menu (em mobile)
     header.querySelector(".menu").addEventListener("click", function (e) {
-      if (e.target.closest("a, .bt-login")) definirMenu(false);
+      if (e.target.closest("a, .bt-login, .user-link")) definirMenu(false);
     });
 
     // Ao crescer o ecrã, o menu volta ao normal
@@ -244,14 +407,7 @@
   var dialogoLogin = null;
   var gatilhoLogin = null; // elemento que abriu o login (para devolver o foco)
 
-  function lerPacientes() {
-    try {
-      var valor = JSON.parse(localStorage.getItem(CHAVE_PACIENTES));
-      return Array.isArray(valor) ? valor : [];
-    } catch (erro) {
-      return [];
-    }
-  }
+  var destinoLogin = ""; // para onde ir depois de entrar ("" = recarregar a página atual)
 
   function tentarLogin(email, password) {
     var emailNormalizado = String(email).trim().toLowerCase();
@@ -271,7 +427,8 @@
       JSON.stringify(String(pacientes[posicao].nome).slice(0, 1)),
     );
     localStorage.setItem(CHAVE_POSICAO, JSON.stringify(posicao));
-    window.location.replace(PAGINA_DO_UTILIZADOR);
+    // fica na mesma página (já com o header de utilizador) ou segue para o destino
+    window.location.replace(destinoLogin || location.href);
     return true;
   }
 
@@ -319,6 +476,9 @@
     dialogoLogin.addEventListener("close", function () {
       form.reset();
       erro.textContent = "";
+      try {
+        sessionStorage.removeItem(CHAVE_INTENCAO); // desistiu: não reabrir a marcação mais tarde
+      } catch (e) {}
       if (gatilhoLogin && gatilhoLogin.isConnected && gatilhoLogin.focus) {
         gatilhoLogin.focus();
       }
@@ -328,9 +488,26 @@
     return dialogoLogin;
   }
 
-  function abrirLogin() {
+  function abrirLogin(opcoes) {
     var dialogo = montarLogin();
     gatilhoLogin = document.activeElement;
+
+    var pedido =
+      opcoes && typeof opcoes === "object" && !(opcoes instanceof Event)
+        ? opcoes
+        : {};
+    destinoLogin = destinoSeguro(pedido.destino);
+    // na página de registo, depois de entrar vai-se para o início
+    if (!destinoLogin && paginaAtual() === "cadastrarUser.html") {
+      destinoLogin =
+        destinoSeguro(new URLSearchParams(location.search).get("voltar")) ||
+        PAGINA_INICIAL;
+    }
+    // quem criar conta a partir daqui volta ao mesmo sítio
+    dialogo.querySelector(".link-registo").href =
+      "cadastrarUser.html?voltar=" +
+      encodeURIComponent(destinoLogin || paginaComPesquisa());
+
     if (dialogo.open) return;
     if (typeof dialogo.showModal === "function") {
       dialogo.showModal();
@@ -339,19 +516,73 @@
     }
   }
 
+  /* ---------- Marcar consulta ---------- */
+
+  /**
+   * Ponto único de entrada da marcação, a partir de qualquer página:
+   *  - sem sessão -> pede login e, depois de entrar, continua a marcação;
+   *  - com sessão -> abre a marcação (js/marcacao.js) ou, nas páginas que
+   *    não a têm, segue para a página de serviços.
+   * "opcoes" pode trazer { servico, doutor } para pré-preencher.
+   */
+  function marcarConsulta(opcoes) {
+    var intencao =
+      opcoes && typeof opcoes === "object" && !(opcoes instanceof Event)
+        ? opcoes
+        : {};
+    var temMarcacao = typeof window.abrirMarcacao === "function";
+
+    try {
+      sessionStorage.setItem(CHAVE_INTENCAO, JSON.stringify(intencao));
+    } catch (erro) {}
+
+    if (!utilizadorAtual()) {
+      abrirLogin({
+        destino: temMarcacao
+          ? paginaComPesquisa()
+          : PAGINA_MARCACAO + "?marcar=1",
+      });
+      return;
+    }
+    if (temMarcacao) {
+      window.abrirMarcacao(intencao);
+      return;
+    }
+    location.href = PAGINA_MARCACAO + "?marcar=1";
+  }
+
+  function abrirMinhasMarcacoes() {
+    if (typeof window.abrirMinhasMarcacoes === "function") {
+      window.abrirMinhasMarcacoes();
+    } else {
+      location.href = PAGINA_MARCACAO + "?minhas=1";
+    }
+  }
+
   /* ---------- Arranque ---------- */
 
-  // Qualquer elemento com data-abrir-login abre o modal
   document.addEventListener("click", function (e) {
     if (e.target.closest("[data-abrir-login]")) abrirLogin();
+    else if (e.target.closest("[data-marcar-consulta]")) marcarConsulta();
+    else if (e.target.closest("[data-minhas-marcacoes]"))
+      abrirMinhasMarcacoes();
   });
 
   window.abrirLogin = abrirLogin;
   window.mostraMoodal = abrirLogin; // nome antigo, mantido por compatibilidade
+  window.marcarConsulta = marcarConsulta;
+  window.CHAVE_INTENCAO_MARCACAO = CHAVE_INTENCAO;
+  window.Sessao = { atual: utilizadorAtual, terminar: terminarSessao };
 
   function aoCarregar() {
     montarFooter();
     montarLogin();
+
+    // ?login=1 (vindo de uma página privada): abre o login e segue para "voltar"
+    var parametros = new URLSearchParams(location.search);
+    if (parametros.get("login") === "1" && !utilizadorAtual()) {
+      abrirLogin({ destino: parametros.get("voltar") });
+    }
   }
 
   montarHeader(); // corre já, para o header aparecer sem "piscar"

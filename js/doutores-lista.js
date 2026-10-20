@@ -15,6 +15,7 @@
   var modal = document.getElementById("modal-doutor");
   var dados = [];
   var gatilhoAtual = null; // elemento que abriu o modal (para devolver o foco)
+  var doutorAberto = null; // doutor que está no modal
 
   /* ---------- Dados ---------- */
 
@@ -199,6 +200,7 @@
 
   function abrirModal(d, gatilho) {
     gatilhoAtual = gatilho || null;
+    doutorAberto = d;
     preencherModal(d);
     if (typeof modal.showModal === "function") {
       modal.showModal();
@@ -266,13 +268,19 @@
     });
     modal.addEventListener("close", aoFechar);
 
-    // "Marcar consulta": fecha o perfil e abre o login (fluxo original do site)
+    // "Marcar consulta": fecha o perfil e inicia a marcação com este doutor
+    // (js/layout.js pede login se for preciso)
     var marcar = porId("doutor-marcar");
     if (marcar) {
       marcar.addEventListener("click", function () {
-        gatilhoAtual = null; // o foco passa para o modal de login
+        var doutor = doutorAberto;
+        gatilhoAtual = null; // o foco passa para o modal seguinte
         modal.close();
-        if (typeof window.abrirLogin === "function") window.abrirLogin();
+        if (typeof window.marcarConsulta === "function") {
+          window.marcarConsulta({ doutor: doutor ? doutor.nome : "" });
+        } else if (typeof window.abrirLogin === "function") {
+          window.abrirLogin();
+        }
       });
     }
   }

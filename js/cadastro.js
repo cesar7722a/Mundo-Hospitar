@@ -3,11 +3,11 @@
  *
  * Armazenamento: o array de pacientes é lido do localStorage, alterado em
  * memória e guardado de volta. (Só um array em memória perder-se-ia ao mudar
- * de página; o localStorage é o que permite ao login e ao userLogado.html
+ * de página; o localStorage é o que permite ao login e ao resto do site
  * encontrarem o paciente.)
  *
  * As chaves e os nomes dos campos são os mesmos de sempre, para o login
- * (js/layout.js) e o userLogado.html continuarem a funcionar.
+ * (js/layout.js) continuarem a funcionar.
  *
  * NOTA: num projeto real isto iria para um servidor, com a password cifrada
  * (hash). No localStorage qualquer pessoa vê os dados no DevTools.
@@ -20,7 +20,16 @@
   var CHAVE_PACIENTES = "pacientes_mundo_hospitalar";
   var CHAVE_LETRA = "userParaLogar";
   var CHAVE_POSICAO = "posPaciente_mundo_hospitalar";
-  var PAGINA_DESTINO = "userLogado.html";
+  // Depois de criar a conta volta ao sítio de onde veio (?voltar=servico.html);
+  // só aceita páginas do próprio site.
+  var PAGINA_INICIAL = "index.html";
+  var PAGINA_DESTINO = (function () {
+    var voltar = new URLSearchParams(location.search).get("voltar") || "";
+    return /^[A-Za-z0-9_.-]+\.html(\?[A-Za-z0-9=&_.-]*)?$/.test(voltar) &&
+      voltar.indexOf("cadastrarUser") !== 0
+      ? voltar
+      : PAGINA_INICIAL;
+  })();
   var ATRASO_REDIRECIONAR_MS = 1500;
 
   var IDADE_MINIMA = 16;
@@ -542,6 +551,7 @@
     form.querySelectorAll("input, select, button").forEach(function (el) {
       el.disabled = true;
     });
+    sucesso.querySelector("a").href = PAGINA_DESTINO;
     sucesso.hidden = false;
     sucesso.scrollIntoView({ block: "center" });
 

@@ -17,6 +17,7 @@
 
   var todos = [];
   var gatilhoAtual = null; // elemento que abriu o modal (para devolver o foco)
+  var servicoAberto = null; // serviço que está no modal
 
   var formatoPreco = new Intl.NumberFormat("pt-PT", {
     minimumFractionDigits: 2,
@@ -179,6 +180,7 @@
 
   function abrirModal(s, gatilho) {
     gatilhoAtual = gatilho || null;
+    servicoAberto = s;
     preencherModal(s);
     if (typeof modal.showModal === "function") {
       modal.showModal();
@@ -259,11 +261,17 @@
     });
     modal.addEventListener("close", aoFechar);
 
-    // "Marcar consulta": fecha os detalhes e abre o login (fluxo original)
+    // "Marcar consulta": fecha os detalhes e inicia a marcação com este serviço
+    // (js/layout.js pede login se for preciso)
     porId("servico-marcar").addEventListener("click", function () {
-      gatilhoAtual = null; // o foco passa para o modal de login
+      var servico = servicoAberto;
+      gatilhoAtual = null; // o foco passa para o modal seguinte
       modal.close();
-      if (typeof window.abrirLogin === "function") window.abrirLogin();
+      if (typeof window.marcarConsulta === "function") {
+        window.marcarConsulta({ servico: servico ? servico.nome : "" });
+      } else if (typeof window.abrirLogin === "function") {
+        window.abrirLogin();
+      }
     });
   }
 
