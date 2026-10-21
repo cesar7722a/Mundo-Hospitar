@@ -8,12 +8,19 @@
  *
  * Precisa de: js/layout.js, js/servicos-data.js e js/doutores-data.js.
  *
+ * Podem escolher-se VÁRIOS serviços na mesma marcação (como o antigo
+ * "carrinho"). A data e a hora têm de servir para todos: dias em comum,
+ * horário comum e duração somada.
+ *
  * Armazenamento: os pedidos ficam em localStorage "salve_marcacao_notificao",
  * com os mesmos nomes de campo do código anterior, para a parte de
  * administração continuar a poder aceitar ou recusar:
  *   email_marcador_servico, data_marcador_servico, hora_marcador_servico,
  *   local_realizacao_servico_escolhido, dotor_escolhido, servico_escolhido,
  *   aceitar_solicitacao, regeitar_solicitacao
+ * Campos novos: servicos_escolhidos (lista), preco (total), duracao_total_min,
+ * endereco_atendimento (só no atendimento ao domicílio), observacoes.
+ * Com vários serviços, servico_escolhido junta os nomes ("A + B").
  */
 (function () {
   "use strict";
@@ -21,6 +28,7 @@
   /* ==================== Configuração ==================== */
 
   var CHAVE_MARCACOES = "salve_marcacao_notificao";
+  var CHAVE_PACIENTES = "pacientes_mundo_hospitalar";
   var CHAVE_INTENCAO = window.CHAVE_INTENCAO_MARCACAO || "mh_marcacao_pendente";
 
   var PASSO_MINUTOS = 30; // intervalo entre horas disponíveis
@@ -35,6 +43,15 @@
     "quarta-feira",
     "quinta-feira",
     "sexta-feira",
+    "sábado",
+  ];
+  var NOMES_CURTOS = [
+    "domingo",
+    "segunda",
+    "terça",
+    "quarta",
+    "quinta",
+    "sexta",
     "sábado",
   ];
 
@@ -184,11 +201,14 @@
     );
   }
 
-  /** Horas livres de um serviço num dia (hoje só com antecedência suficiente). */
-  function horasDisponiveis(servico, dataIso, agora) {
-    var duracao = servico.duracaoMin || PASSO_MINUTOS;
-    var inicio = minutosDe(servico.abre || "08:00");
-    var fim = minutosDe(servico.fecha || "17:00");
+  /**
+   * Horas livres num dia, dadas as restrições (abre, fecha e duração em minutos).
+   * Hoje só com antecedência suficiente.
+   */
+  function horasDisponiveis(restr, dataIso, agora) {
+    var duracao = restr.duracao || PASSO_MINUTOS;
+    var inicio = restr.abre;
+    var fim = restr.fecha;
     var ehHoje = dataIso === paraIso(agora);
     var limite =
       agora.getHours() * 60 + agora.getMinutes() + ANTECEDENCIA_MINUTOS;
@@ -205,6 +225,71 @@
     return Array.isArray(servico.diasSemana)
       ? servico.diasSemana
       : [1, 2, 3, 4, 5];
+  }
+
+  /** O que serve para TODOS os serviços escolhidos: dias comuns, horário comum e duração somada. */
+  function restricoes(lista) {
+    var dias = null;
+    var abre = 0;
+    var fecha = 24 * 60;
+    var duracao = 0;
+    var preco = 0;
+
+    lista.forEach(function (s) {
+      var d = diasDoServico(s);
+      dias =
+        dias === null
+          ? d.slice()
+          : dias.filter(function (x) {
+              return d.indexOf(x) !== -1;
+            });
+      abre = Math.max(abre, minutosDe(s.abre || "08:00"));
+      fecha = Math.min(fecha, minutosDe(s.fecha || "17:00"));
+      duracao += s.duracaoMin || PASSO_MINUTOS;
+      preco += Number(s.preco) || 0;
+    });
+
+    return {
+      dias: dias || [],
+      abre: abre,
+      fecha: fecha,
+      duracao: duracao,
+      preco: preco,
+    };
+  }
+
+  /** [1,2,3,4,5] -> "segunda a sexta"; [1,3] -> "segunda e quarta". */
+  function descreverDias(dias) {
+    var ordem = dias.slice().sort(function (a, b) {
+      return (a || 7) - (b || 7);
+    });
+    if (!ordem.length) return "";
+    var seguidos = ordem.every(function (d, i) {
+      return i === 0 || (d || 7) === (ordem[i - 1] || 7) + 1;
+    });
+    if (ordem.length >= 3 && seguidos) {
+      return (
+        NOMES_CURTOS[ordem[0]] + " a " + NOMES_CURTOS[ordem[ordem.length - 1]]
+      );
+    }
+    var nomes = ordem.map(function (d) {
+      return NOMES_CURTOS[d];
+    });
+    return nomes.length === 1
+      ? nomes[0]
+      : nomes.slice(0, -1).join(", ") + " e " + nomes[nomes.length - 1];
+  }
+
+  function enderecoDoPerfil(utilizador) {
+    try {
+      var lista = JSON.parse(localStorage.getItem(CHAVE_PACIENTES));
+      var p = Array.isArray(lista) ? lista[utilizador.posicao] : null;
+      return p && p.endereco
+        ? String(p.endereco).replace(/\s+/g, " ").trim()
+        : "";
+    } catch (erro) {
+      return "";
+    }
   }
 
   /* ==================== Pequenos construtores ==================== */
@@ -237,9 +322,9 @@
     '<h2 id="titulo-marcacao">Marcar consulta</h2>' +
     '<p class="marcacao-intro" id="marcacao-intro"></p>' +
     '<form id="form-marcacao" novalidate>' +
-    '<div class="campo" data-campo="servico"><label for="marc-servico">Serviço</label>' +
-    '<select id="marc-servico" required aria-describedby="ajuda-marc-servico erro-marc-servico"></select>' +
-    '<p class="ajuda" id="ajuda-marc-servico"></p><p class="erro" id="erro-marc-servico" aria-live="polite"></p></div>' +
+    '<fieldset class="campo" data-campo="servico"><legend>Serviços <span class="opcional">(pode escolher mais do que um)</span></legend>' +
+    '<div class="lista-servicos" id="marc-servicos"></div>' +
+    '<p class="ajuda" id="ajuda-marc-servico" aria-live="polite"></p><p class="erro" id="erro-marc-servico" aria-live="polite"></p></fieldset>' +
     '<div class="campo" data-campo="doutor"><label for="marc-doutor">Doutor</label>' +
     '<select id="marc-doutor" aria-describedby="erro-marc-doutor"></select>' +
     '<p class="erro" id="erro-marc-doutor" aria-live="polite"></p></div>' +
@@ -256,6 +341,10 @@
     '<label class="opcao"><input type="radio" name="marc-local" value="hospital" /><span>No hospital</span></label>' +
     '<label class="opcao"><input type="radio" name="marc-local" value="domicilio" /><span>Ao domicílio</span></label>' +
     '</div><p class="erro" id="erro-marc-local" aria-live="polite"></p></fieldset>' +
+    '<div class="campo" data-campo="endereco" hidden><label for="marc-endereco">Endereço para o atendimento</label>' +
+    '<input type="text" id="marc-endereco" maxlength="120" autocomplete="street-address" aria-describedby="ajuda-marc-endereco erro-marc-endereco" />' +
+    '<p class="ajuda" id="ajuda-marc-endereco">Vem do seu perfil. Pode mudá-lo só para esta marcação.</p>' +
+    '<p class="erro" id="erro-marc-endereco" aria-live="polite"></p></div>' +
     '<div class="campo" data-campo="observacoes"><label for="marc-observacoes">Observações <span class="opcional">(opcional)</span></label>' +
     '<textarea id="marc-observacoes" rows="3" maxlength="300" placeholder="Algo que o hospital deva saber?"></textarea></div>' +
     '<div class="resumo-erros" id="erro-marcacao" role="alert" hidden></div>' +
@@ -267,6 +356,7 @@
 
   var dialogoMarcacao = null;
   var gatilhoMarcacao = null;
+  var enderecoPerfil = "";
   var refs = {};
 
   function montarMarcacao() {
@@ -281,8 +371,9 @@
     refs = {
       form: $("form-marcacao"),
       intro: $("marcacao-intro"),
-      servico: $("marc-servico"),
+      servicos: $("marc-servicos"),
       doutor: $("marc-doutor"),
+      endereco: $("marc-endereco"),
       data: $("marc-data"),
       hora: $("marc-hora"),
       observacoes: $("marc-observacoes"),
@@ -293,14 +384,20 @@
     };
 
     /* opções dos selects (nomes vêm dos dados do site: entram como texto) */
-    refs.servico.append(new Option("Escolher serviço…", ""));
     servicos.forEach(function (s, i) {
-      refs.servico.append(
-        new Option(
-          s.nome + " — " + formatoPreco.format(Number(s.preco) || 0) + " Kz",
-          String(i),
-        ),
+      var opcao = el("label", "opcao opcao-servico");
+      var caixa = document.createElement("input");
+      caixa.type = "checkbox";
+      caixa.name = "marc-servico";
+      caixa.value = String(i);
+      var nome = el("span", "nome", s.nome);
+      var preco = el(
+        "span",
+        "preco",
+        formatoPreco.format(Number(s.preco) || 0) + " Kz",
       );
+      opcao.append(caixa, nome, preco);
+      refs.servicos.append(opcao);
     });
     refs.doutor.append(new Option("Sem preferência (o hospital escolhe)", ""));
     doutores.forEach(function (d, i) {
@@ -320,12 +417,17 @@
     refs.data.max = paraIso(maxima);
 
     /* eventos */
-    refs.servico.addEventListener("change", function () {
-      atualizarAjudaServico();
-      atualizarHoras();
-      validarServico(true);
-      if (refs.data.value) validarData(true);
-    });
+    Array.prototype.forEach.call(
+      refs.form.querySelectorAll('input[name="marc-servico"]'),
+      function (caixa) {
+        caixa.addEventListener("change", function () {
+          atualizarAjudaServico();
+          atualizarHoras();
+          validarServico(true);
+          if (refs.data.value) validarData(true);
+        });
+      },
+    );
     refs.doutor.addEventListener("change", function () {
       limparErro("doutor");
     });
@@ -340,10 +442,17 @@
       refs.form.querySelectorAll('input[name="marc-local"]'),
       function (radio) {
         radio.addEventListener("change", function () {
+          atualizarEndereco();
           validarLocal(true);
         });
       },
     );
+    refs.endereco.addEventListener("input", function () {
+      if (caixaErro("endereco").textContent) validarEndereco(true);
+    });
+    refs.endereco.addEventListener("blur", function () {
+      validarEndereco(true);
+    });
 
     refs.form.addEventListener("submit", enviarMarcacao);
     dialogoMarcacao
@@ -394,22 +503,59 @@
     mostrarErro(chave, "");
   }
 
-  function servicoEscolhido() {
-    var i = refs.servico.value;
-    return i === "" ? null : servicos[Number(i)] || null;
+  function servicosEscolhidos() {
+    return Array.prototype.filter
+      .call(
+        refs.form.querySelectorAll('input[name="marc-servico"]'),
+        function (c) {
+          return c.checked;
+        },
+      )
+      .map(function (c) {
+        return servicos[Number(c.value)];
+      });
+  }
+
+  function localEscolhido() {
+    var marcado = refs.form.querySelector('input[name="marc-local"]:checked');
+    return marcado ? marcado.value : "";
   }
 
   function atualizarAjudaServico() {
-    var s = servicoEscolhido();
-    refs.ajudaServico.textContent = s
-      ? [s.dias, s.horario, s.duracao ? "Duração: " + s.duracao : ""]
-          .filter(Boolean)
-          .join(" · ")
-      : "";
+    var lista = servicosEscolhidos();
+    if (!lista.length) {
+      refs.ajudaServico.textContent = "";
+      return;
+    }
+    var r = restricoes(lista);
+    var partes = [];
+    if (r.dias.length)
+      partes.push(
+        "Funciona: " +
+          descreverDias(r.dias) +
+          ", " +
+          hhmmDe(r.abre) +
+          "–" +
+          hhmmDe(r.fecha),
+      );
+    partes.push("Duração: " + r.duracao + " min");
+    partes.push("Total: " + formatoPreco.format(r.preco) + " Kz");
+    refs.ajudaServico.textContent = partes.join(" · ");
+  }
+
+  /** Mostra o endereço só no atendimento ao domicílio (preenchido com o do perfil). */
+  function atualizarEndereco() {
+    var domicilio = localEscolhido() === "domicilio";
+    var b = bloco("endereco");
+    b.hidden = !domicilio;
+    refs.endereco.required = domicilio;
+    if (domicilio && !refs.endereco.value) refs.endereco.value = enderecoPerfil;
+    if (!domicilio) limparErro("endereco");
   }
 
   function atualizarHoras() {
-    var s = servicoEscolhido();
+    var lista = servicosEscolhidos();
+    var restr = restricoes(lista);
     var dataIso = refs.data.value;
     var anterior = refs.hora.value;
 
@@ -417,12 +563,12 @@
     refs.ajudaHora.textContent = "";
 
     var data = lerDataIso(dataIso);
-    if (!s || !data || diasDoServico(s).indexOf(data.getDay()) === -1) {
+    if (!lista.length || !data || restr.dias.indexOf(data.getDay()) === -1) {
       refs.hora.disabled = true;
       return;
     }
 
-    var horas = horasDisponiveis(s, dataIso, new Date());
+    var horas = horasDisponiveis(restr, dataIso, new Date());
     if (!horas.length) {
       refs.hora.disabled = true;
       refs.ajudaHora.textContent =
@@ -439,11 +585,22 @@
   /* ----- validações (devolvem "" se estiver tudo bem) ----- */
 
   function mensagemServico() {
-    return servicoEscolhido() ? "" : "Escolha o serviço que pretende.";
+    var lista = servicosEscolhidos();
+    if (!lista.length) return "Escolha pelo menos um serviço.";
+    if (lista.length > 1) {
+      var r = restricoes(lista);
+      if (!r.dias.length) {
+        return "Estes serviços não funcionam nos mesmos dias. Marque-os em pedidos separados.";
+      }
+      if (r.abre + r.duracao > r.fecha) {
+        return "A duração total é maior do que o horário em comum. Marque-os em pedidos separados.";
+      }
+    }
+    return "";
   }
 
   function mensagemData() {
-    var s = servicoEscolhido();
+    var lista = servicosEscolhidos();
     if (!refs.data.value) return "Escolha a data.";
     var data = lerDataIso(refs.data.value);
     if (!data) return "Data inválida.";
@@ -461,14 +618,17 @@
     ) {
       return "Só é possível marcar até daqui a 6 meses.";
     }
-    if (s && diasDoServico(s).indexOf(data.getDay()) === -1) {
-      return (
-        "Esse dia (" +
-        NOMES_DIAS[data.getDay()] +
-        ") não está disponível. Este serviço funciona: " +
-        String(s.dias).toLowerCase() +
-        "."
-      );
+    if (lista.length) {
+      var dias = restricoes(lista).dias;
+      if (dias.length && dias.indexOf(data.getDay()) === -1) {
+        return (
+          "Esse dia (" +
+          NOMES_DIAS[data.getDay()] +
+          ") não está disponível. Funciona: " +
+          descreverDias(dias) +
+          "."
+        );
+      }
     }
     return "";
   }
@@ -483,9 +643,15 @@
   }
 
   function mensagemLocal() {
-    return refs.form.querySelector('input[name="marc-local"]:checked')
-      ? ""
-      : "Escolha onde quer ser atendido.";
+    return localEscolhido() ? "" : "Escolha onde quer ser atendido.";
+  }
+
+  function mensagemEndereco() {
+    if (localEscolhido() !== "domicilio") return "";
+    var texto = refs.endereco.value.replace(/\s+/g, " ").trim();
+    if (!texto) return "Indique o endereço onde quer ser atendido.";
+    if (texto.length < 5) return "O endereço é demasiado curto.";
+    return "";
   }
 
   function validarServico(mostrar) {
@@ -508,6 +674,11 @@
     if (mostrar) mostrarErro("local", m);
     return m;
   }
+  function validarEndereco(mostrar) {
+    var m = mensagemEndereco();
+    if (mostrar) mostrarErro("endereco", m);
+    return m;
+  }
 
   /* ----- envio ----- */
 
@@ -521,29 +692,27 @@
     }
 
     var erros = [
-      ["servico", validarServico(true), "marc-servico"],
-      ["data", validarData(true), "marc-data"],
-      ["hora", validarHora(true), "marc-hora"],
-      ["local", validarLocal(true), null],
+      ["servico", validarServico(true), 'input[name="marc-servico"]'],
+      ["data", validarData(true), "#marc-data"],
+      ["hora", validarHora(true), "#marc-hora"],
+      ["local", validarLocal(true), 'input[name="marc-local"]'],
+      ["endereco", validarEndereco(true), "#marc-endereco"],
     ].filter(function (x) {
       return x[1];
     });
 
     refs.erroGeral.hidden = true;
     if (erros.length) {
-      var primeiro = erros[0][2]
-        ? document.getElementById(erros[0][2])
-        : refs.form.querySelector('input[name="marc-local"]');
+      var primeiro = refs.form.querySelector(erros[0][2]);
       if (primeiro && !primeiro.disabled) primeiro.focus();
       return;
     }
 
-    var servico = servicoEscolhido();
+    var escolhidos = servicosEscolhidos();
+    var restr = restricoes(escolhidos);
     var doutor =
       refs.doutor.value === "" ? null : doutores[Number(refs.doutor.value)];
-    var local = refs.form.querySelector(
-      'input[name="marc-local"]:checked',
-    ).value;
+    var local = localEscolhido();
     var dataIso = refs.data.value;
     var hora = refs.hora.value;
 
@@ -570,12 +739,24 @@
       hora_marcador_servico: hora,
       local_realizacao_servico_escolhido: LOCAIS[local],
       dotor_escolhido: doutor ? nomeDoutor(doutor) : "Sem preferência",
-      servico_escolhido: servico.nome,
+      servico_escolhido: escolhidos
+        .map(function (s) {
+          return s.nome;
+        })
+        .join(" + "),
       aceitar_solicitacao: false,
       regeitar_solicitacao: false,
       // extras
+      servicos_escolhidos: escolhidos.map(function (s) {
+        return s.nome;
+      }),
       nome_marcador_servico: utilizador.nome,
-      preco: Number(servico.preco) || 0,
+      preco: restr.preco,
+      duracao_total_min: restr.duracao,
+      endereco_atendimento:
+        local === "domicilio"
+          ? refs.endereco.value.replace(/\s+/g, " ").trim()
+          : "",
       observacoes: refs.observacoes.value.replace(/\s+/g, " ").trim(),
       criadoEm: new Date().toISOString(),
     };
@@ -612,14 +793,23 @@
 
     var lista = el("dl", "resumo");
     [
-      ["Serviço", registo.servico_escolhido],
+      [
+        registo.servicos_escolhidos.length > 1 ? "Serviços" : "Serviço",
+        registo.servicos_escolhidos.join(", "),
+      ],
       ["Doutor", registo.dotor_escolhido],
       ["Data", dataLegivel(registo.data_marcador_servico)],
       ["Hora", registo.hora_marcador_servico],
       ["Local", registo.local_realizacao_servico_escolhido],
-    ].forEach(function (par) {
-      lista.append(el("dt", "", par[0]), el("dd", "", par[1]));
-    });
+      registo.endereco_atendimento
+        ? ["Endereço", registo.endereco_atendimento]
+        : null,
+      ["Total", formatoPreco.format(registo.preco) + " Kz"],
+    ]
+      .filter(Boolean)
+      .forEach(function (par) {
+        lista.append(el("dt", "", par[0]), el("dd", "", par[1]));
+      });
     refs.sucesso.append(lista);
 
     var acoes = el("div", "acoes");
@@ -656,6 +846,7 @@
     }
 
     var dialogo = montarMarcacao();
+    enderecoPerfil = enderecoDoPerfil(utilizador);
     gatilhoMarcacao = document.activeElement;
     var pedido =
       opcoes && typeof opcoes === "object" && !(opcoes instanceof Event)
@@ -668,12 +859,23 @@
     refs.intro.hidden = false;
     refs.sucesso.hidden = true;
     refs.erroGeral.hidden = true;
-    ["servico", "doutor", "data", "hora", "local"].forEach(limparErro);
+    ["servico", "doutor", "data", "hora", "local", "endereco"].forEach(
+      limparErro,
+    );
+    refs.endereco.value = "";
+    atualizarEndereco();
 
     refs.intro.textContent = "Marcação para " + utilizador.nome + ".";
 
-    var iServico = indiceServicoPorNome(pedido.servico);
-    if (iServico !== -1) refs.servico.value = String(iServico);
+    // pode vir um serviço ("Raio-X") ou vários (["Raio-X", "Análises Clínicas"])
+    var pedidos = [].concat(pedido.servicos || [], pedido.servico || []);
+    pedidos.forEach(function (nome) {
+      var i = indiceServicoPorNome(nome);
+      if (i !== -1)
+        refs.form.querySelector(
+          'input[name="marc-servico"][value="' + i + '"]',
+        ).checked = true;
+    });
     var iDoutor = indiceDoutorPorNome(pedido.doutor);
     if (iDoutor !== -1) refs.doutor.value = String(iDoutor);
 

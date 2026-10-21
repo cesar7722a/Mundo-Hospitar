@@ -97,6 +97,7 @@
 
 .dialog-marcacao select,
 .dialog-marcacao input[type="date"],
+.dialog-marcacao input[type="text"],
 .dialog-marcacao textarea {
   width: 100%;
   font: inherit;
@@ -107,7 +108,8 @@
   transition: border-color 0.2s ease;
 }
 .dialog-marcacao select,
-.dialog-marcacao input[type="date"] {
+.dialog-marcacao input[type="date"],
+.dialog-marcacao input[type="text"] {
   height: 2.9rem;
   padding: 0 0.85rem;
 }
@@ -132,11 +134,13 @@
 }
 .dialog-marcacao select:hover:not(:disabled),
 .dialog-marcacao input[type="date"]:hover,
+.dialog-marcacao input[type="text"]:hover,
 .dialog-marcacao textarea:hover {
   border-color: var(--navy);
 }
 .dialog-marcacao .campo.invalido select,
-.dialog-marcacao .campo.invalido input[type="date"] {
+.dialog-marcacao .campo.invalido input[type="date"],
+.dialog-marcacao .campo.invalido input[type="text"] {
   border-color: var(--erro);
 }
 
@@ -174,6 +178,32 @@
   border-color: var(--navy);
 }
 .dialog-marcacao .campo.invalido .opcao {
+  border-color: var(--erro);
+}
+
+/* serviços: lista de caixas de seleção (pode escolher mais do que um) */
+.dialog-marcacao .lista-servicos {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-height: 14rem;
+  padding: 3px;
+  overflow-y: auto;
+}
+.dialog-marcacao .opcao-servico {
+  justify-content: flex-start;
+}
+.dialog-marcacao .opcao-servico .nome {
+  flex: 1;
+  min-width: 0;
+}
+.dialog-marcacao .opcao-servico .preco {
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: var(--texto-suave);
+  white-space: nowrap;
+}
+.dialog-marcacao .campo.invalido .lista-servicos .opcao {
   border-color: var(--erro);
 }
 
