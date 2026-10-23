@@ -22,6 +22,7 @@
   var formatoPreco = new Intl.NumberFormat("pt-PT", {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
+    useGrouping: "always", // 8 000,00 e não 8000,00 (o pt-PT só agrupa a partir de 5 dígitos)
   });
 
   /* ---------- Utilitários ---------- */

@@ -18,9 +18,13 @@
  *   email_marcador_servico, data_marcador_servico, hora_marcador_servico,
  *   local_realizacao_servico_escolhido, dotor_escolhido, servico_escolhido,
  *   aceitar_solicitacao, regeitar_solicitacao
- * Campos novos: servicos_escolhidos (lista), preco (total), duracao_total_min,
- * endereco_atendimento (só no atendimento ao domicílio), observacoes.
- * Com vários serviços, servico_escolhido junta os nomes ("A + B").
+ * servico_escolhido é uma LISTA de { nome, preco } (como no processo antigo) e,
+ * sem doutor escolhido, dotor_escolhido fica "Escolha Do Hospital".
+ * Campos novos: taxa_domicilio, preco_total, duracao_total_min,
+ * endereco_atendimento (só no domicílio), observacoes, referencia.
+ *
+ * Regra de preço: o atendimento ao domicílio tem um acréscimo (TAXA_DOMICILIO).
+ * No fim gera-se um recibo em PDF (html2pdf, carregado só quando é pedido).
  */
 (function () {
   "use strict";
@@ -29,6 +33,15 @@
 
   var CHAVE_MARCACOES = "salve_marcacao_notificao";
   var CHAVE_PACIENTES = "pacientes_mundo_hospitalar";
+
+  var TAXA_DOMICILIO = 100000; // acréscimo (Kz) do atendimento ao domicílio
+  var SEM_DOUTOR = "Escolha Do Hospital"; // valor que a administração já conhece
+
+  // Geração do recibo em PDF (carregado só quando se carrega no botão)
+  var URL_HTML2PDF =
+    "https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js";
+  var SRI_HTML2PDF =
+    "sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==";
   var CHAVE_INTENCAO = window.CHAVE_INTENCAO_MARCACAO || "mh_marcacao_pendente";
 
   var PASSO_MINUTOS = 30; // intervalo entre horas disponíveis
@@ -58,6 +71,7 @@
   var formatoPreco = new Intl.NumberFormat("pt-PT", {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
+    useGrouping: "always", // 8 000,00 e não 8000,00 (o pt-PT só agrupa a partir de 5 dígitos)
   });
 
   /* ==================== Dados ==================== */
@@ -280,16 +294,49 @@
       : nomes.slice(0, -1).join(", ") + " e " + nomes[nomes.length - 1];
   }
 
-  function enderecoDoPerfil(utilizador) {
+  function lerPaciente(utilizador) {
     try {
       var lista = JSON.parse(localStorage.getItem(CHAVE_PACIENTES));
-      var p = Array.isArray(lista) ? lista[utilizador.posicao] : null;
-      return p && p.endereco
-        ? String(p.endereco).replace(/\s+/g, " ").trim()
-        : "";
+      return (Array.isArray(lista) && lista[utilizador.posicao]) || null;
     } catch (erro) {
-      return "";
+      return null;
     }
+  }
+
+  function enderecoDoPerfil(utilizador) {
+    var p = lerPaciente(utilizador);
+    return p && p.endereco
+      ? String(p.endereco).replace(/\s+/g, " ").trim()
+      : "";
+  }
+
+  /** Nomes dos serviços de uma marcação (lista de { nome, preco } ou, em registos antigos, texto). */
+  function nomesDoServico(m) {
+    var s = m.servico_escolhido;
+    if (Array.isArray(s)) {
+      return s
+        .map(function (x) {
+          return x && x.nome ? x.nome : String(x);
+        })
+        .join(" + ");
+    }
+    return String(s || "");
+  }
+
+  function idadeDoPaciente(p) {
+    var nascimento = lerDataIso(p && p.data);
+    if (!nascimento) return p && p.idade != null ? String(p.idade) : "";
+    var hoje = new Date();
+    var idade = hoje.getFullYear() - nascimento.getFullYear();
+    var antes =
+      hoje.getMonth() < nascimento.getMonth() ||
+      (hoje.getMonth() === nascimento.getMonth() &&
+        hoje.getDate() < nascimento.getDate());
+    return String(antes ? idade - 1 : idade);
+  }
+
+  function dinheiro(valor) {
+    return formatoPreco.format(valor) + " Kz";
   }
 
   /* ==================== Pequenos construtores ==================== */
@@ -340,13 +387,17 @@
     '<div class="opcoes">' +
     '<label class="opcao"><input type="radio" name="marc-local" value="hospital" /><span>No hospital</span></label>' +
     '<label class="opcao"><input type="radio" name="marc-local" value="domicilio" /><span>Ao domicílio</span></label>' +
-    '</div><p class="erro" id="erro-marc-local" aria-live="polite"></p></fieldset>' +
+    '</div><p class="aviso-taxa" id="aviso-taxa" hidden></p><p class="erro" id="erro-marc-local" aria-live="polite"></p></fieldset>' +
     '<div class="campo" data-campo="endereco" hidden><label for="marc-endereco">Endereço para o atendimento</label>' +
     '<input type="text" id="marc-endereco" maxlength="120" autocomplete="street-address" aria-describedby="ajuda-marc-endereco erro-marc-endereco" />' +
     '<p class="ajuda" id="ajuda-marc-endereco">Vem do seu perfil. Pode mudá-lo só para esta marcação.</p>' +
     '<p class="erro" id="erro-marc-endereco" aria-live="polite"></p></div>' +
     '<div class="campo" data-campo="observacoes"><label for="marc-observacoes">Observações <span class="opcional">(opcional)</span></label>' +
     '<textarea id="marc-observacoes" rows="3" maxlength="300" placeholder="Algo que o hospital deva saber?"></textarea></div>' +
+    '<div class="marcacao-preco" aria-live="polite"><dl>' +
+    '<div class="linha"><dt>Subtotal</dt><dd id="preco-subtotal"></dd></div>' +
+    '<div class="linha" id="linha-taxa" hidden><dt>Atendimento ao domicílio</dt><dd id="preco-taxa"></dd></div>' +
+    '<div class="linha total"><dt>Total</dt><dd id="preco-total"></dd></div></dl></div>' +
     '<div class="resumo-erros" id="erro-marcacao" role="alert" hidden></div>' +
     '<div class="acoes"><button type="submit" class="btn-primario">Enviar pedido</button>' +
     '<button type="button" class="btn-secundario btn-fechar-marcacao">Cancelar</button></div>' +
@@ -374,6 +425,11 @@
       servicos: $("marc-servicos"),
       doutor: $("marc-doutor"),
       endereco: $("marc-endereco"),
+      avisoTaxa: $("aviso-taxa"),
+      linhaTaxa: $("linha-taxa"),
+      precoSubtotal: $("preco-subtotal"),
+      precoTaxa: $("preco-taxa"),
+      precoTotal: $("preco-total"),
       data: $("marc-data"),
       hora: $("marc-hora"),
       observacoes: $("marc-observacoes"),
@@ -399,7 +455,11 @@
       opcao.append(caixa, nome, preco);
       refs.servicos.append(opcao);
     });
-    refs.doutor.append(new Option("Sem preferência (o hospital escolhe)", ""));
+    refs.avisoTaxa.textContent =
+      "Os serviços ao domicílio têm um acréscimo de " +
+      dinheiro(TAXA_DOMICILIO) +
+      ".";
+    refs.doutor.append(new Option("Escolha do hospital (sem preferência)", ""));
     doutores.forEach(function (d, i) {
       refs.doutor.append(
         new Option(nomeDoutor(d) + " — " + d.especialidade, String(i)),
@@ -422,6 +482,7 @@
       function (caixa) {
         caixa.addEventListener("change", function () {
           atualizarAjudaServico();
+          atualizarPreco();
           atualizarHoras();
           validarServico(true);
           if (refs.data.value) validarData(true);
@@ -539,8 +600,17 @@
           hhmmDe(r.fecha),
       );
     partes.push("Duração: " + r.duracao + " min");
-    partes.push("Total: " + formatoPreco.format(r.preco) + " Kz");
     refs.ajudaServico.textContent = partes.join(" · ");
+  }
+
+  /** Subtotal dos serviços, acréscimo ao domicílio (se for o caso) e total. */
+  function atualizarPreco() {
+    var subtotal = restricoes(servicosEscolhidos()).preco;
+    var taxa = localEscolhido() === "domicilio" ? TAXA_DOMICILIO : 0;
+    refs.precoSubtotal.textContent = dinheiro(subtotal);
+    refs.linhaTaxa.hidden = !taxa;
+    refs.precoTaxa.textContent = taxa ? "+ " + dinheiro(taxa) : "";
+    refs.precoTotal.textContent = dinheiro(subtotal + taxa);
   }
 
   /** Mostra o endereço só no atendimento ao domicílio (preenchido com o do perfil). */
@@ -548,6 +618,8 @@
     var domicilio = localEscolhido() === "domicilio";
     var b = bloco("endereco");
     b.hidden = !domicilio;
+    refs.avisoTaxa.hidden = !domicilio;
+    atualizarPreco();
     refs.endereco.required = domicilio;
     if (domicilio && !refs.endereco.value) refs.endereco.value = enderecoPerfil;
     if (!domicilio) limparErro("endereco");
@@ -738,21 +810,18 @@
       data_marcador_servico: dataIso,
       hora_marcador_servico: hora,
       local_realizacao_servico_escolhido: LOCAIS[local],
-      dotor_escolhido: doutor ? nomeDoutor(doutor) : "Sem preferência",
-      servico_escolhido: escolhidos
-        .map(function (s) {
-          return s.nome;
-        })
-        .join(" + "),
+      dotor_escolhido: doutor ? doutor.nome : SEM_DOUTOR,
+      servico_escolhido: escolhidos.map(function (s) {
+        return { nome: s.nome, preco: Number(s.preco) || 0 };
+      }),
       aceitar_solicitacao: false,
       regeitar_solicitacao: false,
       // extras
-      servicos_escolhidos: escolhidos.map(function (s) {
-        return s.nome;
-      }),
       nome_marcador_servico: utilizador.nome,
-      preco: restr.preco,
+      taxa_domicilio: local === "domicilio" ? TAXA_DOMICILIO : 0,
+      preco_total: restr.preco + (local === "domicilio" ? TAXA_DOMICILIO : 0),
       duracao_total_min: restr.duracao,
+      referencia: "MH-" + Date.now().toString(36).toUpperCase(),
       endereco_atendimento:
         local === "domicilio"
           ? refs.endereco.value.replace(/\s+/g, " ").trim()
@@ -771,10 +840,164 @@
       return;
     }
 
-    mostrarSucesso(registo);
+    mostrarSucesso(registo, lerPaciente(utilizador));
   }
 
-  function mostrarSucesso(registo) {
+  /* ----- recibo (comprovativo) e PDF ----- */
+
+  function listaDl(pares) {
+    var dl = el("dl", "recibo-dl");
+    pares.filter(Boolean).forEach(function (par) {
+      dl.append(el("dt", "", par[0]), el("dd", "", par[1]));
+    });
+    return dl;
+  }
+
+  function criarRecibo(registo, paciente) {
+    var recibo = el("article", "recibo");
+    recibo.id = "recibo-marcacao";
+
+    var cabecalho = el("header", "recibo-cabecalho");
+    var marca = el("p", "recibo-marca");
+    marca.append(
+      el("span", "", "Mundo"),
+      document.createTextNode("-Hospitalar"),
+    );
+    cabecalho.append(
+      marca,
+      el("p", "recibo-titulo", "Comprovativo de marcação"),
+      el(
+        "p",
+        "recibo-ref",
+        "Ref. " +
+          registo.referencia +
+          " · emitido em " +
+          dataLegivel(paraIso(new Date(registo.criadoEm))),
+      ),
+    );
+    recibo.append(cabecalho);
+
+    var p = paciente || {};
+    var pessoais = el("section", "recibo-seccao");
+    pessoais.append(
+      el("h4", "", "Dados pessoais"),
+      listaDl([
+        ["Nome", registo.nome_marcador_servico],
+        p.bilhete ? ["BI", String(p.bilhete)] : null,
+        p.telefone ? ["Telefone", String(p.telefone)] : null,
+        ["Email", registo.email_marcador_servico],
+        idadeDoPaciente(p) ? ["Idade", idadeDoPaciente(p) + " anos"] : null,
+      ]),
+    );
+    recibo.append(pessoais);
+
+    var servicosSecao = el("section", "recibo-seccao");
+    var ul = el("ul", "recibo-servicos");
+    registo.servico_escolhido.forEach(function (sv) {
+      var li = el("li");
+      li.append(el("span", "", sv.nome), el("span", "", dinheiro(sv.preco)));
+      ul.append(li);
+    });
+    servicosSecao.append(
+      el(
+        "h4",
+        "",
+        registo.servico_escolhido.length > 1 ? "Serviços" : "Serviço",
+      ),
+      ul,
+    );
+    recibo.append(servicosSecao);
+
+    var marcacao = el("section", "recibo-seccao");
+    marcacao.append(
+      el("h4", "", "Marcação"),
+      listaDl([
+        ["Data", dataLegivel(registo.data_marcador_servico)],
+        ["Hora", registo.hora_marcador_servico],
+        ["Doutor", registo.dotor_escolhido],
+        ["Local", registo.local_realizacao_servico_escolhido],
+        registo.endereco_atendimento
+          ? ["Endereço", registo.endereco_atendimento]
+          : null,
+      ]),
+    );
+    recibo.append(marcacao);
+
+    var subtotal = registo.preco_total - registo.taxa_domicilio;
+    var totais = el("section", "recibo-seccao recibo-totais");
+    totais.append(
+      listaDl([
+        ["Subtotal", dinheiro(subtotal)],
+        registo.taxa_domicilio
+          ? [
+              "Atendimento ao domicílio",
+              "+ " + dinheiro(registo.taxa_domicilio),
+            ]
+          : null,
+        ["Total", dinheiro(registo.preco_total)],
+      ]),
+    );
+    recibo.append(totais);
+
+    recibo.append(
+      el(
+        "p",
+        "recibo-nota",
+        "Estado: pendente. O hospital vai analisar o pedido e confirmar.",
+      ),
+    );
+    return recibo;
+  }
+
+  function carregarHtml2pdf() {
+    return new Promise(function (resolve, reject) {
+      if (typeof window.html2pdf === "function")
+        return resolve(window.html2pdf);
+      var script = document.createElement("script");
+      script.src = URL_HTML2PDF;
+      script.integrity = SRI_HTML2PDF;
+      script.crossOrigin = "anonymous";
+      script.referrerPolicy = "no-referrer";
+      script.onload = function () {
+        if (typeof window.html2pdf === "function") resolve(window.html2pdf);
+        else reject(new Error("html2pdf não ficou disponível"));
+      };
+      script.onerror = function () {
+        reject(new Error("Não foi possível carregar o html2pdf"));
+      };
+      document.head.append(script);
+    });
+  }
+
+  function descarregarRecibo(registo, botao, aviso) {
+    botao.disabled = true;
+    aviso.textContent = "A gerar o PDF…";
+    carregarHtml2pdf()
+      .then(function (html2pdf) {
+        return html2pdf()
+          .set({
+            margin: 10,
+            filename: "Recibo-" + registo.referencia + ".pdf",
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
+          })
+          .from(document.getElementById("recibo-marcacao"))
+          .save();
+      })
+      .then(function () {
+        aviso.textContent = "Recibo descarregado.";
+      })
+      .catch(function (erro) {
+        console.error("[marcacao]", erro);
+        aviso.textContent =
+          "Não foi possível gerar o PDF. Verifique a ligação à internet e tente de novo.";
+      })
+      .then(function () {
+        botao.disabled = false;
+      });
+  }
+
+  function mostrarSucesso(registo, paciente) {
     refs.form.hidden = true;
     refs.intro.hidden = true;
     refs.sucesso.replaceChildren();
@@ -790,30 +1013,22 @@
         "O hospital vai analisar o seu pedido. Pode acompanhar o estado em «As minhas marcações».",
       ),
     );
+    refs.sucesso.append(criarRecibo(registo, paciente));
 
-    var lista = el("dl", "resumo");
-    [
-      [
-        registo.servicos_escolhidos.length > 1 ? "Serviços" : "Serviço",
-        registo.servicos_escolhidos.join(", "),
-      ],
-      ["Doutor", registo.dotor_escolhido],
-      ["Data", dataLegivel(registo.data_marcador_servico)],
-      ["Hora", registo.hora_marcador_servico],
-      ["Local", registo.local_realizacao_servico_escolhido],
-      registo.endereco_atendimento
-        ? ["Endereço", registo.endereco_atendimento]
-        : null,
-      ["Total", formatoPreco.format(registo.preco) + " Kz"],
-    ]
-      .filter(Boolean)
-      .forEach(function (par) {
-        lista.append(el("dt", "", par[0]), el("dd", "", par[1]));
-      });
-    refs.sucesso.append(lista);
+    var estado = el("p", "recibo-estado");
+    estado.setAttribute("role", "status");
 
     var acoes = el("div", "acoes");
-    var ver = el("button", "btn-primario", "Ver as minhas marcações");
+    var pdf = el(
+      "button",
+      "btn-primario btn-recibo",
+      "Descarregar recibo (PDF)",
+    );
+    pdf.type = "button";
+    pdf.addEventListener("click", function () {
+      descarregarRecibo(registo, pdf, estado);
+    });
+    var ver = el("button", "btn-secundario", "As minhas marcações");
     ver.type = "button";
     ver.addEventListener("click", function () {
       dialogoMarcacao.close();
@@ -824,8 +1039,8 @@
     fechar.addEventListener("click", function () {
       dialogoMarcacao.close();
     });
-    acoes.append(ver, fechar);
-    refs.sucesso.append(acoes);
+    acoes.append(pdf, ver, fechar);
+    refs.sucesso.append(acoes, estado);
 
     refs.sucesso.hidden = false;
     refs.sucesso.focus();
@@ -880,6 +1095,7 @@
     if (iDoutor !== -1) refs.doutor.value = String(iDoutor);
 
     atualizarAjudaServico();
+    atualizarPreco();
     atualizarHoras();
     abrirDialogo(dialogo);
     limparIntencao();
@@ -949,7 +1165,7 @@
         var estado = estadoDe(m);
         var li = el("li", "item-marcacao");
         var topo = el("div", "item-topo");
-        topo.append(el("strong", "", m.servico_escolhido));
+        topo.append(el("strong", "", nomesDoServico(m)));
         var selo = el("span", "estado estado--" + estado.chave);
         selo.append(
           criarDeHtml(

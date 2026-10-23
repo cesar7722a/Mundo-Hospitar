@@ -328,6 +328,123 @@
   color: var(--navy);
 }
 
+/* ---------- aviso da taxa e quadro de preços ---------- */
+.dialog-marcacao .aviso-taxa {
+  font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: #8a1c1c;
+}
+.dialog-marcacao .marcacao-preco {
+  padding: 0.85rem 1rem;
+  background: #f7f5fd;
+  border-radius: 8px;
+}
+.dialog-marcacao .marcacao-preco dl {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.dialog-marcacao .marcacao-preco .linha {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.dialog-marcacao .marcacao-preco dd {
+  font-variant-numeric: tabular-nums;
+}
+.dialog-marcacao .marcacao-preco .total {
+  padding-top: 0.4rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--navy);
+  border-top: 1px solid #e0def0;
+}
+
+/* ---------- recibo (também é o que vai para o PDF) ---------- */
+.dialog-marcacao .recibo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  padding: 1.25rem;
+  color: #212121;
+  background: #fff;
+  border: 1px solid var(--navy);
+  border-radius: 10px;
+}
+.dialog-marcacao .recibo-cabecalho {
+  padding-bottom: 0.75rem;
+  text-align: center;
+  border-bottom: 1px solid #e6e4ef;
+}
+.dialog-marcacao .recibo-marca {
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+.dialog-marcacao .recibo-marca span {
+  color: var(--verde-escuro);
+}
+.dialog-marcacao .recibo-titulo {
+  font-weight: 600;
+  color: var(--navy);
+}
+.dialog-marcacao .recibo-ref {
+  font-size: 0.8rem;
+  color: var(--texto-suave);
+}
+.dialog-marcacao .recibo-seccao h4 {
+  margin-bottom: 0.4rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--navy);
+}
+.dialog-marcacao .recibo-dl {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.25rem 1rem;
+}
+.dialog-marcacao .recibo-dl dt {
+  font-weight: 600;
+}
+.dialog-marcacao .recibo-dl dd {
+  overflow-wrap: anywhere;
+}
+.dialog-marcacao .recibo-servicos {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  list-style: none;
+}
+.dialog-marcacao .recibo-servicos li {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.dialog-marcacao .recibo-totais {
+  padding-top: 0.6rem;
+  border-top: 1px solid #e6e4ef;
+}
+.dialog-marcacao .recibo-totais .recibo-dl dd {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.dialog-marcacao .recibo-totais .recibo-dl dt:last-of-type,
+.dialog-marcacao .recibo-totais .recibo-dl dd:last-of-type {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--navy);
+}
+.dialog-marcacao .recibo-nota {
+  font-size: 0.85rem;
+  color: var(--texto-suave);
+}
+.dialog-marcacao .recibo-estado {
+  min-height: 1.2em;
+  font-size: 0.9rem;
+  color: var(--texto-suave);
+}
+
 /* ---------- as minhas marcações ---------- */
 .dialog-minhas h2 {
   margin-bottom: 1rem;
