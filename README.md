@@ -414,6 +414,6 @@ Este projeto **não tem servidor**. Para uso real seria preciso um _back-end_.
 
 ## Autor
 
-**[O teu nome]** — [LinkedIn / GitHub / portfólio]
+**César Filipe António** — [LinkedIn / https://github.com/cesar7722a / portfólio]
 
 Projeto desenvolvido como peça de portfólio. Licença: [escolher, por exemplo MIT].
